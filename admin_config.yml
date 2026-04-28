@@ -1,0 +1,69 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/projekte"
+public_folder: "/images/projekte"
+
+locale: de
+
+collections:
+  - name: "projekte"
+    label: "Projekte & Updates"
+    folder: "_projekte"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: "Titel"
+        name: "title"
+        widget: "string"
+        hint: "z.B. Homogenisator-Wartung, BASF Ludwigshafen"
+
+      - label: "Datum"
+        name: "date"
+        widget: "datetime"
+        format: "DD.MM.YYYY"
+        date_format: "DD.MM.YYYY"
+        time_format: false
+        default: ""
+
+      - label: "Kategorie"
+        name: "kategorie"
+        widget: "select"
+        options:
+          - { label: "Höhenarbeiten", value: "hoehenarbeiten" }
+          - { label: "Maschinenwartung", value: "maschinenwartung" }
+          - { label: "Homogenisatoren", value: "homogenisatoren" }
+          - { label: "Internationaler Einsatz", value: "international" }
+          - { label: "Sonstiges", value: "sonstiges" }
+
+      - label: "Land / Ort"
+        name: "ort"
+        widget: "string"
+        hint: "z.B. Deutschland, Belgien, Werk Köln"
+        required: false
+
+      - label: "Kurzbeschreibung"
+        name: "beschreibung"
+        widget: "text"
+        hint: "2-3 Sätze was gemacht wurde. Wird auf der Projektseite angezeigt."
+
+      - label: "Detailbericht"
+        name: "body"
+        widget: "markdown"
+        required: false
+        hint: "Optional: ausführlichere Beschreibung des Einsatzes"
+
+      - label: "Bild"
+        name: "bild"
+        widget: "image"
+        required: false
+        hint: "Foto vom Einsatz (optional)"
+
+      - label: "Auf Startseite anzeigen"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Die letzten 3 featured Posts erscheinen auf der Startseite"

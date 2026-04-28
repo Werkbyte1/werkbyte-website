@@ -223,22 +223,35 @@
   window.googleTranslateElementInit = function() {
     new google.translate.TranslateElement({
       pageLanguage: 'de',
-      autoDisplay: false
+      autoDisplay: false,
+      multilanguagePage: true
     }, 'google_translate_element');
 
-    // If lang param set, apply translation after GT is ready
+    // Apply lang from URL param after GT loads
     if (currentLang !== 'de') {
-      setTimeout(() => applyGT(currentLang), 800);
+      setTimeout(() => applyGT(currentLang), 1000);
     }
   };
 
-  function applyGT(code) {
+  function applyGT(code, attempt) {
+    attempt = attempt || 0;
     const lang = LANGUAGES.find(l => l.code === code);
     if (!lang) return;
     const sel = document.querySelector('.goog-te-combo');
     if (sel) {
       sel.value = lang.gt;
       sel.dispatchEvent(new Event('change'));
+      // Verify it worked after short delay
+      setTimeout(() => {
+        const sel2 = document.querySelector('.goog-te-combo');
+        if (sel2 && sel2.value !== lang.gt) {
+          sel2.value = lang.gt;
+          sel2.dispatchEvent(new Event('change'));
+        }
+      }, 500);
+    } else if (attempt < 10) {
+      // GT not ready yet, retry
+      setTimeout(() => applyGT(code, attempt + 1), 400);
     }
   }
 

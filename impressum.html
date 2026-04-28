@@ -1,137 +1,185 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Impressum – WERKBYTE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--cyan:#46b9c8;--dark:#0d1117;--dark2:#141b24;--dark3:#1c2633;--light:#e8f0f5;--muted:#7a95a8;--white:#fff}
-    body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--light);min-height:100vh}
-    nav{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 5%;height:64px;
-      background:rgba(13,17,23,0.95);border-bottom:1px solid rgba(70,185,200,0.13);
-    }
-    .nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:.04em}
-    .nav-logo span{color:var(--cyan)}
-    .back-link{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .2s}
-    .back-link:hover{color:var(--cyan)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Impressum – WERKBYTE</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cyan:#46b9c8;--dark:#0d1117;--dark2:#141b24;--dark3:#1c2633;--light:#e8f0f5;--muted:#7a95a8;--white:#fff}
+body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--light);overflow-x:hidden}
+main{max-width:760px;margin:0 auto;padding:60px 5% 80px}
+h1{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:800;color:var(--white);margin-bottom:2rem}
+h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--cyan);margin:2rem 0 .6rem;letter-spacing:.03em}
+p,li{font-size:.95rem;color:var(--muted);line-height:1.75}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+.ib{background:var(--dark3);border:1px solid rgba(70,185,200,.12);border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.ib p{margin-bottom:.3rem}
+.ib p:last-child{margin-bottom:0}
+.td{background:rgba(70,185,200,.06);border:1px solid rgba(70,185,200,.25);border-radius:6px;padding:.5rem 1rem;font-size:.83rem;color:var(--cyan);display:inline-block;margin-top:.3rem}
 
-    main{max-width:760px;margin:0 auto;padding:60px 5% 80px}
-
-    h1{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:800;color:var(--white);margin-bottom:2rem}
-    h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--cyan);margin:2rem 0 .6rem;letter-spacing:.03em}
-
-    p,li{font-size:.95rem;color:var(--muted);line-height:1.75}
-    a{color:var(--cyan);text-decoration:none}
-    a:hover{text-decoration:underline}
-
-    .info-block{
-      background:var(--dark3);border:1px solid rgba(70,185,200,.12);
-      border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;
-    }
-    .info-block p{margin-bottom:.3rem}
-    .info-block p:last-child{margin-bottom:0}
-
-    .todo{
-      background:rgba(70,185,200,.06);border:1px solid rgba(70,185,200,.25);
-      border-radius:6px;padding:.5rem 1rem;
-      font-size:.83rem;color:var(--cyan);display:inline-block;margin-top:.3rem;
-    }
-
-    footer{text-align:center;padding:2rem 5%;border-top:1px solid rgba(255,255,255,.06)}
-    footer p{font-size:.8rem;color:var(--muted)}
-  </style>
+</style>
 </head>
 <body>
-
-<nav>
-  <a class="nav-logo" href="index.html">WERK<span>BYTE</span></a>
-  <a class="back-link" href="index.html">← Zurück zur Startseite</a>
-</nav>
-
+<style>
+:root{--nav-h:66px}
+body{padding-top:var(--nav-h);margin:0}
+#wbnav{position:fixed;top:0;left:0;right:0;z-index:9999;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 4%;background:rgba(13,17,23,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(70,185,200,.15);font-family:'Barlow',sans-serif;box-sizing:border-box}
+#wbnav *{box-sizing:border-box}
+.nb-logo{display:flex;align-items:center;text-decoration:none}
+.nb-logo img{height:48px;width:auto;display:block}
+.nb-links{display:flex;gap:2rem;list-style:none;margin:0;padding:0;position:absolute;left:50%;transform:translateX(-50%)}
+.nb-links a{color:#7a95a8;font-size:.9rem;font-weight:500;text-decoration:none;transition:color .2s}
+.nb-links a:hover,.nb-links a.act{color:#fff}
+.nb-right{display:flex;align-items:center;gap:.6rem}
+.nb-btn{background:#46b9c8;color:#0d1117;padding:.42rem 1.1rem;border-radius:6px;font-weight:700;font-size:.83rem;text-decoration:none;display:inline-block;transition:background .2s}
+.nb-btn:hover{background:#5dd0de}
+.nb-lw{position:relative}
+.nb-lt{display:flex;align-items:center;gap:5px;cursor:pointer;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#7a95a8;padding:.38rem .75rem;border-radius:6px;font-size:.8rem;font-weight:600;user-select:none;transition:color .2s}
+.nb-lt:hover{color:#fff}
+.nb-lt svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.nb-ch{transition:transform .2s}
+.nb-lw.op .nb-ch{transform:rotate(180deg)}
+.nb-dd{display:none;position:absolute;top:calc(100% + 6px);right:0;width:210px;background:#1c2633;border:1px solid rgba(70,185,200,.2);border-radius:10px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:9999}
+.nb-lw.op .nb-dd{display:block}
+.nb-si{padding:7px 7px 3px;border-bottom:1px solid rgba(255,255,255,.07)}
+.nb-si input{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.35rem .65rem;color:#fff;font-size:.8rem;font-family:inherit;outline:none}
+.nb-si input::placeholder{color:#7a95a8}
+.nb-si input:focus{border-color:rgba(70,185,200,.4)}
+.nb-ll{max-height:240px;overflow-y:auto;padding:3px 0}
+.nb-ll::-webkit-scrollbar{width:3px}
+.nb-ll::-webkit-scrollbar-thumb{background:rgba(70,185,200,.3);border-radius:3px}
+.nb-lo{display:flex;align-items:center;gap:9px;padding:.45rem .9rem;font-size:.83rem;color:#7a95a8;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:background .1s,color .1s}
+.nb-lo:hover{background:rgba(70,185,200,.1);color:#fff}
+.nb-lo.cur{color:#46b9c8;font-weight:600}
+.nb-nf{padding:.75rem .9rem;font-size:.8rem;color:#7a95a8;text-align:center}
+.goog-te-banner-frame,.skiptranslate{display:none!important}
+body{top:0!important}
+#gtel{display:none}
+@media(max-width:800px){.nb-links{display:none}}
+</style>
+<nav id="wbnav"><a class="nb-logo" href="index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8cGF0aCBkPSJNMTAwIDU1CiAgICBMMTA4IDQ3IEwxMTYgNTIgTDExMiA2MgogICAgQzExOCA2NSAxMjMgNzAgMTI2IDc2IEwxMzYgNzQgTDE0MCA4MiBMMTMyIDg4CiAgICBDMTMzIDk0IDEzMyAxMDAgMTMyIDEwNiBMMTQwIDExMiBMMTM2IDEyMCBMMTI2IDExOAogICAgQzEyMyAxMjQgMTE4IDEyOSAxMTIgMTMyIEwxMTYgMTQyIEwxMDggMTQ3IEwxMDAgMTM5CiAgICBMOTIgMTQ3IEw4NCAxNDIgTDg4IDEzMgogICAgQzgyIDEyOSA3NyAxMjQgNzQgMTE4IEw2NCAxMjAgTDYwIDExMiBMNjggMTA2CiAgICBDNjcgMTAwIDY3IDk0IDY4IDg4IEw2MCA4MiBMNjQgNzQgTDc0IDc2CiAgICBDNzcgNzAgODIgNjUgODggNjIgTDg0IDUyIEw5MiA0NyBaIgogICAgZmlsbD0iIzQ2YjljOCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk3IiByPSIyOCIgZmlsbD0iIzBkMTExNyIvPgogIDxnIGZpbGw9IiNjOGQ4ZTAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4LDU1KSBzY2FsZSgwLjYpIj4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iOCIgcj0iNyIvPgogICAgPGVsbGlwc2UgY3g9IjE1IiBjeT0iMjgiIHJ4PSI4IiByeT0iMTQiIHRyYW5zZm9ybT0icm90YXRlKC0yMCwxNSwyOCkiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjE4IiB4Mj0iMzUiIHkyPSIxMCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPGxpbmUgeDE9IjIwIiB5MT0iMTgiIHgyPSI1IiB5Mj0iMjUiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIxNSIgeTE9IjQwIiB4Mj0iNSIgeTI9IjU1IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTUiIHkxPSI0MCIgeDI9IjI4IiB5Mj0iNTIiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9Ii00MCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8L2c+CiAgPHJlY3QgeD0iMTI1IiB5PSIzMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIzNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjE1NSIgeT0iMjgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjEzNyIgeT0iMTIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiM0NmI5YzgiIG9wYWNpdHk9IjAuNiIvPgogIDxsaW5lIHgxPSIxMDMiIHkxPSI1NSIgeDI9IjEzMiIgeTI9IjM3IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iMTgiIHk9IjE3MCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjOGQ4ZTAiIGxldHRlci1zcGFjaW5nPSIxIj5XRVJLPC90ZXh0PgogIDx0ZXh0IHg9Ijk3IiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjNDZiOWM4IiBsZXR0ZXItc3BhY2luZz0iMSI+QllURTwvdGV4dD4KPC9zdmc+" alt="WERKBYTE"/></a><ul class="nb-links" id="nblinks"><li><a href="index.html">Startseite</a></li><li><a href="ueber-uns.html">Über Uns</a></li><li><a href="index.html#leistungen">Leistungen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul><div class="nb-right"><a class="nb-btn" href="kontakt.html">Anfrage senden</a><div class="nb-lw" id="nblw"><div class="nb-lt" id="nblt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span id="nblc">🇩🇪 DE</span><svg class="nb-ch" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="nb-dd" id="nbdd"><div class="nb-si"><input type="text" id="nbsi" placeholder="Sprache / Language..." autocomplete="off"/></div><div class="nb-ll" id="nbll"></div></div></div></div></nav><div id="gtel"></div>
+<script>
+!function(){
+var LL=[
+['de','de','🇩🇪','Deutsch'],
+['en','en','🇬🇧','English'],
+['fr','fr','🇫🇷','Français'],
+['es','es','🇪🇸','Español'],
+['pt','pt','🇵🇹','Português'],
+['it','it','🇮🇹','Italiano'],
+['nl','nl','🇳🇱','Nederlands'],
+['pl','pl','🇵🇱','Polski'],
+['ru','ru','🇷🇺','Русский'],
+['uk','uk','🇺🇦','Українська'],
+['tr','tr','🇹🇷','Türkçe'],
+['ar','ar','🇸🇦','العربية'],
+['zh','zh-CN','🇨🇳','中文'],
+['ja','ja','🇯🇵','日本語'],
+['ko','ko','🇰🇷','한국어'],
+['hi','hi','🇮🇳','हिन्दी'],
+['sv','sv','🇸🇪','Svenska'],
+['no','no','🇳🇴','Norsk'],
+['da','da','🇩🇰','Dansk'],
+['fi','fi','🇫🇮','Suomi'],
+['cs','cs','🇨🇿','Čeština'],
+['sk','sk','🇸🇰','Slovenčina'],
+['hu','hu','🇭🇺','Magyar'],
+['ro','ro','🇷🇴','Română'],
+['bg','bg','🇧🇬','Български'],
+['hr','hr','🇭🇷','Hrvatski'],
+['sr','sr','🇷🇸','Srpski'],
+['el','el','🇬🇷','Ελληνικά'],
+['he','iw','🇮🇱','עברית'],
+['fa','fa','🇮🇷','فارסי'],
+['id','id','🇮🇩','Bahasa Indonesia'],
+['ms','ms','🇲🇾','Bahasa Melayu'],
+['th','th','🇹🇭','ภาษาไทย'],
+['vi','vi','🇻🇳','Tiếng Việt']
+];
+var cur=(new URLSearchParams(location.search)).get('lang')||'de';
+var pg=location.pathname.split('/').pop()||'index.html';
+document.querySelectorAll('#nblinks a').forEach(function(a){
+  var h=a.getAttribute('href');
+  if(h===pg||h.split('#')[0]===pg)a.classList.add('act');
+});
+function draw(q){
+  var el=document.getElementById('nbll');
+  var ls=q?LL.filter(function(x){return x[3].toLowerCase().includes(q)||x[0].includes(q);}):LL;
+  if(!ls.length){el.innerHTML='<div class="nb-nf">Nicht gefunden</div>';return;}
+  el.innerHTML=ls.map(function(x){
+    return '<button class="nb-lo'+(x[0]===cur?' cur':'')+'" onclick="nbsel(''+x[0]+'',''+x[1]+'',''+x[2]+'',''+x[3]+'')">'+x[2]+' '+x[3]+'</button>';
+  }).join('');
+}
+document.getElementById('nblt').onclick=function(){
+  var w=document.getElementById('nblw');
+  var o=!w.classList.contains('op');
+  w.classList.toggle('op');
+  if(o){var s=document.getElementById('nbsi');s.value='';draw('');setTimeout(function(){s.focus();},50);}
+};
+document.getElementById('nbsi').oninput=function(){draw(this.value.toLowerCase().trim());};
+document.addEventListener('click',function(e){
+  var w=document.getElementById('nblw');
+  if(w&&!w.contains(e.target))w.classList.remove('op');
+});
+function apgt(code,n){
+  var lng=LL.find(function(x){return x[0]===code;});
+  if(!lng)return;
+  var s=document.querySelector('.goog-te-combo');
+  if(s){s.value=lng[1];s.dispatchEvent(new Event('change'));}
+  else if((n||0)<20){setTimeout(function(){apgt(code,(n||0)+1);},400);}
+}
+window.googleTranslateElementInit=function(){
+  new google.translate.TranslateElement({pageLanguage:'de',autoDisplay:false},'gtel');
+  if(cur!=='de')setTimeout(function(){apgt(cur);},800);
+};
+window.nbsel=function(code,gt,flag,label){
+  cur=code;
+  document.getElementById('nblc').textContent=flag+' '+code.toUpperCase();
+  document.getElementById('nblw').classList.remove('op');
+  var u=new URL(location.href);
+  if(code==='de'){u.searchParams.delete('lang');history.replaceState({},'',u);location.reload();}
+  else{u.searchParams.set('lang',code);history.replaceState({},'',u);apgt(code);}
+  draw(document.getElementById('nbsi').value.toLowerCase().trim());
+};
+var il=LL.find(function(x){return x[0]===cur;});
+if(il&&cur!=='de')document.getElementById('nblc').textContent=il[2]+' '+il[0].toUpperCase();
+if(!document.getElementById('gtscr')){var s=document.createElement('script');s.id='gtscr';s.src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';document.head.appendChild(s);}
+draw('');
+}();
+</script>
 <main>
-  <h1>Impressum</h1>
-
-  <h2>Angaben gemäß § 5 TMG</h2>
-  <div class="info-block">
-    <p><strong style="color:var(--white)">WERKBYTE UG (haftungsbeschränkt)</strong></p>
-    <p>Wolfsweg 24</p>
-    <p>52499 Baesweiler</p>
-    <p>Deutschland</p>
-  </div>
-
-  <h2>Vertreten durch die Geschäftsführer</h2>
-  <div class="info-block">
-    <p>Moric Kolaric</p>
-    <p>Bastian Gärtner</p>
-  </div>
-
-  <h2>Kontakt</h2>
-  <div class="info-block">
-    <p>E-Mail: <a href="mailto:info@werkbyte.de">info@werkbyte.de</a></p>
-  </div>
-
-  <h2>Handelsregister</h2>
-  <div class="info-block">
-    <p>Registergericht: <span class="todo">⏳ wird nach Gründung ergänzt (z.B. Amtsgericht Aachen)</span></p>
-    <p>Handelsregisternummer: <span class="todo">⏳ wird nach Gründung ergänzt (z.B. HRB XXXXX)</span></p>
-  </div>
-
-  <h2>Umsatzsteuer-ID</h2>
-  <div class="info-block">
-    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:</p>
-    <p><span class="todo">⏳ wird nach Zuteilung durch das Finanzamt ergänzt</span></p>
-  </div>
-
-  <h2>Verantwortlich für den Inhalt (§ 55 Abs. 2 RStV)</h2>
-  <div class="info-block">
-    <p>Moric Kolaric &amp; Bastian Gärtner</p>
-    <p>Wolfsweg 24, 52499 Baesweiler</p>
-  </div>
-
-  <h2>Streitschlichtung</h2>
-  <p>
-    Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-    <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>.
-    Unsere E-Mail-Adresse finden Sie oben im Impressum.
-  </p>
-  <p style="margin-top:.75rem">
-    Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
-    Verbraucherschlichtungsstelle teilzunehmen.
-  </p>
-
-  <h2>Haftung für Inhalte</h2>
-  <p>
-    Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten
-    nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
-    Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
-    Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
-    Tätigkeit hinweisen.
-  </p>
-
-  <h2>Haftung für Links</h2>
-  <p>
-    Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen
-    Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
-    Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
-    Seiten verantwortlich.
-  </p>
-
-  <h2>Urheberrecht</h2>
-  <p>
-    Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
-    dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
-    der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
-    Zustimmung des jeweiligen Autors bzw. Erstellers.
-  </p>
+<h1>Impressum</h1>
+<h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
+<div class="ib">
+  <p><strong style="color:var(--white)">WERKBYTE UG (haftungsbeschr&auml;nkt)</strong></p>
+  <p>Wolfsweg 24</p><p>52499 Baesweiler</p><p>Deutschland</p>
+</div>
+<h2>Vertreten durch die Gesch&auml;ftsf&uuml;hrer</h2>
+<div class="ib"><p>Moric Kolaric</p><p>Bastian G&auml;rtner</p></div>
+<h2>Kontakt</h2>
+<div class="ib"><p>E-Mail: <a href="mailto:info@werkbyte.de">info@werkbyte.de</a></p></div>
+<h2>Handelsregister</h2>
+<div class="ib">
+  <p>Registergericht: <span class="td">⏳ wird nach Gr&uuml;ndung erg&auml;nzt (Amtsgericht Aachen)</span></p>
+  <p>Handelsregisternummer: <span class="td">⏳ wird nach Gr&uuml;ndung erg&auml;nzt</span></p>
+</div>
+<h2>Umsatzsteuer-ID</h2>
+<div class="ib"><p><span class="td">⏳ wird nach Zuteilung durch das Finanzamt erg&auml;nzt</span></p></div>
+<h2>Verantwortlich f&uuml;r den Inhalt (&sect; 55 Abs. 2 RStV)</h2>
+<div class="ib"><p>Moric Kolaric &amp; Bastian G&auml;rtner</p><p>Wolfsweg 24, 52499 Baesweiler</p></div>
+<h2>Streitschlichtung</h2>
+<p>Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+<h2>Haftung f&uuml;r Inhalte</h2>
+<p>Als Diensteanbieter sind wir gem&auml;&szlig; &sect; 7 Abs. 1 TMG f&uuml;r eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+<h2>Urheberrecht</h2>
+<p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielf&auml;ltigung, Bearbeitung, Verbreitung und jede Art der Verwertung au&szlig;erhalb der Grenzen des Urheberrechtes bed&uuml;rfen der schriftlichen Zustimmung des jeweiligen Autors.</p>
 </main>
 
-<footer>
-  <p>© WERKBYTE UG (haftungsbeschränkt) · <a href="index.html">Startseite</a> · <a href="datenschutz.html">Datenschutz</a></p>
+<footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center">
+<p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Maschinenservice &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p>
 </footer>
-
 </body>
 </html>
