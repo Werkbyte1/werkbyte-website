@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Impressum – WERKBYTE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cyan:#46b9c8;--dark:#0d1117;--dark2:#141b24;--dark3:#1c2633;--light:#e8f0f5;--muted:#7a95a8;--white:#fff}
+    body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--light);min-height:100vh}
+    nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 5%;height:64px;
+      background:rgba(13,17,23,0.95);border-bottom:1px solid rgba(70,185,200,0.13);
+    }
+    .nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:.04em}
+    .nav-logo span{color:var(--cyan)}
+    .back-link{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .2s}
+    .back-link:hover{color:var(--cyan)}
+
+    main{max-width:760px;margin:0 auto;padding:60px 5% 80px}
+
+    h1{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:800;color:var(--white);margin-bottom:2rem}
+    h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--cyan);margin:2rem 0 .6rem;letter-spacing:.03em}
+
+    p,li{font-size:.95rem;color:var(--muted);line-height:1.75}
+    a{color:var(--cyan);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .info-block{
+      background:var(--dark3);border:1px solid rgba(70,185,200,.12);
+      border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;
+    }
+    .info-block p{margin-bottom:.3rem}
+    .info-block p:last-child{margin-bottom:0}
+
+    .todo{
+      background:rgba(70,185,200,.06);border:1px solid rgba(70,185,200,.25);
+      border-radius:6px;padding:.5rem 1rem;
+      font-size:.83rem;color:var(--cyan);display:inline-block;margin-top:.3rem;
+    }
+
+    footer{text-align:center;padding:2rem 5%;border-top:1px solid rgba(255,255,255,.06)}
+    footer p{font-size:.8rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">WERK<span>BYTE</span></a>
+  <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+</nav>
+
+<main>
+  <h1>Impressum</h1>
+
+  <h2>Angaben gemäß § 5 TMG</h2>
+  <div class="info-block">
+    <p><strong style="color:var(--white)">WERKBYTE UG (haftungsbeschränkt)</strong></p>
+    <p>Wolfsweg 24</p>
+    <p>52499 Baesweiler</p>
+    <p>Deutschland</p>
+  </div>
+
+  <h2>Vertreten durch die Geschäftsführer</h2>
+  <div class="info-block">
+    <p>Moric Kolaric</p>
+    <p>Bastian Gärtner</p>
+  </div>
+
+  <h2>Kontakt</h2>
+  <div class="info-block">
+    <p>E-Mail: <a href="mailto:info@werkbyte.de">info@werkbyte.de</a></p>
+  </div>
+
+  <h2>Handelsregister</h2>
+  <div class="info-block">
+    <p>Registergericht: <span class="todo">⏳ wird nach Gründung ergänzt (z.B. Amtsgericht Aachen)</span></p>
+    <p>Handelsregisternummer: <span class="todo">⏳ wird nach Gründung ergänzt (z.B. HRB XXXXX)</span></p>
+  </div>
+
+  <h2>Umsatzsteuer-ID</h2>
+  <div class="info-block">
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:</p>
+    <p><span class="todo">⏳ wird nach Zuteilung durch das Finanzamt ergänzt</span></p>
+  </div>
+
+  <h2>Verantwortlich für den Inhalt (§ 55 Abs. 2 RStV)</h2>
+  <div class="info-block">
+    <p>Moric Kolaric &amp; Bastian Gärtner</p>
+    <p>Wolfsweg 24, 52499 Baesweiler</p>
+  </div>
+
+  <h2>Streitschlichtung</h2>
+  <p>
+    Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+    <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>.
+    Unsere E-Mail-Adresse finden Sie oben im Impressum.
+  </p>
+  <p style="margin-top:.75rem">
+    Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+    Verbraucherschlichtungsstelle teilzunehmen.
+  </p>
+
+  <h2>Haftung für Inhalte</h2>
+  <p>
+    Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten
+    nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
+    Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
+    Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+    Tätigkeit hinweisen.
+  </p>
+
+  <h2>Haftung für Links</h2>
+  <p>
+    Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen
+    Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
+    Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
+    Seiten verantwortlich.
+  </p>
+
+  <h2>Urheberrecht</h2>
+  <p>
+    Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
+    dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
+    der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
+    Zustimmung des jeweiligen Autors bzw. Erstellers.
+  </p>
+</main>
+
+<footer>
+  <p>© WERKBYTE UG (haftungsbeschränkt) · <a href="index.html">Startseite</a> · <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

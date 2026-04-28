@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Über Uns – WERKBYTE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cyan:#46b9c8;--dark:#0d1117;--dark2:#141b24;--dark3:#1c2633;--light:#e8f0f5;--muted:#7a95a8;--white:#fff;--nav-h:66px}
+    html{scroll-behavior:smooth}
+    body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--light)}
+
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 4%;height:var(--nav-h);
+      background:rgba(13,17,23,0.95);backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(70,185,200,0.13);
+    }
+    .nav-logo{display:flex;align-items:center;text-decoration:none}
+    .nav-logo img{height:52px;width:auto}
+    .back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .2s}
+    .back-btn:hover{color:var(--white)}
+    .back-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+    /* HERO */
+    .page-hero{
+      position:relative;
+      padding:48px 5% 64px;
+      text-align:center;overflow:hidden;
+      background:var(--dark2);
+    }
+    .page-hero::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 60% 40% at 50% 30%,rgba(70,185,200,.07) 0%,transparent 70%);
+    }
+    .page-hero-content{position:relative;z-index:1;max-width:680px;margin:0 auto}
+    .section-label{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.5rem}
+    .page-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:800;color:var(--white);margin-bottom:.7rem;line-height:1.05}
+    .page-subtitle{font-size:1rem;color:var(--muted);line-height:1.7;max-width:560px;margin:0 auto}
+
+    .content{max-width:1080px;margin:0 auto;padding:0 5%}
+
+    /* MISSION */
+    .mission{
+      padding:72px 0;display:grid;
+      grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;
+    }
+    .mission-text h2{
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:clamp(1.8rem,3vw,2.4rem);font-weight:800;color:var(--white);
+      margin-bottom:1rem;line-height:1.1;
+    }
+    .mission-text h2 span{color:var(--cyan)}
+    .mission-text p{font-size:.97rem;color:var(--muted);line-height:1.75;margin-bottom:.9rem}
+    .mission-text p:last-child{margin-bottom:0}
+
+    .stats-box{
+      background:var(--dark3);border:1px solid rgba(70,185,200,.12);
+      border-radius:16px;padding:1.75rem;
+      display:grid;grid-template-columns:1fr 1fr;gap:1px;
+      overflow:hidden;
+    }
+    .stat-item{
+      padding:1.4rem 1rem;text-align:center;
+      background:var(--dark3);
+    }
+    .stat-item:nth-child(1){border-bottom:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06)}
+    .stat-item:nth-child(2){border-bottom:1px solid rgba(255,255,255,.06)}
+    .stat-item:nth-child(3){border-right:1px solid rgba(255,255,255,.06)}
+    .stat-num{
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:2.2rem;font-weight:800;color:var(--cyan);line-height:1;
+      margin-bottom:.35rem;
+    }
+    .stat-label{font-size:.8rem;color:var(--muted);line-height:1.4}
+
+    /* TEAM */
+    .team-section{padding:0 0 72px;border-top:1px solid rgba(255,255,255,.06)}
+    .section-header{padding-top:56px;margin-bottom:2.5rem}
+    .section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--white);margin-bottom:.35rem}
+    .section-subtitle{color:var(--muted);font-size:.97rem}
+
+    .team-card{
+      background:var(--dark3);border:1px solid rgba(70,185,200,.1);
+      border-radius:14px;overflow:hidden;
+      display:grid;grid-template-columns:260px 1fr;
+      margin-bottom:1.5rem;
+      transition:border-color .25s;
+    }
+    .team-card:hover{border-color:rgba(70,185,200,.28)}
+
+    .team-avatar{
+      background:linear-gradient(160deg,var(--dark2) 0%,var(--dark3) 100%);
+      border-right:1px solid rgba(70,185,200,.1);
+      display:flex;flex-direction:column;align-items:center;
+      justify-content:center;padding:2rem 1.5rem;text-align:center;
+      gap:.9rem;min-height:260px;
+    }
+    .avatar-icon{
+      width:80px;height:80px;
+      background:rgba(70,185,200,.1);
+      border:2px solid rgba(70,185,200,.25);
+      border-radius:50%;display:flex;align-items:center;
+      justify-content:center;font-size:2.2rem;
+    }
+    .team-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);line-height:1.1}
+    .team-role{font-size:.78rem;font-weight:700;color:var(--cyan);letter-spacing:.07em;text-transform:uppercase;line-height:1.4}
+
+    .team-body{padding:1.75rem 2rem}
+    .team-body p{font-size:.91rem;color:var(--muted);line-height:1.72;margin-bottom:.8rem}
+    .team-body p:last-of-type{margin-bottom:1.1rem}
+
+    /* Timeline inside card */
+    .timeline{display:flex;flex-direction:column;gap:.5rem;margin-top:.2rem}
+    .tl-item{
+      display:flex;align-items:flex-start;gap:.75rem;
+      font-size:.84rem;color:var(--muted);line-height:1.5;
+    }
+    .tl-dot{
+      width:8px;height:8px;background:var(--cyan);border-radius:50%;
+      flex-shrink:0;margin-top:5px;
+    }
+    .tl-item strong{color:var(--light);font-weight:600}
+
+    .team-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem}
+    .tag{
+      background:rgba(70,185,200,.08);border:1px solid rgba(70,185,200,.18);
+      color:var(--cyan);border-radius:100px;
+      padding:.22rem .75rem;font-size:.74rem;font-weight:600;
+    }
+
+    /* VALUES */
+    .values-section{
+      padding:56px 0 72px;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:2rem}
+    .value-card{
+      background:var(--dark3);border:1px solid rgba(70,185,200,.08);
+      border-radius:12px;padding:1.5rem;
+    }
+    .value-icon{
+      width:42px;height:42px;background:rgba(70,185,200,.1);
+      border:1px solid rgba(70,185,200,.2);border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:1rem;font-size:1.1rem;
+    }
+    .value-title{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+    .value-text{font-size:.85rem;color:var(--muted);line-height:1.62}
+
+    /* CTA */
+    .cta-band{
+      background:var(--dark2);
+      border-top:1px solid rgba(70,185,200,.1);
+      padding:52px 5%;text-align:center;
+    }
+    .cta-band h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--white);margin-bottom:.5rem}
+    .cta-band p{color:var(--muted);font-size:.97rem;margin-bottom:1.5rem}
+    .btn-primary{
+      background:var(--cyan);color:var(--dark);padding:.82rem 2rem;border-radius:8px;
+      font-weight:700;font-size:.95rem;text-decoration:none;
+      transition:background .2s,transform .15s;display:inline-block;
+    }
+    .btn-primary:hover{background:#5dd0de;transform:translateY(-2px)}
+
+    footer{background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.6rem 5%;text-align:center}
+    footer p{font-size:.82rem;color:var(--muted);line-height:1.9}
+    footer a{color:var(--cyan);text-decoration:none}
+
+    @media(max-width:860px){
+      .mission{grid-template-columns:1fr}
+      .team-card{grid-template-columns:1fr}
+      .team-avatar{min-height:auto;padding:1.5rem;border-right:none;border-bottom:1px solid rgba(70,185,200,.1)}
+    }
+  </style>
+</head>
+<body>
+
+<script>
+// nav.js – Gemeinsame Navigation für alle WERKBYTE Seiten
+// Einbinden mit: <script src="nav.js"></script> direkt nach <body>
+
+(function() {
+  const LOGO_B64 = "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8cGF0aCBkPSJNMTAwIDU1CiAgICBMMTA4IDQ3IEwxMTYgNTIgTDExMiA2MgogICAgQzExOCA2NSAxMjMgNzAgMTI2IDc2IEwxMzYgNzQgTDE0MCA4MiBMMTMyIDg4CiAgICBDMTMzIDk0IDEzMyAxMDAgMTMyIDEwNiBMMTQwIDExMiBMMTM2IDEyMCBMMTI2IDExOAogICAgQzEyMyAxMjQgMTE4IDEyOSAxMTIgMTMyIEwxMTYgMTQyIEwxMDggMTQ3IEwxMDAgMTM5CiAgICBMOTIgMTQ3IEw4NCAxNDIgTDg4IDEzMgogICAgQzgyIDEyOSA3NyAxMjQgNzQgMTE4IEw2NCAxMjAgTDYwIDExMiBMNjggMTA2CiAgICBDNjcgMTAwIDY3IDk0IDY4IDg4IEw2MCA4MiBMNjQgNzQgTDc0IDc2CiAgICBDNzcgNzAgODIgNjUgODggNjIgTDg0IDUyIEw5MiA0NyBaIgogICAgZmlsbD0iIzQ2YjljOCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk3IiByPSIyOCIgZmlsbD0iIzBkMTExNyIvPgogIDxnIGZpbGw9IiNjOGQ4ZTAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4LDU1KSBzY2FsZSgwLjYpIj4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iOCIgcj0iNyIvPgogICAgPGVsbGlwc2UgY3g9IjE1IiBjeT0iMjgiIHJ4PSI4IiByeT0iMTQiIHRyYW5zZm9ybT0icm90YXRlKC0yMCwxNSwyOCkiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjE4IiB4Mj0iMzUiIHkyPSIxMCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPGxpbmUgeDE9IjIwIiB5MT0iMTgiIHgyPSI1IiB5Mj0iMjUiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIxNSIgeTE9IjQwIiB4Mj0iNSIgeTI9IjU1IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTUiIHkxPSI0MCIgeDI9IjI4IiB5Mj0iNTIiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9Ii00MCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8L2c+CiAgPHJlY3QgeD0iMTI1IiB5PSIzMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIzNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjE1NSIgeT0iMjgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjEzNyIgeT0iMTIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiM0NmI5YzgiIG9wYWNpdHk9IjAuNiIvPgogIDxsaW5lIHgxPSIxMDMiIHkxPSI1NSIgeDI9IjEzMiIgeTI9IjM3IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iMTgiIHk9IjE3MCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjOGQ4ZTAiIGxldHRlci1zcGFjaW5nPSIxIj5XRVJLPC90ZXh0PgogIDx0ZXh0IHg9Ijk3IiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjNDZiOWM4IiBsZXR0ZXItc3BhY2luZz0iMSI+QllURTwvdGV4dD4KPC9zdmc+";
+
+  const LANGUAGES = [
+    {code:'de',gt:'de',flag:'🇩🇪',label:'Deutsch',en:'German'},
+    {code:'en',gt:'en',flag:'🇬🇧',label:'English',en:'English'},
+    {code:'fr',gt:'fr',flag:'🇫🇷',label:'Français',en:'French'},
+    {code:'es',gt:'es',flag:'🇪🇸',label:'Español',en:'Spanish'},
+    {code:'pt',gt:'pt',flag:'🇵🇹',label:'Português',en:'Portuguese'},
+    {code:'it',gt:'it',flag:'🇮🇹',label:'Italiano',en:'Italian'},
+    {code:'nl',gt:'nl',flag:'🇳🇱',label:'Nederlands',en:'Dutch'},
+    {code:'pl',gt:'pl',flag:'🇵🇱',label:'Polski',en:'Polish'},
+    {code:'ru',gt:'ru',flag:'🇷🇺',label:'Русский',en:'Russian'},
+    {code:'uk',gt:'uk',flag:'🇺🇦',label:'Українська',en:'Ukrainian'},
+    {code:'tr',gt:'tr',flag:'🇹🇷',label:'Türkçe',en:'Turkish'},
+    {code:'ar',gt:'ar',flag:'🇸🇦',label:'العربية',en:'Arabic'},
+    {code:'zh',gt:'zh-CN',flag:'🇨🇳',label:'中文',en:'Chinese'},
+    {code:'ja',gt:'ja',flag:'🇯🇵',label:'日本語',en:'Japanese'},
+    {code:'ko',gt:'ko',flag:'🇰🇷',label:'한국어',en:'Korean'},
+    {code:'hi',gt:'hi',flag:'🇮🇳',label:'हिन्दी',en:'Hindi'},
+    {code:'sv',gt:'sv',flag:'🇸🇪',label:'Svenska',en:'Swedish'},
+    {code:'no',gt:'no',flag:'🇳🇴',label:'Norsk',en:'Norwegian'},
+    {code:'da',gt:'da',flag:'🇩🇰',label:'Dansk',en:'Danish'},
+    {code:'fi',gt:'fi',flag:'🇫🇮',label:'Suomi',en:'Finnish'},
+    {code:'cs',gt:'cs',flag:'🇨🇿',label:'Čeština',en:'Czech'},
+    {code:'sk',gt:'sk',flag:'🇸🇰',label:'Slovenčina',en:'Slovak'},
+    {code:'hu',gt:'hu',flag:'🇭🇺',label:'Magyar',en:'Hungarian'},
+    {code:'ro',gt:'ro',flag:'🇷🇴',label:'Română',en:'Romanian'},
+    {code:'bg',gt:'bg',flag:'🇧🇬',label:'Български',en:'Bulgarian'},
+    {code:'hr',gt:'hr',flag:'🇭🇷',label:'Hrvatski',en:'Croatian'},
+    {code:'sr',gt:'sr',flag:'🇷🇸',label:'Srpski',en:'Serbian'},
+    {code:'el',gt:'el',flag:'🇬🇷',label:'Ελληνικά',en:'Greek'},
+    {code:'he',gt:'iw',flag:'🇮🇱',label:'עברית',en:'Hebrew'},
+    {code:'fa',gt:'fa',flag:'🇮🇷',label:'فارسی',en:'Persian'},
+    {code:'id',gt:'id',flag:'🇮🇩',label:'Bahasa Indonesia',en:'Indonesian'},
+    {code:'ms',gt:'ms',flag:'🇲🇾',label:'Bahasa Melayu',en:'Malay'},
+    {code:'th',gt:'th',flag:'🇹🇭',label:'ภาษาไทย',en:'Thai'},
+    {code:'vi',gt:'vi',flag:'🇻🇳',label:'Tiếng Việt',en:'Vietnamese'},
+  ];
+
+  // ── Read current lang from URL param ──
+  function getLangFromURL() {
+    return new URLSearchParams(window.location.search).get('lang') || 'de';
+  }
+
+  // ── Navigate to page keeping lang param ──
+  function navTo(href) {
+    const lang = getLangFromURL();
+    if (lang !== 'de') {
+      const sep = href.includes('?') ? '&' : '?';
+      href = href + sep + 'lang=' + lang;
+    }
+    window.location.href = href;
+  }
+
+  // ── Inject nav CSS ──
+  const style = document.createElement('style');
+  style.textContent = `
+    :root{--nav-h:66px}
+    body{padding-top:var(--nav-h)}
+    #wb-nav{
+      position:fixed;top:0;left:0;right:0;z-index:500;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 4%;height:var(--nav-h);
+      background:rgba(13,17,23,0.95);backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(70,185,200,0.13);
+      font-family:'Barlow',sans-serif;
+    }
+    #wb-nav a{text-decoration:none}
+    .wbn-logo{display:flex;align-items:center}
+    .wbn-logo img{height:50px;width:auto;cursor:pointer}
+    .wbn-links{display:flex;gap:1.8rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%)}
+    .wbn-links a{color:#7a95a8;font-size:.9rem;font-weight:500;letter-spacing:.03em;transition:color .2s;cursor:pointer}
+    .wbn-links a:hover,.wbn-links a.active{color:#fff}
+    .wbn-right{display:flex;align-items:center;gap:.7rem}
+    .wbn-contact{
+      background:#46b9c8;color:#0d1117;
+      padding:.44rem 1.2rem;border-radius:6px;
+      font-weight:700;font-size:.84rem;letter-spacing:.03em;
+      cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap;
+    }
+    .wbn-contact:hover{background:#5dd0de;transform:translateY(-1px)}
+
+    /* Lang picker */
+    .wbn-lang{position:relative}
+    .wbn-ltoggle{
+      display:flex;align-items:center;gap:6px;cursor:pointer;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+      color:#7a95a8;padding:.4rem .8rem;border-radius:6px;
+      font-size:.82rem;font-weight:600;letter-spacing:.05em;
+      transition:color .2s,border-color .2s;user-select:none;
+    }
+    .wbn-ltoggle:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+    .wbn-ltoggle svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
+    .wbn-chev{transition:transform .2s}
+    .wbn-lang.open .wbn-chev{transform:rotate(180deg)}
+    .wbn-ldrop{
+      display:none;position:absolute;top:calc(100% + 8px);right:0;
+      background:#1c2633;border:1px solid rgba(70,185,200,.2);
+      border-radius:10px;overflow:hidden;width:222px;
+      box-shadow:0 14px 36px rgba(0,0,0,.55);z-index:600;
+    }
+    .wbn-lang.open .wbn-ldrop{display:block}
+    .wbn-lsearch-wrap{padding:8px 8px 4px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .wbn-lsearch{
+      width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+      border-radius:6px;padding:.4rem .7rem;color:#fff;
+      font-size:.82rem;font-family:inherit;outline:none;
+    }
+    .wbn-lsearch::placeholder{color:#7a95a8}
+    .wbn-lsearch:focus{border-color:rgba(70,185,200,.4)}
+    .wbn-llist{max-height:256px;overflow-y:auto;padding:4px 0}
+    .wbn-llist::-webkit-scrollbar{width:4px}
+    .wbn-llist::-webkit-scrollbar-thumb{background:rgba(70,185,200,.25);border-radius:4px}
+    .wbn-lopt{
+      display:flex;align-items:center;gap:10px;
+      padding:.5rem 1rem;font-size:.85rem;color:#7a95a8;
+      cursor:pointer;transition:background .12s,color .12s;
+      border:none;background:none;width:100%;text-align:left;
+    }
+    .wbn-lopt:hover{background:rgba(70,185,200,.1);color:#fff}
+    .wbn-lopt.active{color:#46b9c8;font-weight:600}
+    .wbn-lno{padding:.8rem 1rem;font-size:.82rem;color:#7a95a8;text-align:center}
+    .wbn-lflag{font-size:.95rem;line-height:1;flex-shrink:0;width:20px}
+
+    /* Hide Google Translate bar */
+    .goog-te-banner-frame,.skiptranslate{display:none!important}
+    body{top:0!important}
+    #google_translate_element{display:none}
+
+    @media(max-width:820px){
+      .wbn-links{display:none}
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ── Detect active page ──
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+
+  // ── Build nav HTML ──
+  const nav = document.createElement('nav');
+  nav.id = 'wb-nav';
+  nav.innerHTML = `
+    <div class="wbn-logo" onclick="navTo('index.html')">
+      <img src="data:image/svg+xml;base64,${LOGO_B64}" alt="WERKBYTE"/>
+    </div>
+    <ul class="wbn-links">
+      <li><a onclick="navTo('index.html#leistungen')" class="${page==='index.html'?'':''}">Leistungen</a></li>
+      <li><a onclick="navTo('ueber-uns.html')" class="${page==='ueber-uns.html'?'active':''}">Über Uns</a></li>
+      <li><a onclick="navTo('index.html#sicherheit')" class="">Sicherheit</a></li>
+      <li><a onclick="navTo('kontakt.html')" class="${page==='kontakt.html'?'active':''}">Kontakt</a></li>
+    </ul>
+    <div class="wbn-right">
+      <div class="wbn-contact" onclick="navTo('kontakt.html')">Kontakt</div>
+      <div class="wbn-lang" id="wbnLang">
+        <div class="wbn-ltoggle" id="wbnToggle">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span id="wbnCurLang">🇩🇪 DE</span>
+          <svg class="wbn-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="wbn-ldrop" id="wbnDrop">
+          <div class="wbn-lsearch-wrap">
+            <input class="wbn-lsearch" id="wbnSearch" type="text"
+              placeholder="Sprache suchen / Search..." autocomplete="off"/>
+          </div>
+          <div class="wbn-llist" id="wbnList"></div>
+        </div>
+      </div>
+    </div>
+    <div id="google_translate_element"></div>
+  `;
+
+  // Insert nav as first element in body
+  document.body.insertBefore(nav, document.body.firstChild);
+
+  // ── Lang logic ──
+  let currentLang = getLangFromURL();
+
+  function renderLangList(filter) {
+    const list = document.getElementById('wbnList');
+    const langs = filter
+      ? LANGUAGES.filter(l =>
+          l.label.toLowerCase().includes(filter) ||
+          l.en.toLowerCase().includes(filter) ||
+          l.code.toLowerCase().includes(filter))
+      : LANGUAGES;
+    if (!langs.length) {
+      list.innerHTML = '<div class="wbn-lno">Keine Sprache gefunden</div>';
+      return;
+    }
+    list.innerHTML = langs.map(l => `
+      <button class="wbn-lopt ${l.code===currentLang?'active':''}"
+        onclick="window._wbnSelectLang('${l.code}','${l.gt}','${l.flag}','${l.label}')">
+        <span class="wbn-lflag">${l.flag}</span>${l.label}
+      </button>`).join('');
+  }
+
+  document.getElementById('wbnToggle').addEventListener('click', () => {
+    const wrap = document.getElementById('wbnLang');
+    const opening = !wrap.classList.contains('open');
+    wrap.classList.toggle('open');
+    if (opening) {
+      const s = document.getElementById('wbnSearch');
+      s.value = '';
+      renderLangList('');
+      setTimeout(() => s.focus(), 60);
+    }
+  });
+
+  document.getElementById('wbnSearch').addEventListener('input', function() {
+    renderLangList(this.value.toLowerCase().trim());
+  });
+
+  document.addEventListener('click', e => {
+    if (!document.getElementById('wbnLang').contains(e.target))
+      document.getElementById('wbnLang').classList.remove('open');
+  });
+
+  // ── Google Translate init ──
+  window.googleTranslateElementInit = function() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'de',
+      autoDisplay: false
+    }, 'google_translate_element');
+
+    // If lang param set, apply translation after GT is ready
+    if (currentLang !== 'de') {
+      setTimeout(() => applyGT(currentLang), 800);
+    }
+  };
+
+  function applyGT(code) {
+    const lang = LANGUAGES.find(l => l.code === code);
+    if (!lang) return;
+    const sel = document.querySelector('.goog-te-combo');
+    if (sel) {
+      sel.value = lang.gt;
+      sel.dispatchEvent(new Event('change'));
+    }
+  }
+
+  // Load GT script
+  if (!document.getElementById('wbn-gt-script')) {
+    const s = document.createElement('script');
+    s.id = 'wbn-gt-script';
+    s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.head.appendChild(s);
+  }
+
+  // ── Select language ──
+  window._wbnSelectLang = function(code, gt, flag, label) {
+    currentLang = code;
+    document.getElementById('wbnCurLang').textContent = `${flag} ${code.toUpperCase()}`;
+    document.getElementById('wbnLang').classList.remove('open');
+
+    // Update URL param without reload
+    const url = new URL(window.location.href);
+    if (code === 'de') {
+      url.searchParams.delete('lang');
+    } else {
+      url.searchParams.set('lang', code);
+    }
+    history.replaceState({}, '', url);
+
+    // Apply translation
+    if (code === 'de') {
+      // Reload to restore original
+      window.location.reload();
+    } else {
+      applyGT(code);
+    }
+
+    // Re-render list to update active state
+    renderLangList(document.getElementById('wbnSearch').value.toLowerCase().trim());
+  };
+
+  // ── Set label from URL on load ──
+  const initLang = LANGUAGES.find(l => l.code === currentLang);
+  if (initLang && currentLang !== 'de') {
+    document.getElementById('wbnCurLang').textContent = `${initLang.flag} ${initLang.code.toUpperCase()}`;
+  }
+
+  renderLangList('');
+
+})();
+
+</script>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <p class="section-label">Wer wir sind</p>
+    <h1 class="page-title">Zwei Fachleute.<br>Eine Mission.</h1>
+    <p class="page-subtitle">
+      Industriemechatronik trifft Höhentechnik. Wir bringen Lösungen dorthin,
+      wo andere nicht hinkommen. Deutschlandweit und international.
+    </p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- MISSION -->
+  <div class="mission">
+    <div class="mission-text">
+      <h2>Warum wir <span>WERKBYTE</span> gründen</h2>
+      <p>
+        Wir haben beide jahrelang als Servicetechniker auf internationaler Montage gearbeitet
+        und immer wieder dieselbe Lücke gesehen: Anlagen in schwer zugänglichen Bereichen,
+        die jemanden brauchen der beides kann. Mechanik und Höhentechnik aus einer Hand.
+      </p>
+      <p>
+        Ob Neuinbetriebnahme, Wartung, Fehlerdiagnose oder Reparatur direkt vor Ort,
+        national wie international: Wir kennen den Druck auf der Baustelle, wir kennen
+        die Anlagen und wir kommen allein mit dem Werkzeug aus ohne Gerüst und ohne Bühne.
+      </p>
+      <p>
+        Der Name steht für das was wir tun: <strong style="color:var(--white)">WERK</strong>
+        für Handwerk und Industrie. <strong style="color:var(--cyan)">BYTE</strong>
+        für digitales Denken und moderne Arbeitsweise.
+      </p>
+    </div>
+    <div class="stats-box">
+      <div class="stat-item">
+        <div class="stat-num">IRATA</div>
+        <div class="stat-label">Zertifiziert für Industrieklettern</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Qualifizierte Fachleute</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">INT</div>
+        <div class="stat-label">Weltweit einsatzbereit</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24h</div>
+        <div class="stat-label">Reaktionszeit auf Anfragen</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="team-section">
+    <div class="section-header">
+      <p class="section-label">Das Team</p>
+      <h2 class="section-title">Moric und Bastian</h2>
+      <p class="section-subtitle">Beide ausgebildet. Beide zertifiziert. Beide im Einsatz.</p>
+    </div>
+
+    <!-- MORIC -->
+    <div class="team-card">
+      <div class="team-avatar">
+        <div class="avatar-icon">⚙️</div>
+        <div>
+          <div class="team-name">Moric Kolaric</div>
+          <div class="team-role" style="margin-top:.4rem">Industrie&shy;mechatroniker<br>IRATA zertifiziert</div>
+        </div>
+      </div>
+      <div class="team-body">
+        <p>
+          Gelernter Industriemechatroniker, ausgebildet bei Dalli in Stollberg.
+          Seit 2021 im Servicebereich tätig mit Schwerpunkt auf Instandhaltung,
+          Diagnose und Reparatur komplexer Industrieanlagen, darunter Hochdruck-Homogenisatoren,
+          Sterilwassereinheiten sowie Fremdsysteme von GEA und Tetra Pak.
+        </p>
+        <p>
+          Internationale Montageerfahrung durch gemeinsame Einsätze mit Bastian
+          bei Feckn &amp; Kirfel. Derzeit noch im Einsatz bei HST Maschinen.
+          Metrisch denkend, technisch breit aufgestellt, mit starkem IT und
+          Automatisierungshintergrund im privaten Bereich.
+        </p>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>Dalli, Stollberg</strong> – Ausbildung Industriemechatroniker, Abschluss 2021</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>1. Stelle nach Ausbildung</strong> – Servicebereich Industrieanlagen</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>Feckn &amp; Kirfel</strong> – Schaumstoffschneidemaschinen, internationale Montage und Inbetriebnahme</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>HST Maschinen</strong> – Homogenisatoren, Sterilwassereinheiten, Hochdrucksysteme verschiedener Hersteller (aktuell)</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>WERKBYTE</strong> – Gründung in Vorbereitung</div></div>
+        </div>
+        <div class="team-tags">
+          <span class="tag">Mechatronik</span>
+          <span class="tag">Homogenisatoren</span>
+          <span class="tag">IRATA</span>
+          <span class="tag">Internationale Montage</span>
+          <span class="tag">Steuerungstechnik</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BASTIAN -->
+    <div class="team-card">
+      <div class="team-avatar">
+        <div class="avatar-icon">🔧</div>
+        <div>
+          <div class="team-name">Bastian Gärtner</div>
+          <div class="team-role" style="margin-top:.4rem">Industrie&shy;mechaniker<br>IRATA zertifiziert</div>
+        </div>
+      </div>
+      <div class="team-body">
+        <p>
+          Gelernter Industriemechaniker, ausgebildet bei REW in Eschweiler.
+          Breit aufgestellter Fachmann mit Erfahrung aus mehreren Branchen:
+          Von Rohrschweißen und Prüfung über internationale Anlagenmontage bis hin
+          zu Maschinenwartung und aktuell Windradservice in der Höhe.
+        </p>
+        <p>
+          Bei Feckn &amp; Kirfel gemeinsam mit Moric an Schaumstoffschneideanlagen
+          gearbeitet: Aufbau, Inbetriebnahme, Reparatur, Kundenschulung, international.
+          Bei HST Maschinen Erfahrung mit Homogenisatoren verschiedener Hersteller gesammelt.
+          Jetzt im Windradservice mit direkter Höheneinsatzerfahrung.
+        </p>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>REW, Eschweiler</strong> – Ausbildung Industriemechaniker, Abschluss 2020</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>Xtrons</strong> – Industriemontage</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>ETC Forschung</strong> – Rohrschweißer, Prüfer, Vorarbeiter</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>Feckn &amp; Kirfel</strong> – Internationale Anlagenmontage, Inbetriebnahme, Schulung</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>HST Maschinen</strong> – Homogenisatoren, Hochdrucksysteme verschiedener Hersteller</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>Windrad Service</strong> – Höheneinsätze (aktuell)</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><strong>WERKBYTE</strong> – Gründung in Vorbereitung</div></div>
+        </div>
+        <div class="team-tags">
+          <span class="tag">Industriemechanik</span>
+          <span class="tag">Rohrschweißen</span>
+          <span class="tag">Vorarbeiter</span>
+          <span class="tag">IRATA</span>
+          <span class="tag">Windrad Service</span>
+          <span class="tag">Internationale Montage</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VALUES -->
+  <div class="values-section">
+    <p class="section-label">Unsere Grundsätze</p>
+    <h2 class="section-title">Was uns antreibt</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🛡️</div>
+        <div class="value-title">Sicherheit zuerst</div>
+        <p class="value-text">Jeder Einsatz wird nach DGUV Normen und IRATA Standards geplant. PSA geprüft, G41 untersucht, Erste Hilfe ausgebildet. Keine Kompromisse.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Schnelle Reaktion</div>
+        <p class="value-text">Industrieausfälle kosten Zeit und Geld. Wir sind schnell verfügbar und können auch kurzfristig bei Notfällen einspringen.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔩</div>
+        <div class="value-title">Alles aus einer Hand</div>
+        <p class="value-text">Mechanik, Elektrik und Höhenzugang kommen bei uns aus einer Quelle. Kein Koordinationsaufwand zwischen verschiedenen Dienstleistern.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <div class="value-title">Weltweit einsatzbereit</div>
+        <p class="value-text">Wir sind deutschlandweit und international unterwegs. Beide haben internationale Montageerfahrung aus mehrjähriger Praxis.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="cta-band">
+  <h2>Bereit für euren nächsten Einsatz?</h2>
+  <p>Schreib uns direkt. Wir melden uns innerhalb von 24 Stunden.</p>
+  <a href="kontakt.html" class="btn-primary">Jetzt anfragen</a>
+</div>
+
+<footer>
+  <p>© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Industrieller Maschinenservice</p>
+  <p style="margin-top:.4rem"><a href="index.html">Startseite</a> &nbsp;·&nbsp; <a href="#">Impressum</a> &nbsp;·&nbsp; <a href="#">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>
