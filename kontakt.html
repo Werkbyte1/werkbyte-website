@@ -9,7 +9,7 @@
 <style>
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--cyan:#46b9c8;--dark:#0d1117;--dark2:#141b24;--dark3:#1c2633;--light:#e8f0f5;--muted:#7a95a8;--white:#fff}
+:root{--cyan:#46b9c8;--dark:#0d1117;--dark2:#141b24;--dark3:#1c2633;--light:#e8f0f5;--muted:#7a95a8;--white:#fff;--green:#2ecc71;--red:#e74c3c}
 body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--light);overflow-x:hidden;padding-top:var(--nav-h);margin:0;top:0!important;-webkit-user-select:none;user-select:none}
 input,textarea,select{-webkit-user-select:text!important;user-select:text!important}
 :root{--nav-h:66px}
@@ -130,13 +130,13 @@ input::placeholder,textarea::placeholder{color:rgba(122,149,168,.6)}
 select{appearance:none;cursor:pointer;padding-right:2.4rem}
 select option{background:var(--dark3)}
 textarea{padding:.7rem 1rem;resize:vertical;min-height:140px;line-height:1.6}
-input.vok,select.vok,textarea.vok{border-color:var(--green);background:rgba(46,204,113,.04)}
-input.vko,select.vko,textarea.vko{border-color:var(--red);background:rgba(231,76,60,.04);animation:shk .3s}
+input.vok,select.vok,textarea.vok{border-color:#2ecc71;background:rgba(46,204,113,.04)}
+input.vko,select.vko,textarea.vko{border-color:#e74c3c;background:rgba(231,76,60,.04);animation:shk .3s}
 @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .vi{position:absolute;right:.75rem;bottom:.75rem;font-size:.82rem;pointer-events:none;opacity:0;transition:opacity .2s}
-.fi.ok .vi{opacity:1;color:var(--green)}
-.fi.ko .vi{opacity:1;color:var(--red)}
-.fe{font-size:.75rem;color:var(--red);display:none;margin-top:.1rem}
+.fi.ok .vi{opacity:1;color:#2ecc71}
+.fi.ko .vi{opacity:1;color:#e74c3c}
+.fe{font-size:.75rem;color:#e74c3c;display:none;margin-top:.1rem}
 .fi.ko .fe{display:block}
 .rn{font-size:.77rem;color:var(--muted);margin-bottom:1.1rem}
 .rn span{color:var(--cyan)}
@@ -144,8 +144,8 @@ input.vko,select.vko,textarea.vko{border-color:var(--red);background:rgba(231,76
 .ab{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:.5rem 1.1rem;cursor:pointer;font-size:.88rem;font-weight:500;color:var(--muted);transition:all .15s;user-select:none}
 .ab:hover{border-color:rgba(70,185,200,.3);color:var(--light)}
 .ab.sel{border-color:var(--cyan);color:var(--cyan);background:rgba(70,185,200,.1)}
-.ab.err{border-color:var(--red);animation:shk .3s}
-.aerr{font-size:.75rem;color:var(--red);display:none;margin-top:.3rem}
+.ab.err{border-color:#e74c3c;animation:shk .3s}
+.aerr{font-size:.75rem;color:#e74c3c;display:none;margin-top:.3rem}
 .aerr.on{display:block}
 .fh2{font-size:.73rem;color:var(--muted);margin-top:.2rem}
 .cc{font-size:.73rem;color:var(--muted);text-align:right;margin-top:.25rem}
@@ -156,7 +156,7 @@ input.vko,select.vko,textarea.vko{border-color:var(--red);background:rgba(231,76
 .sb:hover:not(:disabled){background:#5dd0de;transform:translateY(-2px)}
 .sb:disabled{opacity:.3;cursor:not-allowed}
 #cfp{display:none}
-.cbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);border-radius:100px;padding:.4rem 1.2rem;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:1.2rem}
+.cbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);border-radius:100px;padding:.4rem 1.2rem;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2ecc71;margin-bottom:1.2rem}
 .tbox{background:var(--dark3);border:1px solid rgba(70,185,200,.2);border-radius:14px;padding:1.75rem;margin-bottom:1.5rem}
 .th{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.07)}
 .tid{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--cyan);letter-spacing:.05em}
@@ -180,110 +180,221 @@ footer a{color:var(--cyan);text-decoration:none}
 </style>
 </head>
 <body>
-<div id="pw-overlay" style="position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0d1117;flex-direction:column;gap:1.5rem;padding:2rem"><style>#pw-overlay .pwl{height:56px;margin-bottom:.5rem}#pw-overlay h2{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;text-align:center}#pw-overlay p{font-size:.9rem;color:#7a95a8;text-align:center;max-width:320px;line-height:1.6}#pwf{display:flex;flex-direction:column;gap:.8rem;width:100%;max-width:320px}#pwi{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;padding:.8rem 1.1rem;color:#fff;font-size:1rem;font-family:inherit;outline:none;text-align:center;letter-spacing:.1em;width:100%;-webkit-user-select:text!important;user-select:text!important}#pwi:focus{border-color:rgba(70,185,200,.5)}#pwi.shake{animation:pwshk .3s}@keyframes pwshk{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}#pwb{background:#46b9c8;color:#0d1117;border:none;padding:.8rem;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit}#pwe{color:#e74c3c;font-size:.82rem;text-align:center;display:none}</style><img class="pwl" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8cGF0aCBkPSJNMTAwIDU1CiAgICBMMTA4IDQ3IEwxMTYgNTIgTDExMiA2MgogICAgQzExOCA2NSAxMjMgNzAgMTI2IDc2IEwxMzYgNzQgTDE0MCA4MiBMMTMyIDg4CiAgICBDMTMzIDk0IDEzMyAxMDAgMTMyIDEwNiBMMTQwIDExMiBMMTM2IDEyMCBMMTI2IDExOAogICAgQzEyMyAxMjQgMTE4IDEyOSAxMTIgMTMyIEwxMTYgMTQyIEwxMDggMTQ3IEwxMDAgMTM5CiAgICBMOTIgMTQ3IEw4NCAxNDIgTDg4IDEzMgogICAgQzgyIDEyOSA3NyAxMjQgNzQgMTE4IEw2NCAxMjAgTDYwIDExMiBMNjggMTA2CiAgICBDNjcgMTAwIDY3IDk0IDY4IDg4IEw2MCA4MiBMNjQgNzQgTDc0IDc2CiAgICBDNzcgNzAgODIgNjUgODggNjIgTDg0IDUyIEw5MiA0NyBaIgogICAgZmlsbD0iIzQ2YjljOCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk3IiByPSIyOCIgZmlsbD0iIzBkMTExNyIvPgogIDxnIGZpbGw9IiNjOGQ4ZTAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4LDU1KSBzY2FsZSgwLjYpIj4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iOCIgcj0iNyIvPgogICAgPGVsbGlwc2UgY3g9IjE1IiBjeT0iMjgiIHJ4PSI4IiByeT0iMTQiIHRyYW5zZm9ybT0icm90YXRlKC0yMCwxNSwyOCkiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjE4IiB4Mj0iMzUiIHkyPSIxMCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPGxpbmUgeDE9IjIwIiB5MT0iMTgiIHgyPSI1IiB5Mj0iMjUiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIxNSIgeTE9IjQwIiB4Mj0iNSIgeTI9IjU1IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTUiIHkxPSI0MCIgeDI9IjI4IiB5Mj0iNTIiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9Ii00MCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8L2c+CiAgPHJlY3QgeD0iMTI1IiB5PSIzMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIzNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjE1NSIgeT0iMjgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjEzNyIgeT0iMTIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiM0NmI5YzgiIG9wYWNpdHk9IjAuNiIvPgogIDxsaW5lIHgxPSIxMDMiIHkxPSI1NSIgeDI9IjEzMiIgeTI9IjM3IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iMTgiIHk9IjE3MCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjOGQ4ZTAiIGxldHRlci1zcGFjaW5nPSIxIj5XRVJLPC90ZXh0PgogIDx0ZXh0IHg9Ijk3IiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjNDZiOWM4IiBsZXR0ZXItc3BhY2luZz0iMSI+QllURTwvdGV4dD4KPC9zdmc+" alt="WERKBYTE"/><h2>Bereich gesperrt</h2><p>Diese Seite befindet sich noch im Aufbau.<br>Bitte Passwort eingeben.</p><div id="pwf"><input id="pwi" type="password" placeholder="Passwort" autocomplete="current-password" onkeydown="if(event.key==='Enter')pwck()"/><button id="pwb" onclick="pwck()">Weiter →</button><div id="pwe">Falsches Passwort</div></div></div><script>(function(){var h="werkbyte2024";if(sessionStorage.getItem("wbpw")==="ok"){document.getElementById("pw-overlay").style.display="none";return;}window.pwck=function(){var v=document.getElementById("pwi").value;if(v===h){sessionStorage.setItem("wbpw","ok");document.getElementById("pw-overlay").style.display="none";}else{var i=document.getElementById("pwi");i.classList.remove("shake");void i.offsetWidth;i.classList.add("shake");document.getElementById("pwe").style.display="block";i.value="";}};})();</script>
-<nav id="wbnav"><a class="nb-logo" href="index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8cGF0aCBkPSJNMTAwIDU1CiAgICBMMTA4IDQ3IEwxMTYgNTIgTDExMiA2MgogICAgQzExOCA2NSAxMjMgNzAgMTI2IDc2IEwxMzYgNzQgTDE0MCA4MiBMMTMyIDg4CiAgICBDMTMzIDk0IDEzMyAxMDAgMTMyIDEwNiBMMTQwIDExMiBMMTM2IDEyMCBMMTI2IDExOAogICAgQzEyMyAxMjQgMTE4IDEyOSAxMTIgMTMyIEwxMTYgMTQyIEwxMDggMTQ3IEwxMDAgMTM5CiAgICBMOTIgMTQ3IEw4NCAxNDIgTDg4IDEzMgogICAgQzgyIDEyOSA3NyAxMjQgNzQgMTE4IEw2NCAxMjAgTDYwIDExMiBMNjggMTA2CiAgICBDNjcgMTAwIDY3IDk0IDY4IDg4IEw2MCA4MiBMNjQgNzQgTDc0IDc2CiAgICBDNzcgNzAgODIgNjUgODggNjIgTDg0IDUyIEw5MiA0NyBaIgogICAgZmlsbD0iIzQ2YjljOCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk3IiByPSIyOCIgZmlsbD0iIzBkMTExNyIvPgogIDxnIGZpbGw9IiNjOGQ4ZTAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4LDU1KSBzY2FsZSgwLjYpIj4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iOCIgcj0iNyIvPgogICAgPGVsbGlwc2UgY3g9IjE1IiBjeT0iMjgiIHJ4PSI4IiByeT0iMTQiIHRyYW5zZm9ybT0icm90YXRlKC0yMCwxNSwyOCkiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjE4IiB4Mj0iMzUiIHkyPSIxMCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPGxpbmUgeDE9IjIwIiB5MT0iMTgiIHgyPSI1IiB5Mj0iMjUiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIxNSIgeTE9IjQwIiB4Mj0iNSIgeTI9IjU1IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTUiIHkxPSI0MCIgeDI9IjI4IiB5Mj0iNTIiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9Ii00MCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8L2c+CiAgPHJlY3QgeD0iMTI1IiB5PSIzMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIzNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjE1NSIgeT0iMjgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjEzNyIgeT0iMTIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiM0NmI5YzgiIG9wYWNpdHk9IjAuNiIvPgogIDxsaW5lIHgxPSIxMDMiIHkxPSI1NSIgeDI9IjEzMiIgeTI9IjM3IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iMTgiIHk9IjE3MCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjOGQ4ZTAiIGxldHRlci1zcGFjaW5nPSIxIj5XRVJLPC90ZXh0PgogIDx0ZXh0IHg9Ijk3IiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjNDZiOWM4IiBsZXR0ZXItc3BhY2luZz0iMSI+QllURTwvdGV4dD4KPC9zdmc+" alt="WERKBYTE"/></a><ul class="nb-links" id="nblinks"><li><a href="index.html" class="act">Startseite</a></li><li><a href="ueber-uns.html">Über Uns</a></li><li><a href="index.html#leistungen" class="act">Leistungen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul><div class="nb-right"><div class="nb-lw" id="nblw"><div class="nb-lt" id="nblt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span id="nblc">🇩🇪 DE</span><svg class="nb-ch" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="nb-dd" id="nbdd"><div class="nb-si"><input type="text" id="nbsi" placeholder="Sprache / Language..." autocomplete="off"/></div><div class="nb-ll" id="nbll"></div></div></div><button class="nb-burger" id="nbBurger" aria-label="Menü"><span></span><span></span><span></span></button></div></nav>
-<div class="nb-mob" id="nbMob"><a href="index.html" class="act">Startseite</a><a href="ueber-uns.html">Über Uns</a><a href="index.html#leistungen" class="act">Leistungen</a><a href="kontakt.html">Kontakt</a><a href="kontakt.html" class="nb-cta">Anfrage senden →</a></div>
+<div id="pw-overlay" style="position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0d1117;flex-direction:column;gap:1.5rem;padding:2rem"><style>#pw-overlay .pwl{height:56px;margin-bottom:.5rem}#pw-overlay h2{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;text-align:center}#pw-overlay p{font-size:.9rem;color:#7a95a8;text-align:center;max-width:320px;line-height:1.6}#pwf{display:flex;flex-direction:column;gap:.8rem;width:100%;max-width:320px}#pwi{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;padding:.8rem 1.1rem;color:#fff;font-size:1rem;font-family:inherit;outline:none;text-align:center;letter-spacing:.1em;width:100%;-webkit-user-select:text!important;user-select:text!important}#pwi:focus{border-color:rgba(70,185,200,.5)}#pwi.shake{animation:pwshk .3s}@keyframes pwshk{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}#pwb{background:#46b9c8;color:#0d1117;border:none;padding:.8rem;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit}#pwe{color:#e74c3c;font-size:.82rem;text-align:center;display:none}</style><img class="pwl" src="logo.svg" alt="WERKBYTE"/><h2>Bereich gesperrt</h2><p>Diese Seite befindet sich noch im Aufbau.<br>Bitte Passwort eingeben.</p><div id="pwf"><input id="pwi" type="password" placeholder="Passwort" autocomplete="current-password" onkeydown="if(event.key==='Enter')pwck()"/><button id="pwb" onclick="pwck()">Weiter →</button><div id="pwe">Falsches Passwort</div></div></div><script>(function(){var h="werkbyte2024";if(sessionStorage.getItem("wbpw")==="ok"){document.getElementById("pw-overlay").style.display="none";return;}window.pwck=function(){var v=document.getElementById("pwi").value;if(v===h){sessionStorage.setItem("wbpw","ok");document.getElementById("pw-overlay").style.display="none";}else{var i=document.getElementById("pwi");i.classList.remove("shake");void i.offsetWidth;i.classList.add("shake");document.getElementById("pwe").style.display="block";i.value="";}};})();</script>
+<nav id="wbnav"><a class="nb-logo" href="index.html"><img src="logo.svg" alt="WERKBYTE" style="height:48px;width:auto;display:block"/></a><ul class="nb-links" id="nblinks"><li><a href="index.html">Startseite</a></li><li><a href="ueber-uns.html">Über Uns</a></li><li><a href="index.html#leistungen">Leistungen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul><div class="nb-right"><div class="nb-lw" id="nblw"><div class="nb-lt" id="nblt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span id="nblc">🇩🇪 DE</span><svg class="nb-ch" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="nb-dd" id="nbdd"><div class="nb-si"><input type="text" id="nbsi" placeholder="Sprache / Language..." autocomplete="off"/></div><div class="nb-ll" id="nbll"></div></div></div><button class="nb-burger" id="nbBurger" aria-label="Menü"><span></span><span></span><span></span></button></div></nav>
+<div class="nb-mob" id="nbMob"><a href="index.html">Startseite</a><a href="ueber-uns.html">Über Uns</a><a href="index.html#leistungen">Leistungen</a><a href="kontakt.html">Kontakt</a></div>
 <script>
 (function(){
   var LL=[
-    ['de','🇩🇪','Deutsch'],
-    ['en','🇬🇧','English'],
-    ['fr','🇫🇷','Français'],
-    ['es','🇪🇸','Español'],
-    ['pt','🇵🇹','Português'],
-    ['it','🇮🇹','Italiano'],
-    ['nl','🇳🇱','Nederlands'],
-    ['pl','🇵🇱','Polski'],
-    ['ru','🇷🇺','Русский'],
-    ['uk','🇺🇦','Українська'],
-    ['tr','🇹🇷','Türkçe'],
-    ['ar','🇸🇦','العربية'],
-    ['zh','🇨🇳','中文'],
-    ['ja','🇯🇵','日本語'],
-    ['ko','🇰🇷','한국어'],
-    ['hi','🇮🇳','हिन्दी'],
-    ['sv','🇸🇪','Svenska'],
-    ['no','🇳🇴','Norsk'],
-    ['da','🇩🇰','Dansk'],
-    ['fi','🇫🇮','Suomi'],
-    ['cs','🇨🇿','Čeština'],
-    ['sk','🇸🇰','Slovenčina'],
-    ['hu','🇭🇺','Magyar'],
-    ['ro','🇷🇴','Română'],
-    ['bg','🇧🇬','Български'],
-    ['hr','🇭🇷','Hrvatski'],
-    ['sr','🇷🇸','Srpski'],
-    ['el','🇬🇷','Ελληνικά'],
-    ['he','🇮🇱','עברית'],
-    ['fa','🇮🇷','فارسی'],
-    ['id','🇮🇩','Bahasa Indonesia'],
-    ['ms','🇲🇾','Bahasa Melayu'],
-    ['th','🇹🇭','ภาษาไทย'],
-    ['vi','🇻🇳','Tiếng Việt']
-  ];
+  ['de','🇩🇪','Deutsch','Deutsch','German'],
+  ['en','🇬🇧','English','Englisch','English'],
+  ['fr','🇫🇷','Français','Französisch','French'],
+  ['es','🇪🇸','Español','Spanisch','Spanish'],
+  ['pt','🇵🇹','Português','Portiesisch','Portuguese'],
+  ['it','🇮🇹','Italiano','Italienisch','Italian'],
+  ['nl','🇳🇱','Nederlands','Niederländisch','Dutch'],
+  ['pl','🇵🇱','Polski','Polnisch','Polish'],
+  ['ru','🇷🇺','Русский','Russisch','Russian'],
+  ['uk','🇺🇦','Українська','Ukrainisch','Ukrainian'],
+  ['tr','🇹🇷','Türkçe','Türkisch','Turkish'],
+  ['ar','🇸🇦','العربية','Arabisch','Arabic'],
+  ['zh','🇨🇳','中文','Chinesisch','Chinese'],
+  ['ja','🇯🇵','日本語','Japanisch','Japanese'],
+  ['ko','🇰🇷','한국어','Koreanisch','Korean'],
+  ['hi','🇮🇳','हिन्दी','Hindi','Hindi'],
+  ['sv','🇸🇪','Svenska','Schwedisch','Swedish'],
+  ['no','🇳🇴','Norsk','Norwegisch','Norwegian'],
+  ['da','🇩🇰','Dansk','Dänisch','Danish'],
+  ['fi','🇫🇮','Suomi','Finnisch','Finnish'],
+  ['cs','🇨🇿','Čeština','Tschechisch','Czech'],
+  ['sk','🇸🇰','Slovenčina','Slowakisch','Slovak'],
+  ['hu','🇭🇺','Magyar','Ungarisch','Hungarian'],
+  ['ro','🇷🇴','Română','Rumänisch','Romanian'],
+  ['bg','🇧🇬','Български','Bulgarisch','Bulgarian'],
+  ['hr','🇭🇷','Hrvatski','Kroatisch','Croatian'],
+  ['sr','🇷🇸','Srpski','Serbisch','Serbian'],
+  ['el','🇬🇷','Ελληνικά','Griechisch','Greek'],
+  ['he','🇮🇱','עברית','Hebräisch','Hebrew'],
+  ['fa','🇮🇷','فارسی','Persisch','Persian'],
+  ['id','🇮🇩','Bahasa Indonesia','Indonesisch','Indonesian'],
+  ['ms','🇲🇾','Bahasa Melayu','Malaiisch','Malay'],
+  ['th','🇹🇭','ภาษาไทย','Thailändisch','Thai'],
+  ['vi','🇻🇳','Tiếng Việt','Vietnamesisch','Vietnamese']
+];
 
   function getLang(){
     var s=location.search;
     if(!s)return 'de';
     var p=s.slice(1).split('&');
-    for(var i=0;i<p.length;i++){var kv=p[i].split('=');if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');}
+    for(var i=0;i<p.length;i++){
+      var kv=p[i].split('=');
+      if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');
+    }
     return 'de';
   }
+
   function urlWith(code){
     var b=location.href.split('?')[0];
-    return code==='de'?b:b+'?lang='+encodeURIComponent(code);
+    return code==='de' ? b : b+'?lang='+encodeURIComponent(code);
   }
-  function findL(code){for(var i=0;i<LL.length;i++){if(LL[i][0]===code)return LL[i];}return null;}
-  function isIn(p,c){if(p===c)return true;var n=c.parentNode;while(n){if(n===p)return true;n=n.parentNode;}return false;}
+
+  function findL(code){
+    for(var i=0;i<LL.length;i++){if(LL[i][0]===code)return LL[i];}
+    return null;
+  }
+
+  function isIn(par,child){
+    if(par===child)return true;
+    var n=child.parentNode;
+    while(n){if(n===par)return true;n=n.parentNode;}
+    return false;
+  }
 
   var cur=getLang();
 
   function init(){
+    /* Active nav links - only mark exact page match, not hash links */
     var pg=location.pathname.split('/').pop()||'index.html';
     var links=document.getElementById('nblinks');
-    if(links){var as=links.getElementsByTagName('a');for(var i=0;i<as.length;i++){var h=as[i].getAttribute('href')||'';if(h===pg||h.split('#')[0]===pg)as[i].className+=' act';}}
+    if(links){
+      var as=links.getElementsByTagName('a');
+      for(var i=0;i<as.length;i++){
+        var h=as[i].getAttribute('href')||'';
+        var base=h.split('#')[0];
+        /* Only mark active if no hash (Leistungen should never be active) */
+        if(h.indexOf('#')<0 && base===pg){
+          as[i].className=(as[i].className+' act').trim();
+        }
+      }
+    }
+    /* Also fix mobile menu active */
+    var mob=document.getElementById('nbMob');
+    if(mob){
+      var mas=mob.getElementsByTagName('a');
+      for(var i=0;i<mas.length;i++){
+        var h=mas[i].getAttribute('href')||'';
+        var base=h.split('#')[0];
+        if(h.indexOf('#')<0 && base===pg && mas[i].className.indexOf('nb-cta')<0){
+          mas[i].className=(mas[i].className+' act').trim();
+        }
+      }
+    }
 
+    /* Show current lang */
     var ll=findL(cur);
-    if(ll){var lc=document.getElementById('nblc');if(lc)lc.textContent=ll[1]+' '+cur.toUpperCase();}
+    if(ll){
+      var lc=document.getElementById('nblc');
+      if(lc)lc.textContent=ll[1]+' '+(cur==='de'?'DE':ll[2]);
+    }
 
+    /* Lang toggle */
     var toggle=document.getElementById('nblt');
-    if(toggle){toggle.onclick=function(){
-      var w=document.getElementById('nblw');if(!w)return;
-      var op=w.className.indexOf('op')>=0;
-      if(op){w.className=w.className.replace(/\bop\b/,'').trim();}
-      else{w.className+=' op';drawL('');setTimeout(function(){var si=document.getElementById('nbsi');if(si){si.value='';si.focus();}},60);}
-    };}
+    if(toggle){
+      toggle.onclick=function(e){
+        e.stopPropagation();
+        var w=document.getElementById('nblw');
+        if(!w)return;
+        var isOpen=w.className.indexOf(' op')>=0||w.className==='nb-lw op';
+        if(isOpen){
+          w.className='nb-lw';
+        } else {
+          w.className='nb-lw op';
+          drawL('');
+          setTimeout(function(){
+            var si=document.getElementById('nbsi');
+            if(si){si.value='';si.focus();}
+          },60);
+        }
+      };
+    }
 
     var si=document.getElementById('nbsi');
-    if(si){si.oninput=function(){drawL(this.value.toLowerCase());};}
+    if(si){
+      si.oninput=function(){drawL(this.value.toLowerCase());};
+      /* Prevent toggle-close when clicking inside search */
+      si.onclick=function(e){e.stopPropagation();};
+    }
 
+    /* Close dropdown on outside click */
     document.onclick=function(e){
-      var w=document.getElementById('nblw');if(!w)return;
+      var w=document.getElementById('nblw');
+      if(!w)return;
       var t=e.target||e.srcElement;
-      if(!isIn(w,t)&&t!==w)w.className=w.className.replace(/\bop\b/,'').trim();
+      if(!isIn(w,t)){w.className='nb-lw';}
     };
+
+    /* Leistungen smooth scroll - fix offset for nav height */
+    var links2=document.getElementById('nblinks');
+    if(links2){
+      var as2=links2.getElementsByTagName('a');
+      for(var i=0;i<as2.length;i++){
+        if((as2[i].getAttribute('href')||'').indexOf('#leistungen')>=0){
+          as2[i].onclick=function(e){
+            e.preventDefault();
+            var target=document.getElementById('leistungen');
+            if(target){
+              var top=target.getBoundingClientRect().top+window.pageYOffset-66;
+              window.scrollTo({top:top,behavior:'smooth'});
+            }
+          };
+        }
+      }
+    }
 
     drawL('');
     setupBurger();
   }
 
+  /* Draw language list - FIXED: proper single-quote escaping */
   function drawL(q){
-    var el=document.getElementById('nbll');if(!el)return;
+    var el=document.getElementById('nbll');
+    if(!el)return;
+    var ql=q?q.toLowerCase().trim():'';
     var html='';
     for(var i=0;i<LL.length;i++){
       var x=LL[i];
-      if(q&&x[2].toLowerCase().indexOf(q)<0&&x[0].indexOf(q)<0)continue;
-      html+='<button class="nb-lo'+(x[0]===cur?' cur':'')+'" onclick="nbSel(''+x[0]+'')">'+x[1]+' '+x[2]+'</button>';
+      /* x = [code, flag, ownName, deName, enName] */
+      var own=x[2], de=x[3], en=x[4];
+      var displayName=own; /* default: own language name */
+      if(ql){
+        var matchOwn=own.toLowerCase().indexOf(ql)>=0;
+        var matchDe=de.toLowerCase().indexOf(ql)>=0;
+        var matchEn=en.toLowerCase().indexOf(ql)>=0;
+        var matchCode=x[0].indexOf(ql)>=0;
+        if(!matchOwn&&!matchDe&&!matchEn&&!matchCode)continue;
+        /* Show the name that matched - prefer own, then DE, then EN */
+        /* But only switch if the match is UNIQUE to that name */
+        if(matchDe&&!matchOwn&&!matchCode){displayName=de;}
+        else if(matchEn&&!matchOwn&&!matchDe&&!matchCode){displayName=en;}
+        /* If typed matches own → show own (already default) */
+      }
+      var active=(x[0]===cur)?' cur':'';
+      /* Show flag + chosen name. If showing non-own name, hint own in grey */
+      var label=displayName;
+      if(displayName!==own){
+        label+=' <span style="color:#7a95a8;font-size:.76rem">('+own+')</span>';
+      }
+      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+' '+label+'</button>';
     }
     if(!html)html='<div class="nb-nf">Nicht gefunden</div>';
     el.innerHTML=html;
+    var btns=el.getElementsByTagName('button');
+    for(var i=0;i<btns.length;i++){
+      btns[i].onclick=function(e){
+        e.stopPropagation();
+        nbSel(this.getAttribute('data-code'));
+      };
+    }
   }
 
   window.nbSel=function(code){
-    var ll=findL(code);if(!ll)return;
+    var ll=findL(code);
+    if(!ll)return;
     cur=code;
-    var lc=document.getElementById('nblc');if(lc)lc.textContent=ll[1]+' '+code.toUpperCase();
-    var w=document.getElementById('nblw');if(w)w.className=w.className.replace(/\bop\b/,'').trim();
+    var lc=document.getElementById('nblc');
+    if(lc)lc.textContent=ll[1]+' '+ll[2];
+    var w=document.getElementById('nblw');
+    if(w)w.className='nb-lw';
     location.href=urlWith(code);
   };
 
@@ -293,27 +404,48 @@ footer a{color:var(--cyan);text-decoration:none}
     if(!b||!m)return;
     b.onclick=function(e){
       e.stopPropagation();
-      var op=b.className.indexOf('open')>=0;
-      if(op){b.className=b.className.replace(/\bopen\b/,'').trim();m.className=m.className.replace(/\bopen\b/,'').trim();}
-      else{b.className+=' open';m.className+=' open';}
+      var isOpen=b.className.indexOf('open')>=0;
+      if(isOpen){
+        b.className=b.className.replace(/\bopen\b/,'').trim();
+        m.className=m.className.replace(/\bopen\b/,'').trim();
+      } else {
+        b.className=(b.className+' open').trim();
+        m.className=(m.className+' open').trim();
+      }
     };
     var as=m.getElementsByTagName('a');
-    for(var i=0;i<as.length;i++){as[i].onclick=function(){b.className=b.className.replace(/\bopen\b/,'').trim();m.className=m.className.replace(/\bopen\b/,'').trim();};}
+    for(var i=0;i<as.length;i++){
+      as[i].onclick=function(){
+        b.className=b.className.replace(/\bopen\b/,'').trim();
+        m.className=m.className.replace(/\bopen\b/,'').trim();
+      };
+    }
+    /* Close on outside click (don't override document.onclick above) */
+    document.addEventListener('click',function(e){
+      var t=e.target||e.srcElement;
+      if(!isIn(b,t)&&!isIn(m,t)){
+        b.className=b.className.replace(/\bopen\b/,'').trim();
+        m.className=m.className.replace(/\bopen\b/,'').trim();
+      }
+    });
   }
 
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
-  else{init();}
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>
 <div class="pg">
 <div class="fw">
 <div class="fh">
-  <p class="sl">Kontakt</p>
-  <h1 class="ft">Anfrage senden</h1>
+  <p class="sl" data-i18n="contact.label">Kontakt</p>
+  <h1 class="ft" data-i18n="contact.title">Anfrage senden</h1>
   <p class="fs">Beschreib dein Anliegen. Wir melden uns innerhalb von 24 Stunden.</p>
 </div>
 <div class="pb"><div class="pf" id="pf"></div></div>
-<div class="pl" id="plbl">0 von 5 Pflichtfeldern ausgef&uuml;llt</div>
+<div class="pl" id="plbl">0 von 7 Pflichtfeldern ausgef&uuml;llt</div>
 
 <form id="kform" netlify name="contact" method="POST" novalidate>
 <input type="hidden" name="form-name" value="contact"/>
@@ -336,15 +468,15 @@ footer a{color:var(--cyan);text-decoration:none}
 </div>
 
 <div class="row c2">
-  <div class="fi" id="f-vn"><label for="vn">Vorname <span class="rq">*</span></label><input type="text" name="vorname" id="vn" placeholder="Max" oninput="lv(this,'vn')" onblur="lv(this,'vn')"/><span class="vi">&#10003;</span><span class="fe">Bitte Vorname eingeben</span></div>
-  <div class="fi" id="f-nn"><label for="nn">Nachname <span class="rq">*</span></label><input type="text" name="nachname" id="nn" placeholder="Mustermann" oninput="lv(this,'nn')" onblur="lv(this,'nn')"/><span class="vi">&#10003;</span><span class="fe">Bitte Nachname eingeben</span></div>
+  <div class="fi" id="f-vn"><label for="vn">Vorname <span class="rq">*</span></label><input type="text" name="vorname" id="vn" placeholder="Max"/><span class="vi">&#10003;</span><span class="fe">Bitte Vorname eingeben</span></div>
+  <div class="fi" id="f-nn"><label for="nn">Nachname <span class="rq">*</span></label><input type="text" name="nachname" id="nn" placeholder="Mustermann"/><span class="vi">&#10003;</span><span class="fe">Bitte Nachname eingeben</span></div>
 </div>
 <div class="row">
   <div class="fi"><label for="fa">Firma / Organisation</label><input type="text" name="firma" id="fa" placeholder="Optional"/></div>
 </div>
 <div class="row c2">
-  <div class="fi" id="f-em"><label for="em">E-Mail <span class="rq">*</span></label><input type="email" name="email" id="em" placeholder="max@firma.de" oninput="lv(this,'em')" onblur="lv(this,'em')"/><span class="vi">&#10003;</span><span class="fe" id="eme">G&uuml;ltige E-Mail eingeben</span></div>
-  <div class="fi" id="f-tel"><label for="tel">Telefon <span class="rq">*</span></label><input type="tel" name="telefon" id="tel" placeholder="0151 12345678" oninput="ftel(this)" onblur="lv(this,'tel')"/><span class="vi">&#10003;</span><span class="fe" id="tele">DE Nummer oder international mit +</span><span class="fh2">z.B. 0151 23456789 oder +44 7911 123456</span></div>
+  <div class="fi" id="f-em"><label for="em">E-Mail <span class="rq">*</span></label><input type="email" name="email" id="em" placeholder="max@firma.de"/><span class="vi">&#10003;</span><span class="fe" id="eme">G&uuml;ltige E-Mail eingeben</span></div>
+  <div class="fi" id="f-tel"><label for="tel">Telefon <span class="rq">*</span></label><input type="tel" name="telefon" id="tel" placeholder="0151 12345678" oninput="ftel(this)"/><span class="vi">&#10003;</span><span class="fe" id="tele">DE Nummer oder international mit +</span><span class="fh2">z.B. 0151 23456789 oder +44 7911 123456</span></div>
 </div>
 <div class="row c3">
   <div class="fi"><label for="str">Stra&szlig;e und Hausnummer</label><input type="text" name="strasse" id="str" placeholder="Musterstra&szlig;e 1"/></div>
@@ -352,7 +484,23 @@ footer a{color:var(--cyan);text-decoration:none}
 </div>
 <div class="row c2">
   <div class="fi"><label for="ort">Ort</label><input type="text" name="ort" id="ort" placeholder="Musterstadt"/></div>
-  <div class="fi"><label for="land">Land</label><input type="text" name="land" id="land" placeholder="Deutschland"/></div>
+  <div class="fi">
+  <label>Land</label>
+  <div class="nb-lw" id="ctr-wrap" style="position:relative;width:100%">
+    <div id="ctr-btn" style="display:flex;align-items:center;gap:8px;cursor:pointer;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:.7rem 1rem;color:var(--light);font-size:.95rem;transition:border-color .2s;user-select:none" onclick="ctrToggle(event)">
+      <span id="ctr-flag" style="font-size:1.1rem">&#127465;&#127466;</span>
+      <span id="ctr-name" style="flex:1">Deutschland</span>
+      <svg id="ctr-chev" style="width:12px;height:12px;stroke:#7a95a8;fill:none;stroke-width:2;transition:transform .2s;flex-shrink:0" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <input type="hidden" name="land" id="land" value="Deutschland"/>
+    <div id="ctr-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1c2633;border:1px solid rgba(70,185,200,.2);border-radius:10px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:500">
+      <div style="padding:7px 7px 3px;border-bottom:1px solid rgba(255,255,255,.07)">
+        <input type="text" id="ctr-search" placeholder="Land suchen..." autocomplete="off" style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.35rem .65rem;color:#fff;font-size:.8rem;font-family:inherit;outline:none" oninput="ctrFilter(this.value)" onclick="event.stopPropagation()"/>
+      </div>
+      <div id="ctr-list" style="max-height:220px;overflow-y:auto;padding:3px 0"></div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="row">
   <div class="fi" id="f-ls"><label for="ls">Betreffende Leistung <span class="rq">*</span></label>
@@ -360,7 +508,7 @@ footer a{color:var(--cyan);text-decoration:none}
 </div>
 <div class="row">
   <div class="fi" id="f-msg"><label for="msg">Nachricht <span class="rq">*</span></label>
-  <textarea name="nachricht" id="msg" placeholder="Beschreib dein Anliegen so detailliert wie m&ouml;glich." maxlength="2000" oninput="ucc();lv(this,'msg')" onblur="lv(this,'msg')"></textarea>
+  <textarea name="nachricht" id="msg" placeholder="Beschreib dein Anliegen so detailliert wie m&ouml;glich." maxlength="2000" oninput="ucc()"></textarea>
   <div class="cc" id="cc">0 / 2000 Zeichen</div><span class="fe">Bitte eine Nachricht eingeben</span></div>
 </div>
 <div class="sr">
@@ -403,77 +551,353 @@ footer a{color:var(--cyan);text-decoration:none}
 </div>
 <footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">&copy; WERK<strong style="color:var(--cyan)">BYTE</strong> &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
 <script>
+var COUNTRIES=[
+['🇩🇪','Deutschland'],
+['🇦🇹','Österreich'],
+['🇨🇭','Schweiz'],
+['🇬🇧','Vereinigtes Königreich'],
+['🇺🇸','USA'],
+['🇫🇷','Frankreich'],
+['🇮🇹','Italien'],
+['🇪🇸','Spanien'],
+['🇳🇱','Niederlande'],
+['🇧🇪','Belgien'],
+['🇵🇱','Polen'],
+['🇨🇿','Tschechien'],
+['🇸🇰','Slowakei'],
+['🇭🇺','Ungarn'],
+['🇷🇴','Rumänien'],
+['🇧🇬','Bulgarien'],
+['🇭🇷','Kroatien'],
+['🇸🇪','Schweden'],
+['🇳🇴','Norwegen'],
+['🇩🇰','Dänemark'],
+['🇫🇮','Finnland'],
+['🇵🇹','Portugal'],
+['🇬🇷','Griechenland'],
+['🇹🇷','Türkei'],
+['🇺🇦','Ukraine'],
+['🇷🇺','Russland'],
+['🇨🇦','Kanada'],
+['🇧🇷','Brasilien'],
+['🇦🇺','Australien'],
+['🇨🇳','China'],
+['🇯🇵','Japan'],
+['🇰🇷','Südkorea'],
+['🇮🇳','Indien'],
+['🇸🇦','Saudi-Arabien'],
+['🇦🇪','VAE'],
+['🇸🇬','Singapur'],
+['🇿🇦','Südafrika']
+];
+
+function ctrBuild(q){
+  var el=document.getElementById('ctr-list');
+  if(!el)return;
+  el.innerHTML='';
+  var curVal=document.getElementById('land').value||'Deutschland';
+  for(var i=0;i<COUNTRIES.length;i++){
+    var flag=COUNTRIES[i][0],name=COUNTRIES[i][1];
+    if(q&&name.toLowerCase().indexOf(q.toLowerCase())<0)continue;
+    var btn=document.createElement('button');
+    btn.type='button';
+    btn.setAttribute('data-flag',flag);
+    btn.setAttribute('data-name',name);
+    var isCur=name===curVal;
+    btn.style.cssText='display:flex;align-items:center;gap:9px;padding:.45rem .9rem;font-size:.83rem;color:'+(isCur?'#46b9c8':'#7a95a8')+';background:none;border:none;width:100%;text-align:left;cursor:pointer;font-family:inherit;'+(isCur?'font-weight:600':'');
+    btn.innerHTML=flag+' '+name;
+    btn.onclick=function(){ctrSelect(this.getAttribute('data-flag'),this.getAttribute('data-name'));};
+    el.appendChild(btn);
+  }
+  if(el.children.length===0){
+    el.innerHTML='<div style="padding:.75rem .9rem;font-size:.8rem;color:#7a95a8;text-align:center">Nicht gefunden</div>';
+  }
+}
+
+function ctrToggle(e){
+  e.stopPropagation();
+  var dd=document.getElementById('ctr-dd');
+  var chev=document.getElementById('ctr-chev');
+  if(!dd)return;
+  var isOpen=dd.style.display==='block';
+  if(isOpen){
+    dd.style.display='none';
+    if(chev)chev.style.transform='';
+  }else{
+    dd.style.display='block';
+    if(chev)chev.style.transform='rotate(180deg)';
+    ctrBuild('');
+    setTimeout(function(){
+      var s=document.getElementById('ctr-search');
+      if(s){s.value='';s.focus();}
+    },60);
+  }
+}
+
+function ctrFilter(q){ctrBuild(q);}
+
+function ctrSelect(flag,name){
+  var flagEl=document.getElementById('ctr-flag');
+  var nameEl=document.getElementById('ctr-name');
+  var inp=document.getElementById('land');
+  var dd=document.getElementById('ctr-dd');
+  var chev=document.getElementById('ctr-chev');
+  var btn=document.getElementById('ctr-btn');
+  if(flagEl)flagEl.textContent=flag;
+  if(nameEl)nameEl.textContent=name;
+  if(inp)inp.value=name;
+  if(dd)dd.style.display='none';
+  if(chev)chev.style.transform='';
+  if(btn)btn.style.borderColor='rgba(70,185,200,.4)';
+  if(typeof saveDraft==='function')saveDraft();
+}
+
+document.addEventListener('click',function(e){
+  var dd=document.getElementById('ctr-dd');
+  var btn=document.getElementById('ctr-btn');
+  if(!dd||dd.style.display!=='block')return;
+  var t=e.target||e.srcElement;
+  var inBtn=btn&&(btn===t||btn.contains(t));
+  var inDd=dd===t||dd.contains(t);
+  if(!inBtn&&!inDd){
+    dd.style.display='none';
+    var chev=document.getElementById('ctr-chev');
+    if(chev)chev.style.transform='';
+  }
+});
+</script>
+
+<script>
+/* ── FORM STATE ── */
 var REQS=['vn','nn','em','tel','ls','msg'];
 var fs={};
 var aok=false;
-var TIC='TK'+'XXXXXX'.replace(/X/g,function(){return'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)];});
-var VTLD=new Set(['de','com','net','org','info','biz','eu','io','co','uk','at','ch','fr','es','it','nl','pl','ru','se','no','dk','fi','be','pt','cz','sk','hu','ro','bg','hr','si','ee','lt','lv','gr','tr','ae','sa','jp','cn','kr','in','au','nz','ca','mx','br','za','us','gov','edu','mobi','tv','me','online','shop','store','app','dev','tech','digital','gmbh','company','services']);
+var TOUCHED={};  /* track which fields user has interacted with */
 
-document.querySelectorAll('.ab').forEach(function(b){
-  b.onclick=function(){
-    document.querySelectorAll('.ab').forEach(function(x){x.classList.remove('sel','err');});
-    b.classList.add('sel');
-    document.getElementById('anr').value=b.dataset.v;
-    document.getElementById('aerr').classList.remove('on');
-    aok=true;upd();
+/* ── TICKET SYSTEM ──
+   Format: WB-YYYYMMDD-XXXXX
+   WB prefix, date for ordering, 5 base-32 chars = 32^5 = 33 million combos per day
+   Stored in localStorage to avoid duplicates within same browser session
+   After submit: permanently blocked for this browser
+*/
+function genTicket(){
+  var d=new Date();
+  var yyyy=d.getFullYear();
+  var mm=String(d.getMonth()+1).padStart(2,'0');
+  var dd2=String(d.getDate()).padStart(2,'0');
+  var date=yyyy+mm+dd2;
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var used=[];
+  try{var s=localStorage.getItem('wb_tickets');if(s)used=JSON.parse(s);}catch(e){}
+  var ticket,tries=0;
+  do{
+    var rand='';
+    for(var i=0;i<5;i++)rand+=chars[Math.floor(Math.random()*32)];
+    ticket='WB-'+date+'-'+rand;
+    tries++;
+  }while(used.indexOf(ticket)>=0&&tries<100);
+  return ticket;
+}
+
+function lockTicket(ticket){
+  var used=[];
+  try{var s=localStorage.getItem('wb_tickets');if(s)used=JSON.parse(s);}catch(e){}
+  used.push(ticket);
+  try{localStorage.setItem('wb_tickets',JSON.stringify(used));}catch(e){}
+}
+
+/* ── FORM PERSISTENCE ── 
+   Save form state to sessionStorage, restore on load
+   Cleared after successful submit or after 24h
+*/
+var FORM_KEY='wb_form_draft';
+
+function saveDraft(){
+  var data={
+    ts:Date.now(),
+    anrede:document.getElementById('anr')?document.getElementById('anr').value:'',
+    vn:document.getElementById('vn')?document.getElementById('vn').value:'',
+    nn:document.getElementById('nn')?document.getElementById('nn').value:'',
+    fa:document.getElementById('fa')?document.getElementById('fa').value:'',
+    em:document.getElementById('em')?document.getElementById('em').value:'',
+    tel:document.getElementById('tel')?document.getElementById('tel').value:'',
+    str:document.getElementById('str')?document.getElementById('str').value:'',
+    plz:document.getElementById('plz')?document.getElementById('plz').value:'',
+    ort:document.getElementById('ort')?document.getElementById('ort').value:'',
+    land:document.getElementById('land')?document.getElementById('land').value:'Deutschland',
+    ls:document.getElementById('ls')?document.getElementById('ls').value:'',
+    msg:document.getElementById('msg')?document.getElementById('msg').value:''
   };
-});
+  try{sessionStorage.setItem(FORM_KEY,JSON.stringify(data));}catch(e){}
+}
+
+function loadDraft(){
+  try{
+    var s=sessionStorage.getItem(FORM_KEY);
+    if(!s)return;
+    var data=JSON.parse(s);
+    /* Expire after 24 hours */
+    if(Date.now()-data.ts>86400000){sessionStorage.removeItem(FORM_KEY);return;}
+    if(data.vn){var el=document.getElementById('vn');if(el)el.value=data.vn;}
+    if(data.nn){var el=document.getElementById('nn');if(el)el.value=data.nn;}
+    if(data.fa){var el=document.getElementById('fa');if(el)el.value=data.fa;}
+    if(data.em){var el=document.getElementById('em');if(el)el.value=data.em;}
+    if(data.tel){var el=document.getElementById('tel');if(el)el.value=data.tel;}
+    if(data.str){var el=document.getElementById('str');if(el)el.value=data.str;}
+    if(data.plz){var el=document.getElementById('plz');if(el)el.value=data.plz;}
+    if(data.ort){var el=document.getElementById('ort');if(el)el.value=data.ort;}
+    if(data.ls&&data.ls!==''){
+      var el=document.getElementById('ls');
+      if(el){el.value=data.ls;}
+    }
+    if(data.msg){var el=document.getElementById('msg');if(el){el.value=data.msg;ucc();}}
+    if(data.land&&data.land!=='Deutschland'){
+      var el=document.getElementById('land');
+      if(el)el.value=data.land;
+      /* Update display */
+      for(var i=0;i<COUNTRIES.length;i++){
+        if(COUNTRIES[i][1]===data.land){
+          var flag=document.getElementById('land-flag');
+          var name=document.getElementById('land-name');
+          if(flag)flag.textContent=COUNTRIES[i][0];
+          if(name)name.textContent=data.land;
+          break;
+        }
+      }
+    }
+    if(data.anrede){
+      var _abs=document.getElementsByClassName('ab');for(var _ai=0;_ai<_abs.length;_ai++){(function(b){
+        if(b.dataset.v===data.anrede){
+          b.classList.add('sel');
+          document.getElementById('anr').value=data.anrede;
+          aok=true;
+        }
+      });
+    }
+  }catch(e){}
+}
+
+/* ── EMAIL VALIDATION ──
+   Rules:
+   - local part: only alphanumeric, dots, hyphens, underscores, plus
+   - NO umlauts (ä,ö,ü etc), NO commas, NO special chars
+   - @ required, exactly once
+   - domain: alphanumeric + hyphens only
+   - TLD: known list, 2-6 chars, letters only
+*/
+var VTLD=['de','com','net','org','info','biz','eu','io','co','uk','at','ch','fr','es',
+'it','nl','pl','ru','se','no','dk','fi','be','pt','cz','sk','hu','ro','bg','hr','si',
+'ee','lt','lv','gr','tr','ae','sa','jp','cn','kr','in','au','nz','ca','mx','br','za',
+'us','gov','edu','mobi','tv','me','online','shop','store','app','dev','tech','gmbh',
+'company','services','email','digital','international','engineering','solutions',
+'consulting','industries','systems','global','group','pro','work','cloud','ai','io'];
+
+function isValidEmail(v){
+  v=(v||'').trim();
+  /* Basic structure check */
+  if(!v)return{ok:false,msg:'E-Mail eingeben'};
+  /* Must have exactly one @ */
+  var parts=v.split('@');
+  if(parts.length!==2)return{ok:false,msg:'Genau ein @-Zeichen erforderlich'};
+  var local=parts[0], domain=parts[1];
+  /* Local part: only a-z, A-Z, 0-9, . - _ + */
+  if(!/^[a-zA-Z0-9.\-_+]+$/.test(local))return{ok:false,msg:'Ungültige Zeichen vor @'};
+  if(local.length<1)return{ok:false,msg:'Nichts vor @'};
+  /* Domain: must have at least one dot */
+  if(domain.indexOf('.')<0)return{ok:false,msg:'Domain ungültig'};
+  /* Domain parts: only a-z, 0-9, hyphens */
+  var dparts=domain.split('.');
+  for(var i=0;i<dparts.length;i++){
+    if(!/^[a-zA-Z0-9\-]+$/.test(dparts[i]))return{ok:false,msg:'Domain enthält ungültige Zeichen'};
+    if(dparts[i].length<1)return{ok:false,msg:'Domain ungültig (Doppelpunkt)'};
+  }
+  /* TLD check */
+  var tld=dparts[dparts.length-1].toLowerCase();
+  if(!/^[a-z]{2,6}$/.test(tld))return{ok:false,msg:'Ungültige Endung ".'+tld+'"'};
+  var knownTld=false;
+  for(var i=0;i<VTLD.length;i++){if(VTLD[i]===tld){knownTld=true;break;}}
+  if(!knownTld)return{ok:false,msg:'Unbekannte Endung ".'+tld+'"'};
+  return{ok:true};
+}
 
 function isok(id,v){
   v=(v||'').trim();
-  if(id==='em'){
-    var m=v.match(/^[^@\s]+@([^@\s.]+\.)+([a-z]{2,})$/i);
-    if(!m)return{ok:false,msg:'Format ungültig'};
-    if(!VTLD.has(m[2].toLowerCase()))return{ok:false,msg:'Unbekannte Endung ".'+m[2]+'"'};
-    return{ok:true};
-  }
+  if(id==='em')return isValidEmail(v);
   if(id==='tel'){
-    if(!v.startsWith('0')&&!v.startsWith('+'))return{ok:false,msg:'Mit 0 oder + beginnen'};
+    if(!v)return{ok:false,msg:'Telefonnummer eingeben'};
+    if(v.charAt(0)!=='0'&&v.charAt(0)!=='+')return{ok:false,msg:'Mit 0 oder + beginnen'};
     var d=v.replace(/\D/g,'');
     if(d.length<6)return{ok:false,msg:'Zu kurz'};
     if(d.length>15)return{ok:false,msg:'Zu lang'};
     return{ok:true};
   }
-  return{ok:v.length>0};
+  if(id==='ls')return{ok:v.length>0,msg:'Bitte Leistung wählen'};
+  return{ok:v.length>0,msg:'Pflichtfeld'};
 }
+
+/* Anrede buttons */
+var _abs=document.getElementsByClassName('ab');for(var _ai=0;_ai<_abs.length;_ai++){(function(b){
+  b.onclick=function(){
+    var _xs=document.getElementsByClassName('ab');for(var _xi=0;_xi<_xs.length;_xi++){_xs[_xi].classList.remove('sel','err');}
+    b.classList.add('sel');
+    document.getElementById('anr').value=b.dataset.v;
+    document.getElementById('aerr').classList.remove('on');
+    aok=true;
+    upd();
+    saveDraft();
+  };
+})(_abs[_ai]);}
 
 function ftel(el){
   var v=el.value,d=v.replace(/\D/g,'');
-  if(v.startsWith('0')&&!v.startsWith('00')){
+  if(v.charAt(0)==='0'&&v.charAt(1)!=='0'){
     if(d.length<=4)v=d;
     else if(d.length<=8)v=d.slice(0,4)+' '+d.slice(4);
     else v=d.slice(0,4)+' '+d.slice(4,8)+' '+d.slice(8,12);
-  }else if(v.startsWith('+')){
+  } else if(v.charAt(0)==='+'){
     if(d.length>2)v='+'+d.slice(0,2)+' '+d.slice(2,6)+(d.length>6?' '+d.slice(6,12):'');
   }
-  el.value=v.trim();lv(el,'tel');
+  el.value=v.trim();
+  saveDraft();
 }
 
 function setf(id,ok,msg){
   var f=document.getElementById('f-'+id);
   if(!f)return;
-  f.classList.toggle('ok',ok);f.classList.toggle('ko',!ok);
-  var vi=f.querySelector('.vi');if(vi)vi.textContent=ok?'✓':'✗';
+  if(ok){f.classList.add('ok');}else{f.classList.remove('ok');};
+  if(!ok){f.classList.add('ko');}else{f.classList.remove('ko');};
+  var ic=f.querySelector('.vi');
+  if(ic)ic.textContent=ok?'✓':'✗';
   if(!ok&&msg){var fe=f.querySelector('.fe');if(fe)fe.textContent=msg;}
   fs[id]=ok;
 }
 
+/* lv = validate field - only called on blur or submit, NOT on input */
 function lv(el,id){
-  if(!el.value&&!el.dataset.t)return;
+  TOUCHED[id]=true;
   el.dataset.t='1';
   var r=isok(id,el.value);
-  el.classList.toggle('vok',r.ok);el.classList.toggle('vko',!r.ok);
-  setf(id,r.ok,r.msg);upd();
+  if(r.ok){el.classList.add('vok');}else{el.classList.remove('vok');};
+  if(!r.ok){el.classList.add('vko');}else{el.classList.remove('vko');};
+  setf(id,r.ok,r.msg||'');
+  upd();
+  saveDraft();
 }
 
 function lvs(el,id){
+  TOUCHED[id]=true;
   var ok=el.value!=='';
-  el.classList.toggle('vok',ok);setf(id,ok,'');upd();
+  if(ok){el.classList.add('vok');}else{el.classList.remove('vok');};
+  if(!ok){el.classList.add('vko');}else{el.classList.remove('vko');};
+  setf(id,ok,'');
+  upd();
+  saveDraft();
 }
 
 function ucc(){
   var n=document.getElementById('msg').value.length;
   document.getElementById('cc').textContent=n+' / 2000 Zeichen';
+  saveDraft();
 }
 
 function upd(){
@@ -481,22 +905,62 @@ function upd(){
   var tot=REQS.length+1;
   document.getElementById('pf').style.width=Math.round(done/tot*100)+'%';
   document.getElementById('plbl').textContent=done+' von '+tot+' Pflichtfeldern ausgefüllt';
-  document.getElementById('sb').disabled=!(REQS.every(function(x){return fs[x];})||false)||!aok||!REQS.every(function(x){return fs[x];});
   document.getElementById('sb').disabled=!(REQS.every(function(x){return fs[x];})&&aok);
 }
+
+/* Add blur handlers to all text inputs */
+window.addEventListener('load',function(){
+  var _fids=['vn','nn','em','tel','msg'];
+  for(var _fi=0;_fi<_fids.length;_fi++){
+    (function(id){
+      var el=document.getElementById(id);
+      if(el){
+        el.addEventListener('blur',function(){lv(this,id);});
+        el.addEventListener('input',function(){
+          if(TOUCHED[id]){lv(this,id);}
+          saveDraft();
+        });
+      }
+    })(_fids[_fi]);
+  }
+  var ls=document.getElementById('ls');
+  if(ls)ls.addEventListener('change',function(){lvs(this,'ls');});
+  loadDraft();
+  upd();
+});
 
 document.getElementById('kform').addEventListener('submit',function(e){
   e.preventDefault();
   var ok=true;
-  if(!aok){document.getElementById('aerr').classList.add('on');document.querySelectorAll('.ab').forEach(function(b){b.classList.add('err');});ok=false;}
-  REQS.forEach(function(id){
-    var el=document.getElementById(id);if(!el)return;
-    el.dataset.t='1';var r=isok(id,el.value);
-    el.classList.toggle('vok',r.ok);el.classList.toggle('vko',!r.ok);
-    setf(id,r.ok,r.msg);if(!r.ok)ok=false;
-  });
+  if(!aok){
+    document.getElementById('aerr').classList.add('on');
+    var _abs=document.getElementsByClassName('ab');for(var _ai=0;_ai<_abs.length;_ai++){(function(b){b.classList.add('err');});
+    ok=false;
+  }
+  for(var _ri=0;_ri<REQS.length;_ri++){
+    var id=REQS[_ri];
+    var el=document.getElementById(id);
+    if(!el)continue;
+    TOUCHED[id]=true;
+    el.dataset.t='1';
+    var r=isok(id,el.value);
+    if(r.ok){el.classList.add('vok');}else{el.classList.remove('vok');};
+    if(!r.ok){el.classList.add('vko');}else{el.classList.remove('vko');};
+    setf(id,r.ok,r.msg||'');
+    if(!r.ok)ok=false;
+  }
   upd();
-  if(!ok){var f=document.querySelector('.vko,.ab.err');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  if(!ok){
+    var f=document.querySelector('.vko,.ab.err');
+    if(f)f.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  /* Generate ticket ONLY on submit */
+  var TIC=genTicket();
+  lockTicket(TIC);
+  /* Clear draft after successful submit */
+  try{sessionStorage.removeItem(FORM_KEY);}catch(e){}
+
   var ls=document.getElementById('ls').value||'Allgemeine Anfrage';
   var fi=document.getElementById('fa').value.trim();
   var sub='['+ls+'] #'+TIC+(fi?' | '+fi:'');
@@ -504,12 +968,13 @@ document.getElementById('kform').addEventListener('submit',function(e){
   document.getElementById('hbtr').value=sub;
   var fd=new FormData(this);
   fetch('/',{method:'POST',body:fd}).catch(function(){});
-  showConf(sub);
+  showConf(sub,TIC);
 });
 
-function showConf(sub){
-  var n=new Date(),pad=function(x){return String(x).padStart(2,'0');};
-  document.getElementById('ctid').textContent=TIC;
+function showConf(sub,tic){
+  var n=new Date();
+  function pad(x){return String(x).padStart(2,'0');}
+  document.getElementById('ctid').textContent=tic;
   document.getElementById('cdt').textContent=pad(n.getDate())+'.'+pad(n.getMonth()+1)+'.'+n.getFullYear();
   document.getElementById('ctm').textContent=pad(n.getHours())+':'+pad(n.getMinutes());
   document.getElementById('csub').textContent=sub;
@@ -518,15 +983,171 @@ function showConf(sub){
   document.getElementById('cem').textContent=document.getElementById('em').value;
   document.getElementById('ctel').textContent=document.getElementById('tel').value;
   var fi=document.getElementById('fa').value.trim();
-  if(fi){document.getElementById('cfa').textContent=fi;}else{document.getElementById('cfw').style.display='none';}
+  if(fi){document.getElementById('cfa').textContent=fi;}
+  else{var cfw=document.getElementById('cfw');if(cfw)cfw.style.display='none';}
   document.getElementById('cls').textContent=document.getElementById('ls').value||'Keine Angabe';
-  var ad=[document.getElementById('str').value,document.getElementById('plz').value+' '+document.getElementById('ort').value,document.getElementById('land').value].map(function(x){return x.trim();}).filter(Boolean).join(', ');
-  if(ad){document.getElementById('cad').textContent=ad;}else{document.getElementById('cadw').style.display='none';}
+  var ad=[
+    document.getElementById('str').value,
+    (document.getElementById('plz').value+' '+document.getElementById('ort').value).trim(),
+    document.getElementById('land').value
+  ].map(function(x){return(x||'').trim();}).filter(Boolean).join(', ');
+  if(ad){document.getElementById('cad').textContent=ad;}
+  else{var cadw=document.getElementById('cadw');if(cadw)cadw.style.display='none';}
   document.getElementById('cmsg').textContent=document.getElementById('msg').value;
   document.getElementById('kform').style.display='none';
   document.getElementById('cfp').style.display='block';
+  var fh=document.querySelector('.fh');if(fh)fh.style.display='none';
+  var pb=document.querySelector('.pb');if(pb)pb.style.display='none';
+  var pl=document.getElementById('plbl');if(pl)pl.style.display='none';
   window.scrollTo({top:0,behavior:'smooth'});
 }
+</script>
+
+
+<script>
+;(function(){
+
+var T={
+  de:{
+    /* NAV */
+    'nav.start':'Startseite',
+    'nav.about':'Über Uns',
+    'nav.services':'Leistungen',
+    'nav.contact':'Kontakt',
+    'nav.cta':'Anfrage senden →',
+    /* INDEX - Hero */
+    'hero.badge':'IRATA ZERTIFIZIERT · WELTWEIT',
+    'hero.h1a':'Industrieklettern &amp;',
+    'hero.h1b':'Maschinenservice',
+    'hero.sub':'Flexibel. Sicher. Weltweit einsatzbereit.',
+    'hero.desc':'Wir realisieren Montage, Wartung und Servicearbeiten an Industrieanlagen in schwer zugänglichen Bereichen. Sicher, effizient und ohne Gerüst oder Bühne.',
+    'hero.btn1':'Anfrage senden',
+    'hero.btn2':'Unsere Leistungen',
+    /* INDEX - Leistungen */
+    'serv.label':'Was wir tun',
+    'serv.title':'Unsere Leistungen',
+    'serv.sub':'Professionelle Höhenarbeit und Industriemontage',
+    'serv.1.title':'Höhenarbeiten',
+    'serv.1.desc':'Industriekletterarbeiten für Montage, Wartung, Inspektion und Reinigung an Anlagen, Bauwerken und schwer zugänglichen Bereichen.',
+    'serv.2.title':'Maschinenwartung',
+    'serv.2.desc':'Industrieller Service für Maschinen und Anlagen. Von Inspektion und Wartung über Reparatur bis zur Inbetriebnahme.',
+    'serv.3.title':'Homogenisatoren',
+    'serv.3.desc':'Service für Hochdruck-Homogenisatoren verschiedener Hersteller: Wartung, Diagnose, Reparatur, Störungsbehebung und Montage.',
+    /* INDEX - Sicherheit */
+    'safe.1.title':'Sicherheit &amp; Qualität',
+    'safe.2.title':'Warum <span style="color:var(--cyan)">WERK</span>BYTE?',
+    'safe.band':'Unsere Leistungen richten sich an <strong style="color:var(--white)">Industrie, Anlagenbetreiber, Gewerbebkunden</strong> und <strong style="color:var(--white)">technische Dienstleister</strong>',
+    /* CONTACT */
+    'contact.label':'Kontakt',
+    'contact.title':'Anfrage senden',
+    'contact.sub':'Beschreib dein Anliegen. Wir melden uns innerhalb von 24 Stunden.',
+    /* UEBER UNS */
+    'about.label':'Wer wir sind',
+    'about.title':'Zwei Fachleute. Eine Mission.',
+    'about.sub':'Industriemechatronik trifft Höhentechnik. Wir bringen Lösungen dorthin, wo andere nicht hinkommen.',
+    /* FOOTER */
+    'footer.imp':'Impressum',
+    'footer.dat':'Datenschutz'
+  },
+  en:{
+    /* NAV */
+    'nav.start':'Home',
+    'nav.about':'About Us',
+    'nav.services':'Services',
+    'nav.contact':'Contact',
+    'nav.cta':'Send Request →',
+    /* INDEX - Hero */
+    'hero.badge':'IRATA CERTIFIED · WORLDWIDE',
+    'hero.h1a':'Industrial Climbing &amp;',
+    'hero.h1b':'Machine Service',
+    'hero.sub':'Flexible. Safe. Ready to deploy worldwide.',
+    'hero.desc':'We carry out assembly, maintenance and service work on industrial plants in hard-to-reach areas. Safe, efficient and without scaffolding or platforms.',
+    'hero.btn1':'Send Request',
+    'hero.btn2':'Our Services',
+    /* INDEX - Leistungen */
+    'serv.label':'What we do',
+    'serv.title':'Our Services',
+    'serv.sub':'Professional rope access and industrial assembly',
+    'serv.1.title':'Rope Access Work',
+    'serv.1.desc':'Industrial climbing operations for assembly, maintenance, inspection and cleaning at plants, structures and hard-to-reach areas.',
+    'serv.2.title':'Machine Maintenance',
+    'serv.2.desc':'Industrial service for machinery and plants. From inspection and maintenance to repair and commissioning.',
+    'serv.3.title':'Homogenizers',
+    'serv.3.desc':'Service for high-pressure homogenizers from various manufacturers: maintenance, diagnosis, repair, troubleshooting and assembly.',
+    /* INDEX - Sicherheit */
+    'safe.1.title':'Safety &amp; Quality',
+    'safe.2.title':'Why <span style="color:var(--cyan)">WERK</span>BYTE?',
+    'safe.band':'Our services are aimed at <strong style="color:var(--white)">industry, plant operators, commercial customers</strong> and <strong style="color:var(--white)">technical service providers</strong>',
+    /* CONTACT */
+    'contact.label':'Contact',
+    'contact.title':'Send Request',
+    'contact.sub':'Describe your concern. We will get back to you within 24 hours.',
+    /* UEBER UNS */
+    'about.label':'Who we are',
+    'about.title':'Two Experts. One Mission.',
+    'about.sub':'Industrial mechatronics meets rope access. We bring solutions where others cannot reach.',
+    /* FOOTER */
+    'footer.imp':'Legal Notice',
+    'footer.dat':'Privacy Policy'
+  }
+};
+
+function getLang(){
+  var s=location.search;
+  if(!s)return 'de';
+  var p=s.slice(1).split('&');
+  for(var i=0;i<p.length;i++){
+    var kv=p[i].split('=');
+    if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');
+  }
+  return 'de';
+}
+
+function applyTranslations(){
+  var lang=getLang();
+  if(lang==='de')return; /* DE is default, no changes needed */
+  var t=T[lang]||T['en']; /* Fall back to EN for unsupported languages */
+  /* Apply to all elements with data-i18n attribute */
+  var els=document.querySelectorAll('[data-i18n]');
+  for(var i=0;i<els.length;i++){
+    var key=els[i].getAttribute('data-i18n');
+    if(t[key]!==undefined){
+      els[i].innerHTML=t[key];
+    }
+  }
+  /* Update nav links */
+  var nblinks=document.getElementById('nblinks');
+  if(nblinks){
+    var as=nblinks.getElementsByTagName('a');
+    var keys=['nav.start','nav.about','nav.services','nav.contact'];
+    for(var i=0;i<as.length&&i<keys.length;i++){
+      if(t[keys[i]])as[i].textContent=t[keys[i]];
+    }
+  }
+  /* Update mobile menu */
+  var mob=document.getElementById('nbMob');
+  if(mob){
+    var mas=mob.getElementsByTagName('a');
+    var mkeys=['nav.start','nav.about','nav.services','nav.contact','nav.cta'];
+    var ki=0;
+    for(var i=0;i<mas.length;i++){
+      if(mas[i].className.indexOf('nb-cta')>=0){
+        if(t['nav.cta'])mas[i].textContent=t['nav.cta'];
+      } else if(ki<4){
+        if(t[mkeys[ki]])mas[i].textContent=t[mkeys[ki]];
+        ki++;
+      }
+    }
+  }
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',applyTranslations);
+} else {
+  applyTranslations();
+}
+})();
+
 </script>
 </body>
 </html>

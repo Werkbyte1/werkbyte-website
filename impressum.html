@@ -72,110 +72,221 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
 </style>
 </head>
 <body>
-<div id="pw-overlay" style="position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0d1117;flex-direction:column;gap:1.5rem;padding:2rem"><style>#pw-overlay .pwl{height:56px;margin-bottom:.5rem}#pw-overlay h2{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;text-align:center}#pw-overlay p{font-size:.9rem;color:#7a95a8;text-align:center;max-width:320px;line-height:1.6}#pwf{display:flex;flex-direction:column;gap:.8rem;width:100%;max-width:320px}#pwi{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;padding:.8rem 1.1rem;color:#fff;font-size:1rem;font-family:inherit;outline:none;text-align:center;letter-spacing:.1em;width:100%;-webkit-user-select:text!important;user-select:text!important}#pwi:focus{border-color:rgba(70,185,200,.5)}#pwi.shake{animation:pwshk .3s}@keyframes pwshk{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}#pwb{background:#46b9c8;color:#0d1117;border:none;padding:.8rem;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit}#pwe{color:#e74c3c;font-size:.82rem;text-align:center;display:none}</style><img class="pwl" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8cGF0aCBkPSJNMTAwIDU1CiAgICBMMTA4IDQ3IEwxMTYgNTIgTDExMiA2MgogICAgQzExOCA2NSAxMjMgNzAgMTI2IDc2IEwxMzYgNzQgTDE0MCA4MiBMMTMyIDg4CiAgICBDMTMzIDk0IDEzMyAxMDAgMTMyIDEwNiBMMTQwIDExMiBMMTM2IDEyMCBMMTI2IDExOAogICAgQzEyMyAxMjQgMTE4IDEyOSAxMTIgMTMyIEwxMTYgMTQyIEwxMDggMTQ3IEwxMDAgMTM5CiAgICBMOTIgMTQ3IEw4NCAxNDIgTDg4IDEzMgogICAgQzgyIDEyOSA3NyAxMjQgNzQgMTE4IEw2NCAxMjAgTDYwIDExMiBMNjggMTA2CiAgICBDNjcgMTAwIDY3IDk0IDY4IDg4IEw2MCA4MiBMNjQgNzQgTDc0IDc2CiAgICBDNzcgNzAgODIgNjUgODggNjIgTDg0IDUyIEw5MiA0NyBaIgogICAgZmlsbD0iIzQ2YjljOCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk3IiByPSIyOCIgZmlsbD0iIzBkMTExNyIvPgogIDxnIGZpbGw9IiNjOGQ4ZTAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4LDU1KSBzY2FsZSgwLjYpIj4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iOCIgcj0iNyIvPgogICAgPGVsbGlwc2UgY3g9IjE1IiBjeT0iMjgiIHJ4PSI4IiByeT0iMTQiIHRyYW5zZm9ybT0icm90YXRlKC0yMCwxNSwyOCkiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjE4IiB4Mj0iMzUiIHkyPSIxMCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPGxpbmUgeDE9IjIwIiB5MT0iMTgiIHgyPSI1IiB5Mj0iMjUiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIxNSIgeTE9IjQwIiB4Mj0iNSIgeTI9IjU1IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTUiIHkxPSI0MCIgeDI9IjI4IiB5Mj0iNTIiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9Ii00MCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8L2c+CiAgPHJlY3QgeD0iMTI1IiB5PSIzMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIzNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjE1NSIgeT0iMjgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjEzNyIgeT0iMTIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiM0NmI5YzgiIG9wYWNpdHk9IjAuNiIvPgogIDxsaW5lIHgxPSIxMDMiIHkxPSI1NSIgeDI9IjEzMiIgeTI9IjM3IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iMTgiIHk9IjE3MCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjOGQ4ZTAiIGxldHRlci1zcGFjaW5nPSIxIj5XRVJLPC90ZXh0PgogIDx0ZXh0IHg9Ijk3IiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjNDZiOWM4IiBsZXR0ZXItc3BhY2luZz0iMSI+QllURTwvdGV4dD4KPC9zdmc+" alt="WERKBYTE"/><h2>Bereich gesperrt</h2><p>Diese Seite befindet sich noch im Aufbau.<br>Bitte Passwort eingeben.</p><div id="pwf"><input id="pwi" type="password" placeholder="Passwort" autocomplete="current-password" onkeydown="if(event.key==='Enter')pwck()"/><button id="pwb" onclick="pwck()">Weiter →</button><div id="pwe">Falsches Passwort</div></div></div><script>(function(){var h="werkbyte2024";if(sessionStorage.getItem("wbpw")==="ok"){document.getElementById("pw-overlay").style.display="none";return;}window.pwck=function(){var v=document.getElementById("pwi").value;if(v===h){sessionStorage.setItem("wbpw","ok");document.getElementById("pw-overlay").style.display="none";}else{var i=document.getElementById("pwi");i.classList.remove("shake");void i.offsetWidth;i.classList.add("shake");document.getElementById("pwe").style.display="block";i.value="";}};})();</script>
-<nav id="wbnav"><a class="nb-logo" href="index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8cGF0aCBkPSJNMTAwIDU1CiAgICBMMTA4IDQ3IEwxMTYgNTIgTDExMiA2MgogICAgQzExOCA2NSAxMjMgNzAgMTI2IDc2IEwxMzYgNzQgTDE0MCA4MiBMMTMyIDg4CiAgICBDMTMzIDk0IDEzMyAxMDAgMTMyIDEwNiBMMTQwIDExMiBMMTM2IDEyMCBMMTI2IDExOAogICAgQzEyMyAxMjQgMTE4IDEyOSAxMTIgMTMyIEwxMTYgMTQyIEwxMDggMTQ3IEwxMDAgMTM5CiAgICBMOTIgMTQ3IEw4NCAxNDIgTDg4IDEzMgogICAgQzgyIDEyOSA3NyAxMjQgNzQgMTE4IEw2NCAxMjAgTDYwIDExMiBMNjggMTA2CiAgICBDNjcgMTAwIDY3IDk0IDY4IDg4IEw2MCA4MiBMNjQgNzQgTDc0IDc2CiAgICBDNzcgNzAgODIgNjUgODggNjIgTDg0IDUyIEw5MiA0NyBaIgogICAgZmlsbD0iIzQ2YjljOCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk3IiByPSIyOCIgZmlsbD0iIzBkMTExNyIvPgogIDxnIGZpbGw9IiNjOGQ4ZTAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg4LDU1KSBzY2FsZSgwLjYpIj4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iOCIgcj0iNyIvPgogICAgPGVsbGlwc2UgY3g9IjE1IiBjeT0iMjgiIHJ4PSI4IiByeT0iMTQiIHRyYW5zZm9ybT0icm90YXRlKC0yMCwxNSwyOCkiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjE4IiB4Mj0iMzUiIHkyPSIxMCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPGxpbmUgeDE9IjIwIiB5MT0iMTgiIHgyPSI1IiB5Mj0iMjUiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIxNSIgeTE9IjQwIiB4Mj0iNSIgeTI9IjU1IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTUiIHkxPSI0MCIgeDI9IjI4IiB5Mj0iNTIiIHN0cm9rZT0iI2M4ZDhlMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9Ii00MCIgc3Ryb2tlPSIjYzhkOGUwIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8L2c+CiAgPHJlY3QgeD0iMTI1IiB5PSIzMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjNDZiOWM4Ii8+CiAgPHJlY3QgeD0iMTQzIiB5PSIzNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjE1NSIgeT0iMjgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzQ2YjljOCIvPgogIDxyZWN0IHg9IjEzNyIgeT0iMTIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiM0NmI5YzgiIG9wYWNpdHk9IjAuNiIvPgogIDxsaW5lIHgxPSIxMDMiIHkxPSI1NSIgeDI9IjEzMiIgeTI9IjM3IiBzdHJva2U9IiNjOGQ4ZTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iMTgiIHk9IjE3MCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjOGQ4ZTAiIGxldHRlci1zcGFjaW5nPSIxIj5XRVJLPC90ZXh0PgogIDx0ZXh0IHg9Ijk3IiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjNDZiOWM4IiBsZXR0ZXItc3BhY2luZz0iMSI+QllURTwvdGV4dD4KPC9zdmc+" alt="WERKBYTE"/></a><ul class="nb-links" id="nblinks"><li><a href="index.html">Startseite</a></li><li><a href="ueber-uns.html">Über Uns</a></li><li><a href="index.html#leistungen">Leistungen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul><div class="nb-right"><div class="nb-lw" id="nblw"><div class="nb-lt" id="nblt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span id="nblc">🇩🇪 DE</span><svg class="nb-ch" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="nb-dd" id="nbdd"><div class="nb-si"><input type="text" id="nbsi" placeholder="Sprache / Language..." autocomplete="off"/></div><div class="nb-ll" id="nbll"></div></div></div><button class="nb-burger" id="nbBurger" aria-label="Menü"><span></span><span></span><span></span></button></div></nav>
-<div class="nb-mob" id="nbMob"><a href="index.html">Startseite</a><a href="ueber-uns.html">Über Uns</a><a href="index.html#leistungen">Leistungen</a><a href="kontakt.html">Kontakt</a><a href="kontakt.html" class="nb-cta">Anfrage senden →</a></div>
+<div id="pw-overlay" style="position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0d1117;flex-direction:column;gap:1.5rem;padding:2rem"><style>#pw-overlay .pwl{height:56px;margin-bottom:.5rem}#pw-overlay h2{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;text-align:center}#pw-overlay p{font-size:.9rem;color:#7a95a8;text-align:center;max-width:320px;line-height:1.6}#pwf{display:flex;flex-direction:column;gap:.8rem;width:100%;max-width:320px}#pwi{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;padding:.8rem 1.1rem;color:#fff;font-size:1rem;font-family:inherit;outline:none;text-align:center;letter-spacing:.1em;width:100%;-webkit-user-select:text!important;user-select:text!important}#pwi:focus{border-color:rgba(70,185,200,.5)}#pwi.shake{animation:pwshk .3s}@keyframes pwshk{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}#pwb{background:#46b9c8;color:#0d1117;border:none;padding:.8rem;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit}#pwe{color:#e74c3c;font-size:.82rem;text-align:center;display:none}</style><img class="pwl" src="logo.svg" alt="WERKBYTE"/><h2>Bereich gesperrt</h2><p>Diese Seite befindet sich noch im Aufbau.<br>Bitte Passwort eingeben.</p><div id="pwf"><input id="pwi" type="password" placeholder="Passwort" autocomplete="current-password" onkeydown="if(event.key==='Enter')pwck()"/><button id="pwb" onclick="pwck()">Weiter →</button><div id="pwe">Falsches Passwort</div></div></div><script>(function(){var h="werkbyte2024";if(sessionStorage.getItem("wbpw")==="ok"){document.getElementById("pw-overlay").style.display="none";return;}window.pwck=function(){var v=document.getElementById("pwi").value;if(v===h){sessionStorage.setItem("wbpw","ok");document.getElementById("pw-overlay").style.display="none";}else{var i=document.getElementById("pwi");i.classList.remove("shake");void i.offsetWidth;i.classList.add("shake");document.getElementById("pwe").style.display="block";i.value="";}};})();</script>
+<nav id="wbnav"><a class="nb-logo" href="index.html"><img src="logo.svg" alt="WERKBYTE" style="height:48px;width:auto;display:block"/></a><ul class="nb-links" id="nblinks"><li><a href="index.html">Startseite</a></li><li><a href="ueber-uns.html">Über Uns</a></li><li><a href="index.html#leistungen">Leistungen</a></li><li><a href="kontakt.html">Kontakt</a></li></ul><div class="nb-right"><div class="nb-lw" id="nblw"><div class="nb-lt" id="nblt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span id="nblc">🇩🇪 DE</span><svg class="nb-ch" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="nb-dd" id="nbdd"><div class="nb-si"><input type="text" id="nbsi" placeholder="Sprache / Language..." autocomplete="off"/></div><div class="nb-ll" id="nbll"></div></div></div><button class="nb-burger" id="nbBurger" aria-label="Menü"><span></span><span></span><span></span></button></div></nav>
+<div class="nb-mob" id="nbMob"><a href="index.html">Startseite</a><a href="ueber-uns.html">Über Uns</a><a href="index.html#leistungen">Leistungen</a><a href="kontakt.html">Kontakt</a></div>
 <script>
 (function(){
   var LL=[
-    ['de','🇩🇪','Deutsch'],
-    ['en','🇬🇧','English'],
-    ['fr','🇫🇷','Français'],
-    ['es','🇪🇸','Español'],
-    ['pt','🇵🇹','Português'],
-    ['it','🇮🇹','Italiano'],
-    ['nl','🇳🇱','Nederlands'],
-    ['pl','🇵🇱','Polski'],
-    ['ru','🇷🇺','Русский'],
-    ['uk','🇺🇦','Українська'],
-    ['tr','🇹🇷','Türkçe'],
-    ['ar','🇸🇦','العربية'],
-    ['zh','🇨🇳','中文'],
-    ['ja','🇯🇵','日本語'],
-    ['ko','🇰🇷','한국어'],
-    ['hi','🇮🇳','हिन्दी'],
-    ['sv','🇸🇪','Svenska'],
-    ['no','🇳🇴','Norsk'],
-    ['da','🇩🇰','Dansk'],
-    ['fi','🇫🇮','Suomi'],
-    ['cs','🇨🇿','Čeština'],
-    ['sk','🇸🇰','Slovenčina'],
-    ['hu','🇭🇺','Magyar'],
-    ['ro','🇷🇴','Română'],
-    ['bg','🇧🇬','Български'],
-    ['hr','🇭🇷','Hrvatski'],
-    ['sr','🇷🇸','Srpski'],
-    ['el','🇬🇷','Ελληνικά'],
-    ['he','🇮🇱','עברית'],
-    ['fa','🇮🇷','فارسی'],
-    ['id','🇮🇩','Bahasa Indonesia'],
-    ['ms','🇲🇾','Bahasa Melayu'],
-    ['th','🇹🇭','ภาษาไทย'],
-    ['vi','🇻🇳','Tiếng Việt']
-  ];
+  ['de','🇩🇪','Deutsch','Deutsch','German'],
+  ['en','🇬🇧','English','Englisch','English'],
+  ['fr','🇫🇷','Français','Französisch','French'],
+  ['es','🇪🇸','Español','Spanisch','Spanish'],
+  ['pt','🇵🇹','Português','Portiesisch','Portuguese'],
+  ['it','🇮🇹','Italiano','Italienisch','Italian'],
+  ['nl','🇳🇱','Nederlands','Niederländisch','Dutch'],
+  ['pl','🇵🇱','Polski','Polnisch','Polish'],
+  ['ru','🇷🇺','Русский','Russisch','Russian'],
+  ['uk','🇺🇦','Українська','Ukrainisch','Ukrainian'],
+  ['tr','🇹🇷','Türkçe','Türkisch','Turkish'],
+  ['ar','🇸🇦','العربية','Arabisch','Arabic'],
+  ['zh','🇨🇳','中文','Chinesisch','Chinese'],
+  ['ja','🇯🇵','日本語','Japanisch','Japanese'],
+  ['ko','🇰🇷','한국어','Koreanisch','Korean'],
+  ['hi','🇮🇳','हिन्दी','Hindi','Hindi'],
+  ['sv','🇸🇪','Svenska','Schwedisch','Swedish'],
+  ['no','🇳🇴','Norsk','Norwegisch','Norwegian'],
+  ['da','🇩🇰','Dansk','Dänisch','Danish'],
+  ['fi','🇫🇮','Suomi','Finnisch','Finnish'],
+  ['cs','🇨🇿','Čeština','Tschechisch','Czech'],
+  ['sk','🇸🇰','Slovenčina','Slowakisch','Slovak'],
+  ['hu','🇭🇺','Magyar','Ungarisch','Hungarian'],
+  ['ro','🇷🇴','Română','Rumänisch','Romanian'],
+  ['bg','🇧🇬','Български','Bulgarisch','Bulgarian'],
+  ['hr','🇭🇷','Hrvatski','Kroatisch','Croatian'],
+  ['sr','🇷🇸','Srpski','Serbisch','Serbian'],
+  ['el','🇬🇷','Ελληνικά','Griechisch','Greek'],
+  ['he','🇮🇱','עברית','Hebräisch','Hebrew'],
+  ['fa','🇮🇷','فارسی','Persisch','Persian'],
+  ['id','🇮🇩','Bahasa Indonesia','Indonesisch','Indonesian'],
+  ['ms','🇲🇾','Bahasa Melayu','Malaiisch','Malay'],
+  ['th','🇹🇭','ภาษาไทย','Thailändisch','Thai'],
+  ['vi','🇻🇳','Tiếng Việt','Vietnamesisch','Vietnamese']
+];
 
   function getLang(){
     var s=location.search;
     if(!s)return 'de';
     var p=s.slice(1).split('&');
-    for(var i=0;i<p.length;i++){var kv=p[i].split('=');if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');}
+    for(var i=0;i<p.length;i++){
+      var kv=p[i].split('=');
+      if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');
+    }
     return 'de';
   }
+
   function urlWith(code){
     var b=location.href.split('?')[0];
-    return code==='de'?b:b+'?lang='+encodeURIComponent(code);
+    return code==='de' ? b : b+'?lang='+encodeURIComponent(code);
   }
-  function findL(code){for(var i=0;i<LL.length;i++){if(LL[i][0]===code)return LL[i];}return null;}
-  function isIn(p,c){if(p===c)return true;var n=c.parentNode;while(n){if(n===p)return true;n=n.parentNode;}return false;}
+
+  function findL(code){
+    for(var i=0;i<LL.length;i++){if(LL[i][0]===code)return LL[i];}
+    return null;
+  }
+
+  function isIn(par,child){
+    if(par===child)return true;
+    var n=child.parentNode;
+    while(n){if(n===par)return true;n=n.parentNode;}
+    return false;
+  }
 
   var cur=getLang();
 
   function init(){
+    /* Active nav links - only mark exact page match, not hash links */
     var pg=location.pathname.split('/').pop()||'index.html';
     var links=document.getElementById('nblinks');
-    if(links){var as=links.getElementsByTagName('a');for(var i=0;i<as.length;i++){var h=as[i].getAttribute('href')||'';if(h===pg||h.split('#')[0]===pg)as[i].className+=' act';}}
+    if(links){
+      var as=links.getElementsByTagName('a');
+      for(var i=0;i<as.length;i++){
+        var h=as[i].getAttribute('href')||'';
+        var base=h.split('#')[0];
+        /* Only mark active if no hash (Leistungen should never be active) */
+        if(h.indexOf('#')<0 && base===pg){
+          as[i].className=(as[i].className+' act').trim();
+        }
+      }
+    }
+    /* Also fix mobile menu active */
+    var mob=document.getElementById('nbMob');
+    if(mob){
+      var mas=mob.getElementsByTagName('a');
+      for(var i=0;i<mas.length;i++){
+        var h=mas[i].getAttribute('href')||'';
+        var base=h.split('#')[0];
+        if(h.indexOf('#')<0 && base===pg && mas[i].className.indexOf('nb-cta')<0){
+          mas[i].className=(mas[i].className+' act').trim();
+        }
+      }
+    }
 
+    /* Show current lang */
     var ll=findL(cur);
-    if(ll){var lc=document.getElementById('nblc');if(lc)lc.textContent=ll[1]+' '+cur.toUpperCase();}
+    if(ll){
+      var lc=document.getElementById('nblc');
+      if(lc)lc.textContent=ll[1]+' '+(cur==='de'?'DE':ll[2]);
+    }
 
+    /* Lang toggle */
     var toggle=document.getElementById('nblt');
-    if(toggle){toggle.onclick=function(){
-      var w=document.getElementById('nblw');if(!w)return;
-      var op=w.className.indexOf('op')>=0;
-      if(op){w.className=w.className.replace(/\bop\b/,'').trim();}
-      else{w.className+=' op';drawL('');setTimeout(function(){var si=document.getElementById('nbsi');if(si){si.value='';si.focus();}},60);}
-    };}
+    if(toggle){
+      toggle.onclick=function(e){
+        e.stopPropagation();
+        var w=document.getElementById('nblw');
+        if(!w)return;
+        var isOpen=w.className.indexOf(' op')>=0||w.className==='nb-lw op';
+        if(isOpen){
+          w.className='nb-lw';
+        } else {
+          w.className='nb-lw op';
+          drawL('');
+          setTimeout(function(){
+            var si=document.getElementById('nbsi');
+            if(si){si.value='';si.focus();}
+          },60);
+        }
+      };
+    }
 
     var si=document.getElementById('nbsi');
-    if(si){si.oninput=function(){drawL(this.value.toLowerCase());};}
+    if(si){
+      si.oninput=function(){drawL(this.value.toLowerCase());};
+      /* Prevent toggle-close when clicking inside search */
+      si.onclick=function(e){e.stopPropagation();};
+    }
 
+    /* Close dropdown on outside click */
     document.onclick=function(e){
-      var w=document.getElementById('nblw');if(!w)return;
+      var w=document.getElementById('nblw');
+      if(!w)return;
       var t=e.target||e.srcElement;
-      if(!isIn(w,t)&&t!==w)w.className=w.className.replace(/\bop\b/,'').trim();
+      if(!isIn(w,t)){w.className='nb-lw';}
     };
+
+    /* Leistungen smooth scroll - fix offset for nav height */
+    var links2=document.getElementById('nblinks');
+    if(links2){
+      var as2=links2.getElementsByTagName('a');
+      for(var i=0;i<as2.length;i++){
+        if((as2[i].getAttribute('href')||'').indexOf('#leistungen')>=0){
+          as2[i].onclick=function(e){
+            e.preventDefault();
+            var target=document.getElementById('leistungen');
+            if(target){
+              var top=target.getBoundingClientRect().top+window.pageYOffset-66;
+              window.scrollTo({top:top,behavior:'smooth'});
+            }
+          };
+        }
+      }
+    }
 
     drawL('');
     setupBurger();
   }
 
+  /* Draw language list - FIXED: proper single-quote escaping */
   function drawL(q){
-    var el=document.getElementById('nbll');if(!el)return;
+    var el=document.getElementById('nbll');
+    if(!el)return;
+    var ql=q?q.toLowerCase().trim():'';
     var html='';
     for(var i=0;i<LL.length;i++){
       var x=LL[i];
-      if(q&&x[2].toLowerCase().indexOf(q)<0&&x[0].indexOf(q)<0)continue;
-      html+='<button class="nb-lo'+(x[0]===cur?' cur':'')+'" onclick="nbSel(''+x[0]+'')">'+x[1]+' '+x[2]+'</button>';
+      /* x = [code, flag, ownName, deName, enName] */
+      var own=x[2], de=x[3], en=x[4];
+      var displayName=own; /* default: own language name */
+      if(ql){
+        var matchOwn=own.toLowerCase().indexOf(ql)>=0;
+        var matchDe=de.toLowerCase().indexOf(ql)>=0;
+        var matchEn=en.toLowerCase().indexOf(ql)>=0;
+        var matchCode=x[0].indexOf(ql)>=0;
+        if(!matchOwn&&!matchDe&&!matchEn&&!matchCode)continue;
+        /* Show the name that matched - prefer own, then DE, then EN */
+        /* But only switch if the match is UNIQUE to that name */
+        if(matchDe&&!matchOwn&&!matchCode){displayName=de;}
+        else if(matchEn&&!matchOwn&&!matchDe&&!matchCode){displayName=en;}
+        /* If typed matches own → show own (already default) */
+      }
+      var active=(x[0]===cur)?' cur':'';
+      /* Show flag + chosen name. If showing non-own name, hint own in grey */
+      var label=displayName;
+      if(displayName!==own){
+        label+=' <span style="color:#7a95a8;font-size:.76rem">('+own+')</span>';
+      }
+      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+' '+label+'</button>';
     }
     if(!html)html='<div class="nb-nf">Nicht gefunden</div>';
     el.innerHTML=html;
+    var btns=el.getElementsByTagName('button');
+    for(var i=0;i<btns.length;i++){
+      btns[i].onclick=function(e){
+        e.stopPropagation();
+        nbSel(this.getAttribute('data-code'));
+      };
+    }
   }
 
   window.nbSel=function(code){
-    var ll=findL(code);if(!ll)return;
+    var ll=findL(code);
+    if(!ll)return;
     cur=code;
-    var lc=document.getElementById('nblc');if(lc)lc.textContent=ll[1]+' '+code.toUpperCase();
-    var w=document.getElementById('nblw');if(w)w.className=w.className.replace(/\bop\b/,'').trim();
+    var lc=document.getElementById('nblc');
+    if(lc)lc.textContent=ll[1]+' '+ll[2];
+    var w=document.getElementById('nblw');
+    if(w)w.className='nb-lw';
     location.href=urlWith(code);
   };
 
@@ -185,16 +296,37 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
     if(!b||!m)return;
     b.onclick=function(e){
       e.stopPropagation();
-      var op=b.className.indexOf('open')>=0;
-      if(op){b.className=b.className.replace(/\bopen\b/,'').trim();m.className=m.className.replace(/\bopen\b/,'').trim();}
-      else{b.className+=' open';m.className+=' open';}
+      var isOpen=b.className.indexOf('open')>=0;
+      if(isOpen){
+        b.className=b.className.replace(/\bopen\b/,'').trim();
+        m.className=m.className.replace(/\bopen\b/,'').trim();
+      } else {
+        b.className=(b.className+' open').trim();
+        m.className=(m.className+' open').trim();
+      }
     };
     var as=m.getElementsByTagName('a');
-    for(var i=0;i<as.length;i++){as[i].onclick=function(){b.className=b.className.replace(/\bopen\b/,'').trim();m.className=m.className.replace(/\bopen\b/,'').trim();};}
+    for(var i=0;i<as.length;i++){
+      as[i].onclick=function(){
+        b.className=b.className.replace(/\bopen\b/,'').trim();
+        m.className=m.className.replace(/\bopen\b/,'').trim();
+      };
+    }
+    /* Close on outside click (don't override document.onclick above) */
+    document.addEventListener('click',function(e){
+      var t=e.target||e.srcElement;
+      if(!isIn(b,t)&&!isIn(m,t)){
+        b.className=b.className.replace(/\bopen\b/,'').trim();
+        m.className=m.className.replace(/\bopen\b/,'').trim();
+      }
+    });
   }
 
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
-  else{init();}
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>
 
@@ -227,5 +359,150 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
 </main>
 
 <footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Maschinenservice &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
+<script>
+;(function(){
+
+var T={
+  de:{
+    /* NAV */
+    'nav.start':'Startseite',
+    'nav.about':'Über Uns',
+    'nav.services':'Leistungen',
+    'nav.contact':'Kontakt',
+    'nav.cta':'Anfrage senden →',
+    /* INDEX - Hero */
+    'hero.badge':'IRATA ZERTIFIZIERT · WELTWEIT',
+    'hero.h1a':'Industrieklettern &amp;',
+    'hero.h1b':'Maschinenservice',
+    'hero.sub':'Flexibel. Sicher. Weltweit einsatzbereit.',
+    'hero.desc':'Wir realisieren Montage, Wartung und Servicearbeiten an Industrieanlagen in schwer zugänglichen Bereichen. Sicher, effizient und ohne Gerüst oder Bühne.',
+    'hero.btn1':'Anfrage senden',
+    'hero.btn2':'Unsere Leistungen',
+    /* INDEX - Leistungen */
+    'serv.label':'Was wir tun',
+    'serv.title':'Unsere Leistungen',
+    'serv.sub':'Professionelle Höhenarbeit und Industriemontage',
+    'serv.1.title':'Höhenarbeiten',
+    'serv.1.desc':'Industriekletterarbeiten für Montage, Wartung, Inspektion und Reinigung an Anlagen, Bauwerken und schwer zugänglichen Bereichen.',
+    'serv.2.title':'Maschinenwartung',
+    'serv.2.desc':'Industrieller Service für Maschinen und Anlagen. Von Inspektion und Wartung über Reparatur bis zur Inbetriebnahme.',
+    'serv.3.title':'Homogenisatoren',
+    'serv.3.desc':'Service für Hochdruck-Homogenisatoren verschiedener Hersteller: Wartung, Diagnose, Reparatur, Störungsbehebung und Montage.',
+    /* INDEX - Sicherheit */
+    'safe.1.title':'Sicherheit &amp; Qualität',
+    'safe.2.title':'Warum <span style="color:var(--cyan)">WERK</span>BYTE?',
+    'safe.band':'Unsere Leistungen richten sich an <strong style="color:var(--white)">Industrie, Anlagenbetreiber, Gewerbebkunden</strong> und <strong style="color:var(--white)">technische Dienstleister</strong>',
+    /* CONTACT */
+    'contact.label':'Kontakt',
+    'contact.title':'Anfrage senden',
+    'contact.sub':'Beschreib dein Anliegen. Wir melden uns innerhalb von 24 Stunden.',
+    /* UEBER UNS */
+    'about.label':'Wer wir sind',
+    'about.title':'Zwei Fachleute. Eine Mission.',
+    'about.sub':'Industriemechatronik trifft Höhentechnik. Wir bringen Lösungen dorthin, wo andere nicht hinkommen.',
+    /* FOOTER */
+    'footer.imp':'Impressum',
+    'footer.dat':'Datenschutz'
+  },
+  en:{
+    /* NAV */
+    'nav.start':'Home',
+    'nav.about':'About Us',
+    'nav.services':'Services',
+    'nav.contact':'Contact',
+    'nav.cta':'Send Request →',
+    /* INDEX - Hero */
+    'hero.badge':'IRATA CERTIFIED · WORLDWIDE',
+    'hero.h1a':'Industrial Climbing &amp;',
+    'hero.h1b':'Machine Service',
+    'hero.sub':'Flexible. Safe. Ready to deploy worldwide.',
+    'hero.desc':'We carry out assembly, maintenance and service work on industrial plants in hard-to-reach areas. Safe, efficient and without scaffolding or platforms.',
+    'hero.btn1':'Send Request',
+    'hero.btn2':'Our Services',
+    /* INDEX - Leistungen */
+    'serv.label':'What we do',
+    'serv.title':'Our Services',
+    'serv.sub':'Professional rope access and industrial assembly',
+    'serv.1.title':'Rope Access Work',
+    'serv.1.desc':'Industrial climbing operations for assembly, maintenance, inspection and cleaning at plants, structures and hard-to-reach areas.',
+    'serv.2.title':'Machine Maintenance',
+    'serv.2.desc':'Industrial service for machinery and plants. From inspection and maintenance to repair and commissioning.',
+    'serv.3.title':'Homogenizers',
+    'serv.3.desc':'Service for high-pressure homogenizers from various manufacturers: maintenance, diagnosis, repair, troubleshooting and assembly.',
+    /* INDEX - Sicherheit */
+    'safe.1.title':'Safety &amp; Quality',
+    'safe.2.title':'Why <span style="color:var(--cyan)">WERK</span>BYTE?',
+    'safe.band':'Our services are aimed at <strong style="color:var(--white)">industry, plant operators, commercial customers</strong> and <strong style="color:var(--white)">technical service providers</strong>',
+    /* CONTACT */
+    'contact.label':'Contact',
+    'contact.title':'Send Request',
+    'contact.sub':'Describe your concern. We will get back to you within 24 hours.',
+    /* UEBER UNS */
+    'about.label':'Who we are',
+    'about.title':'Two Experts. One Mission.',
+    'about.sub':'Industrial mechatronics meets rope access. We bring solutions where others cannot reach.',
+    /* FOOTER */
+    'footer.imp':'Legal Notice',
+    'footer.dat':'Privacy Policy'
+  }
+};
+
+function getLang(){
+  var s=location.search;
+  if(!s)return 'de';
+  var p=s.slice(1).split('&');
+  for(var i=0;i<p.length;i++){
+    var kv=p[i].split('=');
+    if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');
+  }
+  return 'de';
+}
+
+function applyTranslations(){
+  var lang=getLang();
+  if(lang==='de')return; /* DE is default, no changes needed */
+  var t=T[lang]||T['en']; /* Fall back to EN for unsupported languages */
+  /* Apply to all elements with data-i18n attribute */
+  var els=document.querySelectorAll('[data-i18n]');
+  for(var i=0;i<els.length;i++){
+    var key=els[i].getAttribute('data-i18n');
+    if(t[key]!==undefined){
+      els[i].innerHTML=t[key];
+    }
+  }
+  /* Update nav links */
+  var nblinks=document.getElementById('nblinks');
+  if(nblinks){
+    var as=nblinks.getElementsByTagName('a');
+    var keys=['nav.start','nav.about','nav.services','nav.contact'];
+    for(var i=0;i<as.length&&i<keys.length;i++){
+      if(t[keys[i]])as[i].textContent=t[keys[i]];
+    }
+  }
+  /* Update mobile menu */
+  var mob=document.getElementById('nbMob');
+  if(mob){
+    var mas=mob.getElementsByTagName('a');
+    var mkeys=['nav.start','nav.about','nav.services','nav.contact','nav.cta'];
+    var ki=0;
+    for(var i=0;i<mas.length;i++){
+      if(mas[i].className.indexOf('nb-cta')>=0){
+        if(t['nav.cta'])mas[i].textContent=t['nav.cta'];
+      } else if(ki<4){
+        if(t[mkeys[ki]])mas[i].textContent=t[mkeys[ki]];
+        ki++;
+      }
+    }
+  }
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',applyTranslations);
+} else {
+  applyTranslations();
+}
+})();
+
+</script>
 </body>
 </html>
