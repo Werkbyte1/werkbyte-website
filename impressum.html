@@ -247,24 +247,24 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
       var x=LL[i];
       /* x = [code, flag, ownName, deName, enName] */
       var own=x[2], de=x[3], en=x[4];
-      var displayName=own; /* default: own language name */
-      if(ql){
-        var matchOwn=own.toLowerCase().indexOf(ql)>=0;
-        var matchDe=de.toLowerCase().indexOf(ql)>=0;
-        var matchEn=en.toLowerCase().indexOf(ql)>=0;
-        var matchCode=x[0].indexOf(ql)>=0;
-        if(!matchOwn&&!matchDe&&!matchEn&&!matchCode)continue;
-        /* Show the name that matched - prefer own, then DE, then EN */
-        /* But only switch if the match is UNIQUE to that name */
-        if(matchDe&&!matchOwn&&!matchCode){displayName=de;}
-        else if(matchEn&&!matchOwn&&!matchDe&&!matchCode){displayName=en;}
-        /* If typed matches own → show own (already default) */
-      }
+      var matchOwn=own.toLowerCase().indexOf(ql)===0;
+      var matchDe=de.toLowerCase().indexOf(ql)===0;
+      var matchEn=en.toLowerCase().indexOf(ql)===0;
+      var matchCode=x[0].indexOf(ql)===0;
+      if(ql&&!matchOwn&&!matchDe&&!matchEn&&!matchCode)continue;
       var active=(x[0]===cur)?' cur':'';
-      /* Show flag + chosen name. If showing non-own name, hint own in grey */
-      var label=displayName;
-      if(displayName!==own){
-        label+=' <span style="color:#7a95a8;font-size:.76rem">('+own+')</span>';
+      /* Always show own language name */
+      /* If search matched a different name, show it in brackets */
+      var label=own;
+      if(ql){
+        if(!matchOwn&&matchDe){
+          /* User typed DE name - show: own (de) */
+          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+de+')</span>';
+        } else if(!matchOwn&&!matchDe&&matchEn){
+          /* User typed EN name - show: own (en) */
+          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+en+')</span>';
+        }
+        /* If matchOwn: just show own name, no brackets needed */
       }
       html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+' '+label+'</button>';
     }
@@ -331,176 +331,276 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
 </script>
 
 <main>
-<h1>Impressum</h1>
-<h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
+<h1 data-i18n="imp.title">Impressum</h1>
+<h2 data-i18n="imp.h1">Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
 <div class="ib">
   <p><strong style="color:var(--white)">WERKBYTE UG (haftungsbeschr&auml;nkt)</strong></p>
   <p>Straße Hausnummer</p><p>Postleitzahl Ort</p><p>Deutschland</p>
 </div>
-<h2>Vertreten durch die Gesch&auml;ftsf&uuml;hrer</h2>
+<h2 data-i18n="imp.h2">Vertreten durch die Gesch&auml;ftsf&uuml;hrer</h2>
 <div class="ib"><p>Name Nachname</p><p>Name Nachname</p></div>
-<h2>Kontakt</h2>
+<h2 data-i18n="imp.h3">Kontakt</h2>
 <div class="ib"><p>E-Mail: <a href="mailto:info@werkbyte.de">info@werkbyte.de</a></p></div>
-<h2>Handelsregister</h2>
+<h2 data-i18n="imp.h4">Handelsregister</h2>
 <div class="ib">
   <p>Registergericht: <span class="td">⏳ wird nach Gr&uuml;ndung erg&auml;nzt (Amtsgericht Aachen)</span></p>
   <p>Handelsregisternummer: <span class="td">⏳ wird nach Gr&uuml;ndung erg&auml;nzt</span></p>
 </div>
-<h2>Umsatzsteuer-ID</h2>
+<h2 data-i18n="imp.h5">Umsatzsteuer-ID</h2>
 <div class="ib"><p><span class="td">⏳ wird nach Zuteilung durch das Finanzamt erg&auml;nzt</span></p></div>
 <h2>Verantwortlich f&uuml;r den Inhalt (&sect; 55 Abs. 2 RStV)</h2>
 <div class="ib"><p>Name Nachname &amp; Name Nachname</p><p>Straße Hausnummer, Postleitzahl Ort</p></div>
-<h2>Streitschlichtung</h2>
-<p>Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-<h2>Haftung f&uuml;r Inhalte</h2>
-<p>Als Diensteanbieter sind wir gem&auml;&szlig; &sect; 7 Abs. 1 TMG f&uuml;r eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
-<h2>Urheberrecht</h2>
-<p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielf&auml;ltigung, Bearbeitung, Verbreitung und jede Art der Verwertung au&szlig;erhalb der Grenzen des Urheberrechtes bed&uuml;rfen der schriftlichen Zustimmung des jeweiligen Autors.</p>
+<h2 data-i18n="imp.h7">Streitschlichtung</h2>
+<p data-i18n="imp.dispute">Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+<h2 data-i18n="imp.h8">Haftung f&uuml;r Inhalte</h2>
+<p data-i18n="imp.liability">Als Diensteanbieter sind wir gem&auml;&szlig; &sect; 7 Abs. 1 TMG f&uuml;r eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+<h2 data-i18n="imp.h9">Urheberrecht</h2>
+<p data-i18n="imp.copyright">Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielf&auml;ltigung, Bearbeitung, Verbreitung und jede Art der Verwertung au&szlig;erhalb der Grenzen des Urheberrechtes bed&uuml;rfen der schriftlichen Zustimmung des jeweiligen Autors.</p>
 </main>
 
 <footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Maschinenservice &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
 <script>
 ;(function(){
-
 var T={
   de:{
     /* NAV */
-    'nav.start':'Startseite',
-    'nav.about':'Über Uns',
-    'nav.services':'Leistungen',
-    'nav.contact':'Kontakt',
-    'nav.cta':'Anfrage senden →',
-    /* INDEX - Hero */
-    'hero.badge':'IRATA ZERTIFIZIERT · WELTWEIT',
-    'hero.h1a':'Industrieklettern &amp;',
-    'hero.h1b':'Maschinenservice',
+    'nav.start':'Startseite','nav.about':'\u00dcber Uns','nav.services':'Leistungen',
+    'nav.contact':'Kontakt','nav.cta':'Anfrage senden \u2192',
+    /* HERO */
+    'hero.badge':'IRATA ZERTIFIZIERT \u00b7 WELTWEIT',
+    'hero.h1a':'Industrieklettern &amp;','hero.h1b':'Maschinenservice',
     'hero.sub':'Flexibel. Sicher. Weltweit einsatzbereit.',
-    'hero.desc':'Wir realisieren Montage, Wartung und Servicearbeiten an Industrieanlagen in schwer zugänglichen Bereichen. Sicher, effizient und ohne Gerüst oder Bühne.',
-    'hero.btn1':'Anfrage senden',
-    'hero.btn2':'Unsere Leistungen',
-    /* INDEX - Leistungen */
-    'serv.label':'Was wir tun',
-    'serv.title':'Unsere Leistungen',
-    'serv.sub':'Professionelle Höhenarbeit und Industriemontage',
-    'serv.1.title':'Höhenarbeiten',
-    'serv.1.desc':'Industriekletterarbeiten für Montage, Wartung, Inspektion und Reinigung an Anlagen, Bauwerken und schwer zugänglichen Bereichen.',
+    'hero.desc':'Wir realisieren Montage, Wartung und Servicearbeiten an Industrieanlagen in schwer zug\u00e4nglichen Bereichen durch qualifizierte Industriemechatroniker und IRATA Industriekletterer. Sicher, effizient und ohne Ger\u00fcst oder B\u00fchne.',
+    'hero.btn1':'Anfrage senden','hero.btn2':'Unsere Leistungen',
+    /* SERVICES */
+    'serv.label':'Was wir tun','serv.title':'Unsere Leistungen',
+    'serv.sub':'Professionelle H\u00f6henarbeit und Industriemontage',
+    'serv.1.title':'H\u00f6henarbeiten',
+    'serv.1.desc':'Industriekletterarbeiten f\u00fcr Montage, Wartung, Inspektion und Reinigung an Anlagen, Bauwerken und schwer zug\u00e4nglichen Bereichen.',
     'serv.2.title':'Maschinenwartung',
-    'serv.2.desc':'Industrieller Service für Maschinen und Anlagen. Von Inspektion und Wartung über Reparatur bis zur Inbetriebnahme.',
+    'serv.2.desc':'Industrieller Service f\u00fcr Maschinen und Anlagen. Von Inspektion und Wartung \u00fcber Reparatur bis zur Inbetriebnahme.',
     'serv.3.title':'Homogenisatoren',
-    'serv.3.desc':'Service für Hochdruck-Homogenisatoren verschiedener Hersteller: Wartung, Diagnose, Reparatur, Störungsbehebung und Montage.',
-    /* INDEX - Sicherheit */
-    'safe.1.title':'Sicherheit &amp; Qualität',
+    'serv.3.desc':'Service f\u00fcr Hochdruck-Homogenisatoren verschiedener Hersteller: Wartung, Diagnose, Reparatur, St\u00f6rungsbehebung und Montage.',
+    /* SAFETY */
+    'safe.1.title':'Sicherheit &amp; Qualit\u00e4t',
     'safe.2.title':'Warum <span style="color:var(--cyan)">WERK</span>BYTE?',
+    'safe.li1':'Gepr\u00fcfte PSA',
+    'safe.li2':'PSAgA gem\u00e4\u00df DGUV-R-112-198 und 112-199',
+    'safe.li3':'PSA Pr\u00fcfung gem\u00e4\u00df DGUV 312-906',
+    'safe.li4':'Industriestandards und Normen',
+    'safe.li5':'G41 Untersuchung','safe.li6':'Erste-Hilfe-Ausbildung',
+    'safe.li7':'Brandschutzhelfer gem\u00e4\u00df DGUV-I 205-023',
+    'safe.li8':'Fahrsicherheitstraining','safe.li9':'IRATA Level 1',
+    'why.li1':'Qualifiziertes Personal',
+    'why.li2':'Elektrofachkr\u00e4fte und Industriemechaniker',
+    'why.li3':'Internationale Service-Erfahrung',
+    'why.li4':'H\u00f6henzugang ohne Ger\u00fcst oder B\u00fchne',
+    'why.li5':'Mechanik, Elektrik und H\u00f6henarbeit aus einer Hand',
+    'why.li6':'Schnelle Einsatzbereitschaft',
+    'why.li7':'Notfalleins\u00e4tze nach Verf\u00fcgbarkeit m\u00f6glich',
     'safe.band':'Unsere Leistungen richten sich an <strong style="color:var(--white)">Industrie, Anlagenbetreiber, Gewerbebkunden</strong> und <strong style="color:var(--white)">technische Dienstleister</strong>',
     /* CONTACT */
-    'contact.label':'Kontakt',
-    'contact.title':'Anfrage senden',
+    'contact.label':'Kontakt','contact.title':'Anfrage senden',
     'contact.sub':'Beschreib dein Anliegen. Wir melden uns innerhalb von 24 Stunden.',
-    /* UEBER UNS */
+    /* ABOUT */
     'about.label':'Wer wir sind',
-    'about.title':'Zwei Fachleute. Eine Mission.',
-    'about.sub':'Industriemechatronik trifft Höhentechnik. Wir bringen Lösungen dorthin, wo andere nicht hinkommen.',
+    'about.h1a':'Zwei Fachleute.','about.h1b':'Eine Mission.',
+    'about.desc':'Industriemechatronik trifft H\u00f6hentechnik. Wir bringen L\u00f6sungen dorthin, wo andere nicht hinkommen. Deutschlandweit und international.',
+    'founding.title':'Warum wir <span>WERKBYTE</span> gr\u00fcnden',
+    'founding.p1':'Wir haben beide jahrelang als Servicetechniker auf internationaler Montage gearbeitet und immer wieder dieselbe L\u00fccke gesehen: Anlagen in schwer zug\u00e4nglichen Bereichen, die jemanden brauchen der beides kann. Mechanik und H\u00f6hentechnik aus einer Hand.',
+    'founding.p2':'Ob Neuinbetriebnahme, Wartung, Fehlerdiagnose oder Reparatur direkt vor Ort, national wie international: Wir kennen den Druck auf der Baustelle, wir kennen die Anlagen und wir kommen allein mit dem Werkzeug aus.',
+    'founding.name':'Der Name steht f\u00fcr das was wir tun: <strong style="color:var(--white)">WERK</strong> f\u00fcr Handwerk und Industrie. <strong style="color:var(--cyan)">BYTE</strong> f\u00fcr digitales Denken und moderne Arbeitsweise.',
+    'stat.irata':'Zertifiziert f\u00fcr Industrieklettern',
+    'stat.int':'Weltweit einsatzbereit',
+    'stat.team':'Qualifizierte Fachleute',
+    'stat.response':'Reaktionszeit auf Anfragen',
+    'team.title':'Das Team','team.sub':'Beide ausgebildet. Beide zertifiziert. Beide im Einsatz.',
+    'team.1.bio1':'Industriemechatroniker mit Fokus auf komplexe Hochdrucksysteme, Prozessanlagen und Fehlerdiagnose unter Realbedingungen. Spezialisiert auf Hochdruck-Homogenisatoren sowie Sterilwasser- und verfahrenstechnische Systeme in hygienekritischen Bereichen.',
+    'team.1.bio2':'Denkt in Systemen statt Einzelteilen. Fehlersuche system\u00fcbergreifend \u00fcber Mechanik, Hydraulik, Elektrik und Prozess. Erfahren im internationalen Au\u00dfendienst mit eigenst\u00e4ndiger Einsatzplanung und Kundenkommunikation auf Augenh\u00f6he.',
+    'team.2.bio1':'Industriemechaniker mit breiter Erfahrung aus anspruchsvollen Branchen. Vom Rohrschwei\u00dfen und Pr\u00fcfwesen \u00fcber internationale Anlagenmontage bis zu Maschinenwartung und H\u00f6heneins\u00e4tzen im Windkraftbereich.',
+    'team.2.bio2':'Erfahren im selbst\u00e4ndigen Arbeiten unter Druck. Kennt beide Seiten: die saubere technische L\u00f6sung und die pragmatische Sofortma\u00dfnahme wenn die Anlage steht und der Kunde wartet.',
+    'val.heading':'Unsere Grunds\u00e4tze','val.sub':'Was uns antreibt',
+    'val.1.title':'Sicherheit zuerst',
+    'val.1.desc':'Jeder Einsatz nach DGUV Normen und IRATA Standards. PSA gepr\u00fcft, G41 untersucht, Erste Hilfe ausgebildet.',
+    'val.2.title':'Schnelle Reaktion',
+    'val.2.desc':'Industrieausf\u00e4lle kosten Zeit und Geld. Wir sind schnell verf\u00fcgbar und k\u00f6nnen auch kurzfristig einspringen.',
+    'val.3.title':'Alles aus einer Hand',
+    'val.3.desc':'Mechanik, Elektrik und H\u00f6henzugang aus einer Quelle. Kein Koordinationsaufwand zwischen verschiedenen Dienstleistern.',
+    'val.4.title':'Weltweit einsatzbereit',
+    'val.4.desc':'Deutschlandweit und international. Beide haben internationale Montageerfahrung aus mehrj\u00e4hriger Praxis.',
+    'cta.title':'Bereit f\u00fcr euren n\u00e4chsten Einsatz?',
+    'cta.sub':'Schreib uns direkt. Wir melden uns innerhalb von 24 Stunden.',
+    'cta.btn':'Jetzt anfragen',
+    /* IMPRESSUM */
+    'imp.title':'Impressum',
+    'imp.h1':'Angaben gem\u00e4\u00df \u00a7 5 TMG',
+    'imp.h2':'Vertreten durch die Gesch\u00e4ftsf\u00fchrer',
+    'imp.h3':'Kontakt','imp.h4':'Handelsregister','imp.h5':'Umsatzsteuer-ID',
+    'imp.h6':'Verantwortlich f\u00fcr den Inhalt',
+    'imp.h7':'Streitschlichtung','imp.h8':'Haftung f\u00fcr Inhalte','imp.h9':'Urheberrecht',
+    'imp.dispute':'Die Europ\u00e4ische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit:',
+    'imp.liability':'Als Diensteanbieter sind wir gem\u00e4\u00df \u00a7 7 Abs. 1 TMG f\u00fcr eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.',
+    'imp.copyright':'Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielf\u00e4ltigung, Bearbeitung, Verbreitung und jede Art der Verwertung au\u00dferhalb der Grenzen des Urheberrechtes bed\u00fcrfen der schriftlichen Zustimmung des jeweiligen Autors.',
+    /* DATENSCHUTZ */
+    'dat.title':'Datenschutzerkl\u00e4rung',
+    'dat.h1':'1. Verantwortlicher','dat.h2':'2. Grundsatz',
+    'dat.h3':'3. Datenerfassung auf dieser Website','dat.h4':'4. Kontaktformular',
+    'dat.h5':'5. Hosting (Netlify)','dat.h6':'6. Externe Schriftarten (Google Fonts)',
+    'dat.h7':'7. Ihre Rechte','dat.h8':'8. Beschwerderecht',
+    'dat.p2':'Der Schutz Ihrer pers\u00f6nlichen Daten ist uns wichtig. Wir verarbeiten personenbezogene Daten nur im Rahmen der gesetzlichen Bestimmungen der DSGVO und des BDSG.',
+    'dat.p4':'Wenn Sie das Kontaktformular nutzen, werden Ihre Angaben zur Bearbeitung der Anfrage bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.',
+    'dat.p6':'Diese Website l\u00e4dt Schriftarten von Google Fonts. Dabei wird Ihre IP-Adresse an Google \u00fcbermittelt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.',
     /* FOOTER */
-    'footer.imp':'Impressum',
-    'footer.dat':'Datenschutz'
+    'footer.imp':'Impressum','footer.dat':'Datenschutz'
   },
   en:{
     /* NAV */
-    'nav.start':'Home',
-    'nav.about':'About Us',
-    'nav.services':'Services',
-    'nav.contact':'Contact',
-    'nav.cta':'Send Request →',
-    /* INDEX - Hero */
-    'hero.badge':'IRATA CERTIFIED · WORLDWIDE',
-    'hero.h1a':'Industrial Climbing &amp;',
-    'hero.h1b':'Machine Service',
-    'hero.sub':'Flexible. Safe. Ready to deploy worldwide.',
-    'hero.desc':'We carry out assembly, maintenance and service work on industrial plants in hard-to-reach areas. Safe, efficient and without scaffolding or platforms.',
-    'hero.btn1':'Send Request',
-    'hero.btn2':'Our Services',
-    /* INDEX - Leistungen */
-    'serv.label':'What we do',
-    'serv.title':'Our Services',
+    'nav.start':'Home','nav.about':'About Us','nav.services':'Services',
+    'nav.contact':'Contact','nav.cta':'Send Request \u2192',
+    /* HERO */
+    'hero.badge':'IRATA CERTIFIED \u00b7 WORLDWIDE',
+    'hero.h1a':'Industrial Climbing &amp;','hero.h1b':'Machine Service',
+    'hero.sub':'Flexible. Safe. Ready for worldwide deployment.',
+    'hero.desc':'We carry out assembly, maintenance and service work on industrial plants in hard-to-reach areas \u2014 with certified industrial climbers and mechatronics specialists. Safe, efficient, and without scaffolding or elevated work platforms.',
+    'hero.btn1':'Send Request','hero.btn2':'Our Services',
+    /* SERVICES */
+    'serv.label':'What we do','serv.title':'Our Services',
     'serv.sub':'Professional rope access and industrial assembly',
     'serv.1.title':'Rope Access Work',
-    'serv.1.desc':'Industrial climbing operations for assembly, maintenance, inspection and cleaning at plants, structures and hard-to-reach areas.',
+    'serv.1.desc':'Industrial rope access operations for assembly, maintenance, inspection and cleaning at plants, structures and hard-to-reach locations.',
     'serv.2.title':'Machine Maintenance',
-    'serv.2.desc':'Industrial service for machinery and plants. From inspection and maintenance to repair and commissioning.',
+    'serv.2.desc':'Industrial service for machinery and equipment \u2014 from inspection and maintenance through to repair and commissioning.',
     'serv.3.title':'Homogenizers',
-    'serv.3.desc':'Service for high-pressure homogenizers from various manufacturers: maintenance, diagnosis, repair, troubleshooting and assembly.',
-    /* INDEX - Sicherheit */
+    'serv.3.desc':'Service for high-pressure homogenizers from various manufacturers: maintenance, diagnostics, repair, troubleshooting and assembly.',
+    /* SAFETY */
     'safe.1.title':'Safety &amp; Quality',
     'safe.2.title':'Why <span style="color:var(--cyan)">WERK</span>BYTE?',
-    'safe.band':'Our services are aimed at <strong style="color:var(--white)">industry, plant operators, commercial customers</strong> and <strong style="color:var(--white)">technical service providers</strong>',
+    'safe.li1':'Certified personal protective equipment',
+    'safe.li2':'Fall arrest PPE per DGUV-R-112-198 and 112-199',
+    'safe.li3':'PPE inspection per DGUV 312-906',
+    'safe.li4':'Industry standards and regulations',
+    'safe.li5':'G41 fitness for work at heights examination',
+    'safe.li6':'First aid certification',
+    'safe.li7':'Fire safety officer per DGUV-I 205-023',
+    'safe.li8':'Advanced driver safety training',
+    'safe.li9':'IRATA Level 1',
+    'why.li1':'Qualified specialists',
+    'why.li2':'Electrical engineers and industrial mechanics',
+    'why.li3':'International service experience',
+    'why.li4':'Height access without scaffolding or platforms',
+    'why.li5':'Mechanical, electrical and rope access from a single source',
+    'why.li6':'Fast deployment availability',
+    'why.li7':'Emergency callouts subject to availability',
+    'safe.band':'Our services are aimed at <strong style="color:var(--white)">industry, plant operators and commercial clients</strong> as well as <strong style="color:var(--white)">technical service providers</strong>',
     /* CONTACT */
-    'contact.label':'Contact',
-    'contact.title':'Send Request',
-    'contact.sub':'Describe your concern. We will get back to you within 24 hours.',
-    /* UEBER UNS */
+    'contact.label':'Contact','contact.title':'Send Request',
+    'contact.sub':'Describe your project. We will get back to you within 24 hours.',
+    /* ABOUT */
     'about.label':'Who we are',
-    'about.title':'Two Experts. One Mission.',
-    'about.sub':'Industrial mechatronics meets rope access. We bring solutions where others cannot reach.',
+    'about.h1a':'Two Specialists.','about.h1b':'One Mission.',
+    'about.desc':'Industrial mechatronics meets rope access. We bring solutions where others cannot reach \u2014 across Germany and internationally.',
+    'founding.title':'Why we are founding <span>WERKBYTE</span>',
+    'founding.p1':'We have both spent years working as service technicians on international assembly projects and repeatedly encountered the same gap: plants in hard-to-reach areas that need someone who can do both \u2014 mechanics and rope access, all from one source.',
+    'founding.p2':'Whether commissioning, maintenance, fault diagnosis or on-site repair \u2014 nationally or internationally: we know the pressure on site, we know the equipment, and we get the job done with the tools we carry.',
+    'founding.name':'The name reflects what we do: <strong style="color:var(--white)">WERK</strong> for craftsmanship and industry. <strong style="color:var(--cyan)">BYTE</strong> for digital thinking and a modern way of working.',
+    'stat.irata':'Certified for industrial rope access',
+    'stat.int':'Deployable worldwide',
+    'stat.team':'Qualified specialists',
+    'stat.response':'Response time for enquiries',
+    'team.title':'The Team','team.sub':'Both qualified. Both certified. Both ready to deploy.',
+    'team.1.bio1':'Industrial mechatronics technician with a focus on complex high-pressure systems, process plants and fault diagnosis under real operating conditions. Specialised in high-pressure homogenizers as well as sterile water and process engineering systems in hygiene-critical environments.',
+    'team.1.bio2':'Thinks in systems rather than isolated components. Cross-disciplinary fault analysis across mechanics, hydraulics, electrics and process engineering. Experienced in international field service with independent mission planning and direct client communication.',
+    'team.2.bio1':'Industrial mechanic with broad experience across demanding sectors \u2014 from pipe welding and inspection through international plant assembly to machine maintenance and rope access operations in the wind energy sector.',
+    'team.2.bio2':'Experienced working independently under pressure. Knows both sides: the clean technical solution and the pragmatic immediate fix when the plant is down and the client is waiting.',
+    'val.heading':'Our Principles','val.sub':'What drives us',
+    'val.1.title':'Safety first',
+    'val.1.desc':'Every deployment follows DGUV regulations and IRATA standards. PPE certified, G41 cleared, first aid trained.',
+    'val.2.title':'Fast response',
+    'val.2.desc':'Industrial downtime costs time and money. We are available quickly and can step in at short notice.',
+    'val.3.title':'Everything from one source',
+    'val.3.desc':'Mechanical, electrical and height access from a single provider \u2014 no coordination overhead between contractors.',
+    'val.4.title':'Deployable worldwide',
+    'val.4.desc':'Across Germany and internationally. Both of us bring years of international assembly experience.',
+    'cta.title':'Ready for your next deployment?',
+    'cta.sub':'Write to us directly. We respond within 24 hours.',
+    'cta.btn':'Get in touch',
+    /* IMPRESSUM */
+    'imp.title':'Legal Notice',
+    'imp.h1':'Information pursuant to \u00a7 5 TMG (German Telemedia Act)',
+    'imp.h2':'Represented by the managing directors',
+    'imp.h3':'Contact','imp.h4':'Commercial register',
+    'imp.h5':'VAT identification number',
+    'imp.h6':'Responsible for content',
+    'imp.h7':'Dispute resolution','imp.h8':'Liability for content','imp.h9':'Copyright',
+    'imp.dispute':'The European Commission provides a platform for online dispute resolution:',
+    'imp.liability':'As a service provider we are responsible for our own content on these pages in accordance with general laws pursuant to \u00a7 7 Para. 1 TMG.',
+    'imp.copyright':'The content and works on these pages created by the site operators are subject to German copyright law. Reproduction, editing, distribution and any kind of use outside the limits of copyright law require the written consent of the respective author.',
+    /* DATENSCHUTZ */
+    'dat.title':'Privacy Policy',
+    'dat.h1':'1. Data controller','dat.h2':'2. Principle',
+    'dat.h3':'3. Data collection on this website','dat.h4':'4. Contact form',
+    'dat.h5':'5. Hosting (Netlify)','dat.h6':'6. External fonts (Google Fonts)',
+    'dat.h7':'7. Your rights','dat.h8':'8. Right to lodge a complaint',
+    'dat.p2':'The protection of your personal data is important to us. We process personal data only within the framework of applicable legal provisions of the GDPR and the German Federal Data Protection Act (BDSG).',
+    'dat.p4':'If you use the contact form, your details will be stored for the purpose of processing your enquiry. We do not pass on this data without your consent. Legal basis: Art. 6 Para. 1 lit. b GDPR.',
+    'dat.p6':'This website loads fonts from Google Fonts. In doing so, your IP address is transmitted to Google. Legal basis: Art. 6 Para. 1 lit. f GDPR.',
     /* FOOTER */
-    'footer.imp':'Legal Notice',
-    'footer.dat':'Privacy Policy'
+    'footer.imp':'Legal Notice','footer.dat':'Privacy Policy'
   }
 };
 
 function getLang(){
-  var s=location.search;
-  if(!s)return 'de';
+  var s=location.search;if(!s)return 'de';
   var p=s.slice(1).split('&');
-  for(var i=0;i<p.length;i++){
-    var kv=p[i].split('=');
-    if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');
-  }
+  for(var i=0;i<p.length;i++){var kv=p[i].split('=');if(kv[0]==='lang')return decodeURIComponent(kv[1]||'de');}
   return 'de';
 }
 
-function applyTranslations(){
+function applyT(){
   var lang=getLang();
-  if(lang==='de')return; /* DE is default, no changes needed */
-  var t=T[lang]||T['en']; /* Fall back to EN for unsupported languages */
-  /* Apply to all elements with data-i18n attribute */
-  var els=document.querySelectorAll('[data-i18n]');
-  for(var i=0;i<els.length;i++){
-    var key=els[i].getAttribute('data-i18n');
-    if(t[key]!==undefined){
-      els[i].innerHTML=t[key];
+  if(lang==='de')return;
+  var t=T[lang]||T['en'];
+  /* Apply all data-i18n elements */
+  try{
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){
+      var key=els[i].getAttribute('data-i18n');
+      if(t[key]!==undefined)els[i].innerHTML=t[key];
     }
+  }catch(e){}
+  /* Nav desktop links */
+  var nb=document.getElementById('nblinks');
+  if(nb){
+    var as=nb.getElementsByTagName('a');
+    var nk=['nav.start','nav.about','nav.services','nav.contact'];
+    for(var i=0;i<as.length&&i<nk.length;i++){if(t[nk[i]])as[i].textContent=t[nk[i]];}
   }
-  /* Update nav links */
-  var nblinks=document.getElementById('nblinks');
-  if(nblinks){
-    var as=nblinks.getElementsByTagName('a');
-    var keys=['nav.start','nav.about','nav.services','nav.contact'];
-    for(var i=0;i<as.length&&i<keys.length;i++){
-      if(t[keys[i]])as[i].textContent=t[keys[i]];
-    }
-  }
-  /* Update mobile menu */
+  /* Mobile menu */
   var mob=document.getElementById('nbMob');
   if(mob){
-    var mas=mob.getElementsByTagName('a');
-    var mkeys=['nav.start','nav.about','nav.services','nav.contact','nav.cta'];
-    var ki=0;
+    var mas=mob.getElementsByTagName('a');var ki=0;
+    var mk=['nav.start','nav.about','nav.services','nav.contact'];
     for(var i=0;i<mas.length;i++){
-      if(mas[i].className.indexOf('nb-cta')>=0){
-        if(t['nav.cta'])mas[i].textContent=t['nav.cta'];
-      } else if(ki<4){
-        if(t[mkeys[ki]])mas[i].textContent=t[mkeys[ki]];
+      if(ki<4&&mas[i].className.indexOf('nb-cta')<0){
+        if(t[mk[ki]])mas[i].textContent=t[mk[ki]];
         ki++;
       }
     }
   }
+  /* Footer links */
+  var foot=document.querySelector('footer');
+  if(foot){
+    var fas=foot.getElementsByTagName('a');
+    for(var i=0;i<fas.length;i++){
+      var h=fas[i].getAttribute('href')||'';
+      if(h.indexOf('impressum')>=0&&t['footer.imp'])fas[i].textContent=t['footer.imp'];
+      if(h.indexOf('datenschutz')>=0&&t['footer.dat'])fas[i].textContent=t['footer.dat'];
+    }
+  }
 }
 
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',applyTranslations);
-} else {
-  applyTranslations();
-}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',applyT);}
+else{applyT();}
 })();
 
 </script>
