@@ -347,12 +347,13 @@ footer a{color:var(--cyan);text-decoration:none}
       for(var i=0;i<as2.length;i++){
         if((as2[i].getAttribute('href')||'').indexOf('#leistungen')>=0){
           as2[i].onclick=function(e){
-            e.preventDefault();
-            var target=document.getElementById('leistungen');
-            if(target){
-              var top=target.getBoundingClientRect().top+window.pageYOffset-66;
-              window.scrollTo({top:top,behavior:'smooth'});
+            var pg3=location.pathname.split('/').pop()||'index.html';
+            if(pg3==='index.html'||pg3===''){
+              e.preventDefault();
+              var target=document.getElementById('leistungen');
+              if(target){var top=target.getBoundingClientRect().top+window.pageYOffset-66;window.scrollTo({top:top,behavior:'smooth'});}
             }
+            /* else: allow browser to navigate to index.html#leistungen */
           };
         }
       }
@@ -570,6 +571,208 @@ footer a{color:var(--cyan);text-decoration:none}
 </div>
 <footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">&copy; WERK<strong style="color:var(--cyan)">BYTE</strong> &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
 <script>
+/* WERKBYTE CONTACT FORM VALIDATION */
+var REQS=['vn','nn','em','tel','ls','msg'];
+var fs={};
+var aok=false;
+var TOUCHED={};
+var FORM_KEY='wb_form_draft';
+
+function pad2(n){return n<10?'0'+n:String(n);}
+
+var TYPE_CODES={'H\u00f6henarbeiten':'HA','Rope Access Work':'HA','Maschinenwartung':'MS','Machine Maintenance':'MS','Homogenisatoren':'HM','Homogenizers':'HM'};
+function getTypeCode(s){return TYPE_CODES[(s||'').trim()]||'SO';}
+function getCounter(yy,ty){try{var d=localStorage.getItem('wb_cnt_'+yy+'_'+ty);if(d){var o=JSON.parse(d);if(o.yy===yy)return o.n||0;}}catch(e){}return 0;}
+function saveCounter(yy,ty,n){try{localStorage.setItem('wb_cnt_'+yy+'_'+ty,JSON.stringify({yy:yy,ty:ty,n:n}));}catch(e){}}
+function genTicket(){
+  var d=new Date(),yy=d.getFullYear()%100;
+  var yyS=yy<10?'0'+yy:String(yy);
+  var lsEl=document.getElementById('ls');
+  var ty=getTypeCode(lsEl?lsEl.value:'');
+  var n=getCounter(yy,ty)+1;
+  var nS=n<10?'000'+n:n<100?'00'+n:n<1000?'0'+n:String(n);
+  return {ticket:yyS+'-'+ty+'-'+nS,yy:yy,ty:ty,n:n};
+}
+function lockTicket(obj){saveCounter(obj.yy,obj.ty,obj.n);}
+
+function saveDraft(){
+  var data={ts:Date.now()};
+  var ids=['vn','nn','fa','em','tel','str','plz','ort','land','msg'];
+  for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)data[ids[i]]=el.value;}
+  var lsEl=document.getElementById('ls');if(lsEl)data.ls=lsEl.value;
+  var anrEl=document.getElementById('anr');if(anrEl)data.anrede=anrEl.value;
+  try{sessionStorage.setItem(FORM_KEY,JSON.stringify(data));}catch(e){}
+}
+function loadDraft(){
+  try{
+    var s=sessionStorage.getItem(FORM_KEY);if(!s)return;
+    var data=JSON.parse(s);
+    if(Date.now()-data.ts>86400000){sessionStorage.removeItem(FORM_KEY);return;}
+    var ids=['vn','nn','fa','em','tel','str','plz','ort','msg'];
+    for(var i=0;i<ids.length;i++){if(data[ids[i]]){var el=document.getElementById(ids[i]);if(el)el.value=data[ids[i]];}}
+    if(data.ls){var lsEl=document.getElementById('ls');if(lsEl)lsEl.value=data.ls;}
+    if(data.msg)ucc();
+    if(data.land&&data.land!=='Deutschland'){
+      var inp=document.getElementById('land');if(inp)inp.value=data.land;
+      for(var i=0;i<COUNTRIES.length;i++){
+        if(COUNTRIES[i][1]===data.land){
+          var fe=document.getElementById('ctr-flag');var ne=document.getElementById('ctr-name');
+          if(fe)fe.textContent=COUNTRIES[i][0];if(ne)ne.textContent=data.land;break;
+        }
+      }
+    }
+    if(data.anrede){
+      var abs=document.getElementsByClassName('ab');
+      for(var i=0;i<abs.length;i++){
+        if(abs[i].dataset.v===data.anrede){abs[i].classList.add('sel');var anrEl=document.getElementById('anr');if(anrEl)anrEl.value=data.anrede;aok=true;setf('anr',true,'');break;}
+      }
+    }
+  }catch(e){}
+}
+
+var VTLD=['de','com','net','org','info','biz','eu','io','co','uk','at','ch','fr','es','it','nl','pl','ru','se','no','dk','fi','be','pt','cz','sk','hu','ro','bg','hr','si','ee','lt','lv','gr','tr','ae','sa','jp','cn','kr','in','au','nz','ca','mx','br','za','us','gov','edu','mobi','tv','me','online','shop','store','app','dev','tech','gmbh','company','services','email','digital','engineering','solutions','consulting','industries','systems','global','group','pro','work','cloud','ai'];
+function isValidEmail(v){
+  v=(v||'').trim();
+  if(!v)return{ok:false,msg:'E-Mail eingeben'};
+  var parts=v.split('@');if(parts.length!==2)return{ok:false,msg:'Genau ein @ erforderlich'};
+  var local=parts[0],domain=parts[1];
+  if(!/^[a-zA-Z0-9.\-_+]+$/.test(local))return{ok:false,msg:'Ung\u00fcltige Zeichen vor @'};
+  if(domain.indexOf('.')<0)return{ok:false,msg:'Domain ung\u00fcltig'};
+  var dparts=domain.split('.');
+  for(var i=0;i<dparts.length;i++){if(!/^[a-zA-Z0-9\-]+$/.test(dparts[i])||dparts[i].length<1)return{ok:false,msg:'Domain ung\u00fcltig'};}
+  var tld=dparts[dparts.length-1].toLowerCase();
+  if(!/^[a-z]{2,6}$/.test(tld))return{ok:false,msg:'Ung\u00fcltige Endung ".'+tld+'"'};
+  for(var i=0;i<VTLD.length;i++){if(VTLD[i]===tld)return{ok:true};}
+  return{ok:false,msg:'Unbekannte Endung ".'+tld+'"'};
+}
+function isok(id,v){
+  v=(v||'').trim();
+  if(id==='em')return isValidEmail(v);
+  if(id==='tel'){
+    if(!v)return{ok:false,msg:'Telefon eingeben'};
+    if(v.charAt(0)!=='0'&&v.charAt(0)!=='+')return{ok:false,msg:'Mit 0 oder + beginnen'};
+    if(v.replace(/\D/g,'').length<6)return{ok:false,msg:'Zu kurz'};
+    return{ok:true};
+  }
+  if(id==='ls')return{ok:v.length>0,msg:'Bitte Leistung w\u00e4hlen'};
+  return{ok:v.length>0,msg:'Pflichtfeld'};
+}
+
+function ftel(el){
+  var v=el.value,d=v.replace(/\D/g,'');
+  if(v.charAt(0)==='0'&&v.charAt(1)!=='0'){
+    if(d.length<=4)v=d;else if(d.length<=8)v=d.slice(0,4)+' '+d.slice(4);
+    else v=d.slice(0,4)+' '+d.slice(4,8)+' '+d.slice(8,12);
+  }else if(v.charAt(0)==='+'){
+    if(d.length>2)v='+'+d.slice(0,2)+' '+d.slice(2,6)+(d.length>6?' '+d.slice(6,12):'');
+  }
+  el.value=v.trim();saveDraft();
+}
+
+function setf(id,ok,msg){
+  var f=document.getElementById('f-'+id);if(!f)return;
+  if(ok){f.classList.add('ok');f.classList.remove('ko');}
+  else{f.classList.add('ko');f.classList.remove('ok');}
+  var ic=f.querySelector('.vi');if(ic)ic.textContent=ok?'\u2713':'\u2717';
+  if(!ok&&msg){var fe=f.querySelector('.fe');if(fe)fe.textContent=msg;}
+  fs[id]=ok;
+}
+function lv(el,id){TOUCHED[id]=true;var r=isok(id,el.value);if(r.ok){el.classList.add('vok');el.classList.remove('vko');}else{el.classList.add('vko');el.classList.remove('vok');}setf(id,r.ok,r.msg||'');upd();saveDraft();}
+function lvs(el,id){TOUCHED[id]=true;var ok=el.value!=='';if(ok){el.classList.add('vok');el.classList.remove('vko');}else{el.classList.add('vko');el.classList.remove('vok');}setf(id,ok,'');upd();saveDraft();}
+function ucc(){var el=document.getElementById('msg');var cc=document.getElementById('cc');if(el&&cc)cc.textContent=el.value.length+' / 2000 Zeichen';saveDraft();}
+function upd(){
+  var done=0;for(var i=0;i<REQS.length;i++){if(fs[REQS[i]])done++;}if(aok)done++;
+  var tot=REQS.length+1;
+  var pf=document.getElementById('pf');var pl=document.getElementById('plbl');var sb=document.getElementById('sb');
+  if(pf)pf.style.width=Math.round(done/tot*100)+'%';
+  if(pl)pl.textContent=done+' von '+tot+' Pflichtfeldern ausgef\u00fcllt';
+  if(sb){var allOk=aok;for(var i=0;i<REQS.length;i++){if(!fs[REQS[i]]){allOk=false;break;}}sb.disabled=!allOk;}
+}
+
+(function(){
+  var abs=document.getElementsByClassName('ab');
+  for(var i=0;i<abs.length;i++){
+    (function(btn){
+      btn.onclick=function(){
+        var all=document.getElementsByClassName('ab');
+        for(var j=0;j<all.length;j++){all[j].classList.remove('sel','err');}
+        btn.classList.add('sel');
+        var anrEl=document.getElementById('anr');if(anrEl)anrEl.value=btn.dataset.v;
+        var aerr=document.getElementById('aerr');if(aerr)aerr.classList.remove('on');
+        aok=true;
+        setf('anr',true,'');
+        upd();saveDraft();
+      };
+    })(abs[i]);
+  }
+})();
+
+function bindFormListeners(){
+  var fids=['vn','nn','em','msg'];
+  for(var i=0;i<fids.length;i++){
+    (function(id){
+      var el=document.getElementById(id);if(!el)return;
+      el.addEventListener('blur',function(){lv(this,id);});
+      el.addEventListener('input',function(){if(TOUCHED[id])lv(this,id);else saveDraft();});
+    })(fids[i]);
+  }
+  var telEl=document.getElementById('tel');
+  if(telEl)telEl.addEventListener('blur',function(){lv(this,'tel');});
+  var lsEl=document.getElementById('ls');
+  if(lsEl)lsEl.addEventListener('change',function(){lvs(this,'ls');});
+  loadDraft();upd();
+}
+
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',bindFormListeners);}
+else{bindFormListeners();}
+
+document.getElementById('kform').addEventListener('submit',function(e){
+  e.preventDefault();var ok=true;
+  if(!aok){var aerr=document.getElementById('aerr');if(aerr)aerr.classList.add('on');var abs2=document.getElementsByClassName('ab');for(var i=0;i<abs2.length;i++)abs2[i].classList.add('err');ok=false;}
+  for(var i=0;i<REQS.length;i++){
+    var id=REQS[i];var el=document.getElementById(id);if(!el)continue;TOUCHED[id]=true;
+    var r=isok(id,el.value);
+    if(r.ok){el.classList.add('vok');el.classList.remove('vko');}else{el.classList.add('vko');el.classList.remove('vok');}
+    setf(id,r.ok,r.msg||'');if(!r.ok)ok=false;
+  }
+  upd();
+  if(!ok){var first=document.querySelector('.vko,.ab.err');if(first)first.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  var ticObj=genTicket();var TIC=ticObj.ticket;lockTicket(ticObj);
+  try{sessionStorage.removeItem(FORM_KEY);}catch(e){}
+  var lsVal=document.getElementById('ls').value||'Allgemeine Anfrage';
+  var fi=document.getElementById('fa').value.trim();
+  var sub='['+lsVal+'] #'+TIC+(fi?' | '+fi:'');
+  document.getElementById('htic').value=TIC;document.getElementById('hbtr').value=sub;
+  try{var fd=new FormData(this);fetch('/',{method:'POST',body:fd}).catch(function(){});}catch(e){}
+  showConf(sub,TIC);
+});
+
+function showConf(sub,tic){
+  var n=new Date();
+  document.getElementById('ctid').textContent=tic;
+  document.getElementById('cdt').textContent=pad2(n.getDate())+'.'+pad2(n.getMonth()+1)+'.'+n.getFullYear();
+  document.getElementById('ctm').textContent=pad2(n.getHours())+':'+pad2(n.getMinutes());
+  document.getElementById('csub').textContent=sub;
+  document.getElementById('can').textContent=document.getElementById('anr').value;
+  document.getElementById('cnm').textContent=document.getElementById('vn').value+' '+document.getElementById('nn').value;
+  document.getElementById('cem').textContent=document.getElementById('em').value;
+  document.getElementById('ctel').textContent=document.getElementById('tel').value;
+  var fi=document.getElementById('fa').value.trim();
+  if(fi){document.getElementById('cfa').textContent=fi;}else{var cfw=document.getElementById('cfw');if(cfw)cfw.style.display='none';}
+  document.getElementById('cls').textContent=document.getElementById('ls').value||'Keine Angabe';
+  var ad=[document.getElementById('str').value,(document.getElementById('plz').value+' '+document.getElementById('ort').value).trim(),document.getElementById('land').value].map(function(x){return(x||'').trim();}).filter(Boolean).join(', ');
+  if(ad){document.getElementById('cad').textContent=ad;}else{var cadw=document.getElementById('cadw');if(cadw)cadw.style.display='none';}
+  document.getElementById('cmsg').textContent=document.getElementById('msg').value;
+  document.getElementById('kform').style.display='none';
+  document.getElementById('cfp').style.display='block';
+  var fh=document.querySelector('.fh');if(fh)fh.style.display='none';
+  var pb=document.querySelector('.pb');if(pb)pb.style.display='none';
+  var plbl=document.getElementById('plbl');if(plbl)plbl.style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(typeof window.wbApplyT==='function')window.wbApplyT();
+}
+</script>
+<script>
 var COUNTRIES=[
 ['🇩🇪','Deutschland','Germany'],
 ['🇦🇹','Österreich','Austria'],
@@ -782,7 +985,58 @@ de:{
   'dat.h8':'8. Beschwerderecht',
   'dat.p8a':'Sie haben das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren. In NRW:',
   'footer.copy':'© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Maschinenservice',
-  'footer.imp':'Impressum','footer.dat':'Datenschutz'
+  'footer.imp':'Impressum','footer.dat':'Datenschutz',
+  'about.byte.full':'für digitales Denken und moderne Arbeitsweise.',
+  'bio.1.edu':'Ausbildung Industriemechatroniker',
+  'bio.1.f1':'Internationaler Außendienst',
+  'bio.1.f2':'Hochdrucksysteme',
+  'bio.1.tag1':'Mechatronik',
+  'bio.1.tag2':'Homogenisatoren',
+  'bio.1.tag3':'Internationale Montage',
+  'bio.1.tag4':'Steuerungstechnik',
+  'bio.2.edu':'Ausbildung Industriemechaniker',
+  'bio.2.f1':'Rohrschweißer und Prüfer',
+  'bio.2.f2':'Internationaler Außendienst',
+  'bio.2.f3':'Hochdrucksysteme',
+  'bio.2.f4':'Windrad Service',
+  'bio.2.tag1':'Industriemechanik',
+  'bio.2.tag3':'IRATA',
+  'bio.2.tag4':'Windrad Service',
+  'bio.2.tag5':'Internationale Montage',
+  'footer.tagline':'– Industrieklettern &amp; Maschinenservice',
+  'anr.herr':'Herr',
+  'anr.frau':'Frau',
+  'anr.divers':'Divers',
+  'anr.none':'Keine Angabe',
+  'conf.addr.lbl':'Adresse',
+  'conf.anrede.lbl':'Anrede',
+  'conf.em.lbl':'E-Mail',
+  'conf.fa.lbl':'Firma',
+  'conf.hint':'Hinweis:',
+  'conf.home':'Zur Startseite',
+  'conf.ls.lbl':'Leistung',
+  'conf.msg.lbl':'Nachricht',
+  'conf.name.lbl':'Name',
+  'conf.overview':'Deine Übersicht',
+  'conf.print':'Seite drucken / speichern',
+  'conf.save':'Bitte speichere diese Seite als Nachweis.',
+  'conf.subject.lbl':'E-Mail Betreff',
+  'conf.tel.lbl':'Telefon',
+  'conf.ticket.lbl':'Ticket Nummer',
+  'err.anrede':'Bitte eine Anrede wählen',
+  'err.vn':'Bitte Vorname eingeben',
+  'err.nn':'Bitte Nachname eingeben',
+  'err.em':'Gültige E-Mail eingeben',
+  'err.msg':'Bitte eine Nachricht eingeben',
+  'ls.ha':'Höhenarbeiten',
+  'ls.ms':'Maschinenwartung',
+  'ls.hm':'Homogenisatoren',
+  'ls.so':'Sonstiges',
+  'msg.counter':'0 / 2000 Zeichen',
+  'placeholder.ls':'Bitte wählen...',
+  'prog.label':'0 von 7 Pflichtfeldern ausgefüllt',
+  'dat.p3a':'Diese Website verwendet',
+  'dat.p3b':'keine Tracking-Cookies'
 },
 en:{
   'nav.start':'Home','nav.about':'About Us','nav.services':'Services','nav.contact':'Contact','nav.cta':'Send Request →',
@@ -851,7 +1105,58 @@ en:{
   'dat.h8':'8. Right to lodge a complaint',
   'dat.p8a':'You have the right to lodge a complaint with the competent supervisory authority. In NRW:',
   'footer.copy':'© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrial Climbing &amp; Machine Service',
-  'footer.imp':'Legal Notice','footer.dat':'Privacy Policy'
+  'footer.imp':'Legal Notice','footer.dat':'Privacy Policy',
+  'about.byte.full':'for digital thinking and modern working methods.',
+  'bio.1.edu':'Training: Industrial Mechatronics',
+  'bio.1.f1':'International field service',
+  'bio.1.f2':'High-pressure systems',
+  'bio.1.tag1':'Mechatronics',
+  'bio.1.tag2':'Homogenizers',
+  'bio.1.tag3':'International assembly',
+  'bio.1.tag4':'Control systems',
+  'bio.2.edu':'Training: Industrial Mechanics',
+  'bio.2.f1':'Pipe welder and inspector',
+  'bio.2.f2':'International field service',
+  'bio.2.f3':'High-pressure systems',
+  'bio.2.f4':'Wind turbine service',
+  'bio.2.tag1':'Industrial mechanics',
+  'bio.2.tag3':'IRATA',
+  'bio.2.tag4':'Wind turbine service',
+  'bio.2.tag5':'International assembly',
+  'footer.tagline':'– Industrial Climbing &amp; Machine Service',
+  'anr.herr':'Mr',
+  'anr.frau':'Ms',
+  'anr.divers':'Diverse',
+  'anr.none':'Not specified',
+  'conf.addr.lbl':'Address',
+  'conf.anrede.lbl':'Salutation',
+  'conf.em.lbl':'E-Mail',
+  'conf.fa.lbl':'Company',
+  'conf.hint':'Note:',
+  'conf.home':'Back to Home',
+  'conf.ls.lbl':'Service',
+  'conf.msg.lbl':'Message',
+  'conf.name.lbl':'Name',
+  'conf.overview':'Your summary',
+  'conf.print':'Print / save this page',
+  'conf.save':'Please save this page as confirmation.',
+  'conf.subject.lbl':'E-Mail Subject',
+  'conf.tel.lbl':'Phone',
+  'conf.ticket.lbl':'Ticket Number',
+  'err.anrede':'Please select a salutation',
+  'err.vn':'Please enter first name',
+  'err.nn':'Please enter last name',
+  'err.em':'Please enter a valid e-mail',
+  'err.msg':'Please enter a message',
+  'ls.ha':'Rope Access Work',
+  'ls.ms':'Machine Maintenance',
+  'ls.hm':'Homogenizers',
+  'ls.so':'Other',
+  'msg.counter':'0 / 2000 characters',
+  'placeholder.ls':'Please select...',
+  'prog.label':'0 of 7 required fields completed',
+  'dat.p3a':'This website uses',
+  'dat.p3b':'no tracking cookies'
 }
 };
 

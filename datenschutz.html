@@ -239,12 +239,13 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
       for(var i=0;i<as2.length;i++){
         if((as2[i].getAttribute('href')||'').indexOf('#leistungen')>=0){
           as2[i].onclick=function(e){
-            e.preventDefault();
-            var target=document.getElementById('leistungen');
-            if(target){
-              var top=target.getBoundingClientRect().top+window.pageYOffset-66;
-              window.scrollTo({top:top,behavior:'smooth'});
+            var pg3=location.pathname.split('/').pop()||'index.html';
+            if(pg3==='index.html'||pg3===''){
+              e.preventDefault();
+              var target=document.getElementById('leistungen');
+              if(target){var top=target.getBoundingClientRect().top+window.pageYOffset-66;window.scrollTo({top:top,behavior:'smooth'});}
             }
+            /* else: allow browser to navigate to index.html#leistungen */
           };
         }
       }
@@ -446,7 +447,58 @@ de:{
   'dat.h8':'8. Beschwerderecht',
   'dat.p8a':'Sie haben das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren. In NRW:',
   'footer.copy':'© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Maschinenservice',
-  'footer.imp':'Impressum','footer.dat':'Datenschutz'
+  'footer.imp':'Impressum','footer.dat':'Datenschutz',
+  'about.byte.full':'für digitales Denken und moderne Arbeitsweise.',
+  'bio.1.edu':'Ausbildung Industriemechatroniker',
+  'bio.1.f1':'Internationaler Außendienst',
+  'bio.1.f2':'Hochdrucksysteme',
+  'bio.1.tag1':'Mechatronik',
+  'bio.1.tag2':'Homogenisatoren',
+  'bio.1.tag3':'Internationale Montage',
+  'bio.1.tag4':'Steuerungstechnik',
+  'bio.2.edu':'Ausbildung Industriemechaniker',
+  'bio.2.f1':'Rohrschweißer und Prüfer',
+  'bio.2.f2':'Internationaler Außendienst',
+  'bio.2.f3':'Hochdrucksysteme',
+  'bio.2.f4':'Windrad Service',
+  'bio.2.tag1':'Industriemechanik',
+  'bio.2.tag3':'IRATA',
+  'bio.2.tag4':'Windrad Service',
+  'bio.2.tag5':'Internationale Montage',
+  'footer.tagline':'– Industrieklettern &amp; Maschinenservice',
+  'anr.herr':'Herr',
+  'anr.frau':'Frau',
+  'anr.divers':'Divers',
+  'anr.none':'Keine Angabe',
+  'conf.addr.lbl':'Adresse',
+  'conf.anrede.lbl':'Anrede',
+  'conf.em.lbl':'E-Mail',
+  'conf.fa.lbl':'Firma',
+  'conf.hint':'Hinweis:',
+  'conf.home':'Zur Startseite',
+  'conf.ls.lbl':'Leistung',
+  'conf.msg.lbl':'Nachricht',
+  'conf.name.lbl':'Name',
+  'conf.overview':'Deine Übersicht',
+  'conf.print':'Seite drucken / speichern',
+  'conf.save':'Bitte speichere diese Seite als Nachweis.',
+  'conf.subject.lbl':'E-Mail Betreff',
+  'conf.tel.lbl':'Telefon',
+  'conf.ticket.lbl':'Ticket Nummer',
+  'err.anrede':'Bitte eine Anrede wählen',
+  'err.vn':'Bitte Vorname eingeben',
+  'err.nn':'Bitte Nachname eingeben',
+  'err.em':'Gültige E-Mail eingeben',
+  'err.msg':'Bitte eine Nachricht eingeben',
+  'ls.ha':'Höhenarbeiten',
+  'ls.ms':'Maschinenwartung',
+  'ls.hm':'Homogenisatoren',
+  'ls.so':'Sonstiges',
+  'msg.counter':'0 / 2000 Zeichen',
+  'placeholder.ls':'Bitte wählen...',
+  'prog.label':'0 von 7 Pflichtfeldern ausgefüllt',
+  'dat.p3a':'Diese Website verwendet',
+  'dat.p3b':'keine Tracking-Cookies'
 },
 en:{
   'nav.start':'Home','nav.about':'About Us','nav.services':'Services','nav.contact':'Contact','nav.cta':'Send Request →',
@@ -515,7 +567,58 @@ en:{
   'dat.h8':'8. Right to lodge a complaint',
   'dat.p8a':'You have the right to lodge a complaint with the competent supervisory authority. In NRW:',
   'footer.copy':'© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrial Climbing &amp; Machine Service',
-  'footer.imp':'Legal Notice','footer.dat':'Privacy Policy'
+  'footer.imp':'Legal Notice','footer.dat':'Privacy Policy',
+  'about.byte.full':'for digital thinking and modern working methods.',
+  'bio.1.edu':'Training: Industrial Mechatronics',
+  'bio.1.f1':'International field service',
+  'bio.1.f2':'High-pressure systems',
+  'bio.1.tag1':'Mechatronics',
+  'bio.1.tag2':'Homogenizers',
+  'bio.1.tag3':'International assembly',
+  'bio.1.tag4':'Control systems',
+  'bio.2.edu':'Training: Industrial Mechanics',
+  'bio.2.f1':'Pipe welder and inspector',
+  'bio.2.f2':'International field service',
+  'bio.2.f3':'High-pressure systems',
+  'bio.2.f4':'Wind turbine service',
+  'bio.2.tag1':'Industrial mechanics',
+  'bio.2.tag3':'IRATA',
+  'bio.2.tag4':'Wind turbine service',
+  'bio.2.tag5':'International assembly',
+  'footer.tagline':'– Industrial Climbing &amp; Machine Service',
+  'anr.herr':'Mr',
+  'anr.frau':'Ms',
+  'anr.divers':'Diverse',
+  'anr.none':'Not specified',
+  'conf.addr.lbl':'Address',
+  'conf.anrede.lbl':'Salutation',
+  'conf.em.lbl':'E-Mail',
+  'conf.fa.lbl':'Company',
+  'conf.hint':'Note:',
+  'conf.home':'Back to Home',
+  'conf.ls.lbl':'Service',
+  'conf.msg.lbl':'Message',
+  'conf.name.lbl':'Name',
+  'conf.overview':'Your summary',
+  'conf.print':'Print / save this page',
+  'conf.save':'Please save this page as confirmation.',
+  'conf.subject.lbl':'E-Mail Subject',
+  'conf.tel.lbl':'Phone',
+  'conf.ticket.lbl':'Ticket Number',
+  'err.anrede':'Please select a salutation',
+  'err.vn':'Please enter first name',
+  'err.nn':'Please enter last name',
+  'err.em':'Please enter a valid e-mail',
+  'err.msg':'Please enter a message',
+  'ls.ha':'Rope Access Work',
+  'ls.ms':'Machine Maintenance',
+  'ls.hm':'Homogenizers',
+  'ls.so':'Other',
+  'msg.counter':'0 / 2000 characters',
+  'placeholder.ls':'Please select...',
+  'prog.label':'0 of 7 required fields completed',
+  'dat.p3a':'This website uses',
+  'dat.p3b':'no tracking cookies'
 }
 };
 
