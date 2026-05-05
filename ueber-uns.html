@@ -119,41 +119,38 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
   var LL=[
   ['de','🇩🇪','Deutsch','Deutsch','German'],
   ['en','🇬🇧','English','Englisch','English'],
-  ['fr','🇫🇷','Français','Französisch','French'],
-  ['es','🇪🇸','Español','Spanisch','Spanish'],
-  ['pt','🇵🇹','Português','Portiesisch','Portuguese'],
+  ['fr','🇫🇷','Fran\u00e7ais','Franz\u00f6sisch','French'],
+  ['es','🇪🇸','Espa\u00f1ol','Spanisch','Spanish'],
+  ['pt','🇵🇹','Portugu\u00eas','Portugiesisch','Portuguese'],
   ['it','🇮🇹','Italiano','Italienisch','Italian'],
-  ['nl','🇳🇱','Nederlands','Niederländisch','Dutch'],
+  ['nl','🇳🇱','Nederlands','Niederl\u00e4ndisch','Dutch'],
   ['pl','🇵🇱','Polski','Polnisch','Polish'],
-  ['ru','🇷🇺','Русский','Russisch','Russian'],
-  ['uk','🇺🇦','Українська','Ukrainisch','Ukrainian'],
-  ['tr','🇹🇷','Türkçe','Türkisch','Turkish'],
-  ['ar','🇸🇦','العربية','Arabisch','Arabic'],
-  ['zh','🇨🇳','中文','Chinesisch','Chinese'],
-  ['ja','🇯🇵','日本語','Japanisch','Japanese'],
-  ['ko','🇰🇷','한국어','Koreanisch','Korean'],
-  ['hi','🇮🇳','हिन्दी','Hindi','Hindi'],
+  ['ru','🇷🇺','\u0420\u0443\u0441\u0441\u043a\u0438\u0439','Russisch','Russian'],
+  ['uk','🇺🇦','\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430','Ukrainisch','Ukrainian'],
+  ['tr','🇹🇷','T\u00fcrk\u00e7e','T\u00fcrkisch','Turkish'],
+  ['ar','🇸🇦','\u0627\u0644\u0639\u0631\u0628\u064a\u0629','Arabisch','Arabic'],
+  ['zh','🇨🇳','\u4e2d\u6587','Chinesisch','Chinese'],
+  ['ja','🇯🇵','\u65e5\u672c\u8a9e','Japanisch','Japanese'],
+  ['ko','🇰🇷','\ud55c\uad6d\uc5b4','Koreanisch','Korean'],
   ['sv','🇸🇪','Svenska','Schwedisch','Swedish'],
   ['no','🇳🇴','Norsk','Norwegisch','Norwegian'],
-  ['da','🇩🇰','Dansk','Dänisch','Danish'],
+  ['da','🇩🇰','Dansk','D\u00e4nisch','Danish'],
   ['fi','🇫🇮','Suomi','Finnisch','Finnish'],
-  ['cs','🇨🇿','Čeština','Tschechisch','Czech'],
-  ['sk','🇸🇰','Slovenčina','Slowakisch','Slovak'],
+  ['cs','🇨🇿','\u010ce\u0161tina','Tschechisch','Czech'],
+  ['sk','🇸🇰','Sloven\u010dina','Slowakisch','Slovak'],
   ['hu','🇭🇺','Magyar','Ungarisch','Hungarian'],
-  ['ro','🇷🇴','Română','Rumänisch','Romanian'],
-  ['bg','🇧🇬','Български','Bulgarisch','Bulgarian'],
+  ['ro','🇷🇴','Rom\u00e2n\u0103','Rum\u00e4nisch','Romanian'],
+  ['bg','🇧🇬','\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438','Bulgarisch','Bulgarian'],
   ['hr','🇭🇷','Hrvatski','Kroatisch','Croatian'],
-  ['sr','🇷🇸','Srpski','Serbisch','Serbian'],
-  ['el','🇬🇷','Ελληνικά','Griechisch','Greek'],
-  ['he','🇮🇱','עברית','Hebräisch','Hebrew'],
-  ['fa','🇮🇷','فارسی','Persisch','Persian'],
+  ['el','🇬🇷','\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac','Griechisch','Greek'],
+  ['he','🇮🇱','\u05e2\u05d1\u05e8\u05d9\u05ea','Hebr\u00e4isch','Hebrew'],
   ['id','🇮🇩','Bahasa Indonesia','Indonesisch','Indonesian'],
-  ['ms','🇲🇾','Bahasa Melayu','Malaiisch','Malay'],
-  ['th','🇹🇭','ภาษาไทย','Thailändisch','Thai'],
-  ['vi','🇻🇳','Tiếng Việt','Vietnamesisch','Vietnamese']
-];
+  ['th','🇹🇭','\u0e20\u0e32\u0e29\u0e32\u0e44\u0e17\u0e22','Thail\u00e4ndisch','Thai'],
+  ['vi','🇻🇳','Ti\u1ebfng Vi\u1ec7t','Vietnamesisch','Vietnamese']
+  ];
 
   function getLang(){
+    if(window._wbLang)return window._wbLang;
     var s=location.search;
     var p=s?s.slice(1).split('&'):[];
     for(var i=0;i<p.length;i++){
@@ -164,14 +161,13 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         return l;
       }
     }
-    /* No URL param: read localStorage */
-    try{var saved=localStorage.getItem('wb_lang');if(saved)return saved;}catch(e){}
+    try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
     return 'de';
   }
 
   function urlWith(code){
     var b=location.href.split('?')[0];
-    return code==='de' ? b : b+'?lang='+encodeURIComponent(code);
+    return code==='de'?b:b+'?lang='+encodeURIComponent(code);
   }
 
   function findL(code){
@@ -189,7 +185,6 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
   var cur=getLang();
 
   function init(){
-    /* Active nav links - only mark exact page match, not hash links */
     var pg=location.pathname.split('/').pop()||'index.html';
     var links=document.getElementById('nblinks');
     if(links){
@@ -197,10 +192,9 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
       for(var i=0;i<as.length;i++){
         var h=as[i].getAttribute('href')||'';
         var base=h.split('#')[0];
-        if(h.indexOf('#')<0 && base===pg){
+        if(h.indexOf('#')<0&&base===pg){
           as[i].className=(as[i].className+' act').trim();
         }
-        /* Keep lang param in all nav links so language persists */
         if(cur!=='de'){
           var hbase2=base.split('?')[0];
           var hhash=h.indexOf('#')>=0?h.slice(h.indexOf('#')):'';
@@ -208,17 +202,15 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         }
       }
     }
-    /* Also fix mobile menu active */
     var mob=document.getElementById('nbMob');
     if(mob){
       var mas=mob.getElementsByTagName('a');
       for(var i=0;i<mas.length;i++){
         var mh=mas[i].getAttribute('href')||'';
         var mbase=mh.split('#')[0];
-        if(mh.indexOf('#')<0 && mbase===pg && mas[i].className.indexOf('nb-cta')<0){
+        if(mh.indexOf('#')<0&&mbase===pg&&mas[i].className.indexOf('nb-cta')<0){
           mas[i].className=(mas[i].className+' act').trim();
         }
-        /* Keep lang in mobile links too */
         if(cur!=='de'){
           var mbase2=mbase.split('?')[0];
           var mhash=mh.indexOf('#')>=0?mh.slice(mh.indexOf('#')):'';
@@ -226,74 +218,50 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         }
       }
     }
-
-    /* Show current lang */
     var ll=findL(cur);
-    if(ll){
-      var lc=document.getElementById('nblc');
-      if(lc)lc.textContent=ll[1]+' '+(cur==='de'?'DE':ll[2]);
-    }
-
-    /* Lang toggle */
+    if(ll){var lc=document.getElementById('nblc');if(lc)lc.textContent=ll[1]+' '+ll[2];}
     var toggle=document.getElementById('nblt');
     if(toggle){
       toggle.onclick=function(e){
         e.stopPropagation();
-        var w=document.getElementById('nblw');
-        if(!w)return;
+        var w=document.getElementById('nblw');if(!w)return;
         var isOpen=w.className.indexOf(' op')>=0||w.className==='nb-lw op';
-        if(isOpen){
-          w.className='nb-lw';
-        } else {
-          w.className='nb-lw op';
-          drawL('');
-          setTimeout(function(){
-            var si=document.getElementById('nbsi');
-            if(si){si.value='';si.focus();}
-          },60);
-        }
+        if(isOpen){w.className='nb-lw';}
+        else{w.className='nb-lw op';drawL('');setTimeout(function(){var si=document.getElementById('nbsi');if(si){si.value='';si.focus();}},60);}
       };
     }
-
     var si=document.getElementById('nbsi');
     if(si){
       si.oninput=function(){drawL(this.value.toLowerCase());};
-      /* Prevent toggle-close when clicking inside search */
       si.onclick=function(e){e.stopPropagation();};
     }
-
-    /* Close dropdown on outside click */
     document.onclick=function(e){
-      var w=document.getElementById('nblw');
-      if(!w)return;
+      var w=document.getElementById('nblw');if(!w)return;
       var t=e.target||e.srcElement;
-      if(!isIn(w,t)){w.className='nb-lw';}
+      if(!isIn(w,t))w.className='nb-lw';
     };
-
-    /* Leistungen smooth scroll - fix offset for nav height */
     var links2=document.getElementById('nblinks');
     if(links2){
       var as2=links2.getElementsByTagName('a');
       for(var i=0;i<as2.length;i++){
         if((as2[i].getAttribute('href')||'').indexOf('#leistungen')>=0){
           as2[i].onclick=function(e){
-            var pg3=location.pathname.split('/').pop()||'index.html';
-            if(pg3==='index.html'||pg3===''){
-              e.preventDefault();
+            e.preventDefault();
+            var pg2=location.pathname.split('/').pop()||'index.html';
+            if(pg2==='index.html'||pg2===''){
               var target=document.getElementById('leistungen');
-              if(target){var top=target.getBoundingClientRect().top+window.pageYOffset-66;window.scrollTo({top:top,behavior:'smooth'});}
+              if(target){window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});}
+            } else {
+              location.href='index.html#leistungen'+(cur!=='de'?'?lang='+encodeURIComponent(cur):'');
             }
-            /* else: allow browser to navigate to index.html#leistungen */
           };
         }
       }
     }
-
     drawL('');
     setupBurger();
   }
 
-  /* Draw language list - FIXED: proper single-quote escaping */
   function drawL(q){
     var el=document.getElementById('nbll');
     if(!el)return;
@@ -301,28 +269,19 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
     var html='';
     for(var i=0;i<LL.length;i++){
       var x=LL[i];
-      /* x = [code, flag, ownName, deName, enName] */
-      var own=x[2], de=x[3], en=x[4];
+      var own=x[2],de=x[3],en=x[4];
       var matchOwn=own.toLowerCase().indexOf(ql)===0;
       var matchDe=de.toLowerCase().indexOf(ql)===0;
       var matchEn=en.toLowerCase().indexOf(ql)===0;
       var matchCode=x[0].indexOf(ql)===0;
       if(ql&&!matchOwn&&!matchDe&&!matchEn&&!matchCode)continue;
       var active=(x[0]===cur)?' cur':'';
-      /* Always show own language name */
-      /* If search matched a different name, show it in brackets */
       var label=own;
       if(ql){
-        if(!matchOwn&&matchDe){
-          /* User typed DE name - show: own (de) */
-          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+de+')</span>';
-        } else if(!matchOwn&&!matchDe&&matchEn){
-          /* User typed EN name - show: own (en) */
-          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+en+')</span>';
-        }
-        /* If matchOwn: just show own name, no brackets needed */
+        if(!matchOwn&&matchDe){label=own+'\u00a0<span style="color:#7a95a8;font-size:.76rem">('+de+')</span>';}
+        else if(!matchOwn&&!matchDe&&matchEn){label=own+'\u00a0<span style="color:#7a95a8;font-size:.76rem">('+en+')</span>';}
       }
-      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+' '+label+'</button>';
+      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+'\u00a0'+label+'</button>';
     }
     if(!html)html='<div class="nb-nf">Nicht gefunden</div>';
     el.innerHTML=html;
@@ -336,27 +295,19 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
   }
 
   window.nbSel=function(code){
-    var ll=findL(code);
-    if(!ll)return;
+    var ll=findL(code);if(!ll)return;
     cur=code;
-    /* Save language choice */
     window._wbLang=code;
     try{localStorage.setItem('wb_lang',code);}catch(e){}
-    /* Update nav button label */
     var lc=document.getElementById('nblc');
     if(lc)lc.textContent=ll[1]+' '+ll[2];
-    var w=document.getElementById('nblw');
-    if(w)w.className='nb-lw';
-    /* Update nav link lang params */
+    var w=document.getElementById('nblw');if(w)w.className='nb-lw';
     var nb2=document.getElementById('nblinks');
     if(nb2){var as2=nb2.getElementsByTagName('a');for(var i=0;i<as2.length;i++){var h=as2[i].getAttribute('href')||'';var hbase=h.split('#')[0].split('?')[0];var hhash=h.indexOf('#')>=0?h.slice(h.indexOf('#')):'';if(hbase)as2[i].setAttribute('href',hbase+(code!=='de'?'?lang='+encodeURIComponent(code):'')+hhash);}}
     var mob2=document.getElementById('nbMob');
     if(mob2){var mas2=mob2.getElementsByTagName('a');for(var i=0;i<mas2.length;i++){var mh=mas2[i].getAttribute('href')||'';var mbase=mh.split('#')[0].split('?')[0];var mhash=mh.indexOf('#')>=0?mh.slice(mh.indexOf('#')):'';if(mbase)mas2[i].setAttribute('href',mbase+(code!=='de'?'?lang='+encodeURIComponent(code):'')+mhash);}}
-    /* Apply translations in-page (no reload needed) */
     if(typeof window.wbApplyT==='function')window.wbApplyT();
-    /* Also update country dropdown display if on contact page */
     if(typeof ctrBuild==='function')ctrBuild('');
-    /* Update document lang attribute for accessibility */
     document.documentElement.lang=code;
     drawL('');
   };
@@ -368,13 +319,8 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
     b.onclick=function(e){
       e.stopPropagation();
       var isOpen=b.className.indexOf('open')>=0;
-      if(isOpen){
-        b.className=b.className.replace(/\bopen\b/,'').trim();
-        m.className=m.className.replace(/\bopen\b/,'').trim();
-      } else {
-        b.className=(b.className+' open').trim();
-        m.className=(m.className+' open').trim();
-      }
+      if(isOpen){b.className=b.className.replace(/\bopen\b/,'').trim();m.className=m.className.replace(/\bopen\b/,'').trim();}
+      else{b.className=(b.className+' open').trim();m.className=(m.className+' open').trim();}
     };
     var as=m.getElementsByTagName('a');
     for(var i=0;i<as.length;i++){
@@ -382,22 +328,18 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         link.onclick=function(e){
           b.className=b.className.replace(/\bopen\b/,'').trim();
           m.className=m.className.replace(/\bopen\b/,'').trim();
-          /* Same scroll offset as desktop for #leistungen */
           var href=link.getAttribute('href')||'';
           if(href.indexOf('#leistungen')>=0){
             var pg=location.pathname.split('/').pop()||'index.html';
             if(pg==='index.html'||pg===''){
               e.preventDefault();
               var target=document.getElementById('leistungen');
-              if(target){
-                window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});
-              }
+              if(target){window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});}
             }
           }
         };
       })(as[i]);
     }
-    /* Close on outside click (don't override document.onclick above) */
     document.addEventListener('click',function(e){
       var t=e.target||e.srcElement;
       if(!isIn(b,t)&&!isIn(m,t)){
@@ -407,117 +349,10 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
     });
   }
 
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init);
-  } else {
-    init();
-  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+  else{init();}
 })();
 </script>
-
-<div class="ph">
-<div class="phc">
-  <p class="sl" data-i18n="about.label">Wer wir sind</p>
-  <h1 class="pt"><span data-i18n="about.title1">Zwei Fachleute.</span><br><span data-i18n="about.title2">Eine Mission.</span></h1>
-  <p class="ps" data-i18n="about.desc">Industriemechatronik trifft H&ouml;hentechnik. Wir bringen L&ouml;sungen dorthin, wo andere nicht hinkommen. Deutschlandweit und international.</p>
-</div>
-</div>
-
-<div class="cont">
-<div class="miss">
-  <div>
-    <h2 data-i18n="about.why.title">Warum wir <span>WERKBYTE</span> gr&uuml;nden</h2>
-    <p data-i18n="about.why.p1">Wir haben beide jahrelang als Servicetechniker auf internationaler Montage gearbeitet und immer wieder dieselbe L&uuml;cke gesehen: Anlagen in schwer zug&auml;nglichen Bereichen, die jemanden brauchen der beides kann. Mechanik und H&ouml;hentechnik aus einer Hand.</p>
-    <p data-i18n="about.why.p2">Ob Neuinbetriebnahme, Wartung, Fehlerdiagnose oder Reparatur direkt vor Ort, national wie international: Wir kennen den Druck auf der Baustelle, wir kennen die Anlagen und wir kommen allein mit dem Werkzeug aus.</p>
-    <p data-i18n="about.name.title">Der Name steht f&uuml;r das was wir tun: <strong style="color:var(--white)">WERK</strong> f&uuml;r Handwerk und Industrie. <strong style="color:var(--cyan)">BYTE</strong> <span data-i18n="about.byte.full">für digitales Denken und moderne Arbeitsweise.</span></p>
-  </div>
-  <div class="sbox">
-    <div class="si"><div class="sn">IRATA</div><div class="sl2" data-i18n="stat.irata">Zertifiziert f&uuml;r Industrieklettern</div></div>
-    <div class="si"><div class="sn">INT</div><div class="sl2" data-i18n="stat.int">Weltweit einsatzbereit</div></div>
-    <div class="si"><div class="sn">2</div><div class="sl2" data-i18n="stat.team">Qualifizierte Fachleute</div></div>
-    <div class="si"><div class="sn">24h</div><div class="sl2" data-i18n="stat.response">Reaktionszeit auf Anfragen</div></div>
-  </div>
-</div>
-
-<div class="ts">
-  <div class="tsh">
-    <p class="sl" data-i18n="team.title">Das Team</p>
-    <h2 class="tst">Name Nachname</h2>
-    <p class="tss" data-i18n="team.sub">Beide ausgebildet. Beide zertifiziert. Beide im Einsatz.</p>
-  </div>
-
-  <div class="tc">
-    <div class="tca">
-      <div class="tav">⚙️</div>
-      <div class="tn">Name Nachname</div>
-      <div class="tr"><span data-i18n="bio.1.role">Industriemechatroniker</span><br><span data-i18n="bio.1.cert">IRATA zertifiziert</span></div>
-    </div>
-    <div class="tcb">
-      <p data-i18n="bio.1.p1">Industriemechatroniker mit Fokus auf komplexe Hochdrucksysteme, Prozessanlagen und Fehlerdiagnose unter Realbedingungen. Spezialisiert auf Hochdruck-Homogenisatoren sowie Sterilwasser- und verfahrenstechnische Systeme in hygienekritischen Bereichen.</p>
-      <p data-i18n="bio.1.p2">Denkt in Systemen statt Einzelteilen. Fehlersuche systemübergreifend über Mechanik, Hydraulik, Elektrik und Prozess. Erfahren im internationalen Au&szlig;endienst mit eigenst&auml;ndiger Einsatzplanung und Kundenkommunikation auf Augenh&ouml;he.</p>
-      <div class="tl">
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.1.edu">Ausbildung Industriemechatroniker</strong> &ndash; Abschluss 2021</div></div>
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.1.f1">Internationaler Au&szlig;endienst</strong> &ndash; Anlagenmontage und Inbetriebnahme weltweit</div></div>
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.1.f2">Hochdrucksysteme</strong> &ndash; Homogenisatoren, Sterilwassereinheiten verschiedener Hersteller (aktuell)</div></div>
-        <div class="tli"><div class="tld"></div><div><strong>WERKBYTE</strong> &ndash; Gr&uuml;ndung in Vorbereitung</div></div>
-      </div>
-      <div class="tags">
-        <span class="tag" data-i18n="bio.1.tag1">Mechatronik</span>
-        <span class="tag" data-i18n="bio.1.tag2">Homogenisatoren</span>
-        <span class="tag">IRATA</span>
-        <span class="tag" data-i18n="bio.1.tag3">Internationale Montage</span>
-        <span class="tag" data-i18n="bio.1.tag4">Steuerungstechnik</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="tc">
-    <div class="tca">
-      <div class="tav">🔧</div>
-      <div class="tn">Name Nachname</div>
-      <div class="tr"><span data-i18n="bio.2.role">Industriemechaniker</span><br><span data-i18n="bio.2.cert">IRATA zertifiziert</span></div>
-    </div>
-    <div class="tcb">
-      <p data-i18n="bio.2.p1">Industriemechaniker mit breiter Erfahrung aus anspruchsvollen Branchen. Vom Rohrschwei&szlig;en und Pr&uuml;fwesen &uuml;ber internationale Anlagenmontage bis zu Maschinenwartung und H&ouml;heneins&auml;tzen im Windkraftbereich.</p>
-      <p data-i18n="bio.2.p2">Erfahren im selbst&auml;ndigen Arbeiten unter Druck. Kennt beide Seiten: die saubere technische L&ouml;sung und die pragmatische Sofortma&szlig;nahme wenn die Anlage steht und der Kunde wartet.</p>
-      <div class="tl">
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.edu">Ausbildung Industriemechaniker</strong> &ndash; Abschluss 2020</div></div>
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f1">Rohrschwei&szlig;er und Pr&uuml;fer</strong> &ndash; inkl. Vorarbeiter-Erfahrung</div></div>
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f2">Internationaler Au&szlig;endienst</strong> &ndash; Anlagenmontage, Inbetriebnahme, Schulung</div></div>
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f3">Hochdrucksysteme</strong> &ndash; Homogenisatoren verschiedener Hersteller</div></div>
-        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f4">Windrad Service</strong> &ndash; H&ouml;heneins&auml;tze, IRATA (aktuell)</div></div>
-        <div class="tli"><div class="tld"></div><div><strong>WERKBYTE</strong> &ndash; Gr&uuml;ndung in Vorbereitung</div></div>
-      </div>
-      <div class="tags">
-        <span class="tag" data-i18n="bio.2.tag1">Industriemechanik</span>
-        <span class="tag">Rohrschwei&szlig;en</span>
-        <span class="tag" data-i18n="bio.2.tag3">IRATA</span>
-        <span class="tag" data-i18n="bio.2.tag4">Windrad Service</span>
-        <span class="tag" data-i18n="bio.2.tag5">Internationale Montage</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="vs">
-  <p class="sl" data-i18n="val.sec.title">Unsere Grunds&auml;tze</p>
-  <h2 class="tst" data-i18n="val.sec.sub">Was uns antreibt</h2>
-  <div class="vg">
-    <div class="vc"><div class="vi">🛡️</div><div class="vt" data-i18n="val.1.title">Sicherheit zuerst</div><p class="vd" data-i18n="val.1.desc">Jeder Einsatz nach DGUV Normen und IRATA Standards. PSA gepr&uuml;ft, G41 untersucht, Erste Hilfe ausgebildet.</p></div>
-    <div class="vc"><div class="vi">⚡</div><div class="vt" data-i18n="val.2.title">Schnelle Reaktion</div><p class="vd" data-i18n="val.2.desc">Industrieausf&auml;lle kosten Zeit und Geld. Wir sind schnell verf&uuml;gbar und k&ouml;nnen auch kurzfristig einspringen.</p></div>
-    <div class="vc"><div class="vi">🔩</div><div class="vt" data-i18n="val.3.title">Alles aus einer Hand</div><p class="vd" data-i18n="val.3.desc">Mechanik, Elektrik und H&ouml;henzugang aus einer Quelle. Kein Koordinationsaufwand zwischen verschiedenen Dienstleistern.</p></div>
-    <div class="vc"><div class="vi">🌍</div><div class="vt" data-i18n="val.4.title">Weltweit einsatzbereit</div><p class="vd" data-i18n="val.4.desc">Deutschlandweit und international. Beide haben internationale Montageerfahrung aus mehrj&auml;hriger Praxis.</p></div>
-  </div>
-</div>
-</div>
-
-<div class="cta">
-  <h2 data-i18n="cta.title">Bereit f&uuml;r euren n&auml;chsten Einsatz?</h2>
-  <p data-i18n="cta.sub">Schreib uns direkt. Wir melden uns innerhalb von 24 Stunden.</p>
-  <a href="kontakt.html" class="bp"><span data-i18n="cta.btn">Jetzt anfragen</span></a>
-</div>
-
-<footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> <span data-i18n="footer.tagline">– Industrieklettern &amp; Maschinenservice</span> &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
 <script>
 (function(){
 var T={
@@ -657,7 +492,7 @@ de:{
   'prog.label':'0 von 7 Pflichtfeldern ausgefüllt',
   'dat.p3a':'Diese Website verwendet',
   'dat.p3b':'keine Tracking-Cookies'
-},
+},,
 en:{
   'nav.start':'Home','nav.about':'About Us','nav.services':'Services','nav.contact':'Contact','nav.cta':'Send Request →',
   'hero.badge':'IRATA CERTIFIED · WORLDWIDE','hero.h1a':'Industrial Climbing &amp;','hero.h1b':'Machine Service',
@@ -777,84 +612,6 @@ en:{
   'prog.label':'0 of 7 required fields completed',
   'dat.p3a':'This website uses',
   'dat.p3b':'no tracking cookies'
-}
-};
-
-function wbLang(){
-  /* In-page switch takes highest priority */
-  if(window._wbLang)return window._wbLang;
-  var s=location.search;
-  var p=s?s.slice(1).split('&'):[];
-  for(var i=0;i<p.length;i++){
-    var kv=p[i].split('=');
-    if(kv[0]==='lang'){
-      var l=decodeURIComponent(kv[1]||'de');
-      try{localStorage.setItem('wb_lang',l);}catch(e){}
-      return l;
-    }
-  }
-  try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
-  return 'de';
-}
-
-/* Cache original DE texts on first load */
-var _wbCache={};
-function wbCacheDE(){
-  try{
-    var els=document.querySelectorAll('[data-i18n]');
-    for(var i=0;i<els.length;i++){
-      var k=els[i].getAttribute('data-i18n');
-      if(!_wbCache[k])_wbCache[k]=els[i].innerHTML;
-    }
-    /* Cache footer */
-    var foot=document.querySelector('footer p');
-    if(foot&&!_wbCache['_footer'])_wbCache['_footer']=foot.innerHTML;
-  }catch(e){}
-}
-function wbApply(){
-  var lang=wbLang();
-  /* Cache DE content before first translation */
-  if(Object.keys(_wbCache).length===0)wbCacheDE();
-  if(lang==='de'){
-    /* Restore DE originals */
-    try{
-      var els=document.querySelectorAll('[data-i18n]');
-      for(var i=0;i<els.length;i++){
-        var k=els[i].getAttribute('data-i18n');
-        if(_wbCache[k]!==undefined)els[i].innerHTML=_wbCache[k];
-      }
-    }catch(e){}
-    /* Restore nav links */
-    var nb=document.getElementById('nblinks');
-    if(nb){var as=nb.getElementsByTagName('a');var dk=['Startseite','Über Uns','Leistungen','Kontakt'];for(var i=0;i<as.length&&i<dk.length;i++){as[i].textContent=dk[i];}}
-    var mob=document.getElementById('nbMob');
-    if(mob){var mas=mob.getElementsByTagName('a');var dk2=['Startseite','Über Uns','Leistungen','Kontakt'];var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){mas[i].textContent=dk2[ki];ki++;}}}
-    /* Restore footer */
-    var foot=document.querySelector('footer p');
-    if(foot&&_wbCache['_footer'])foot.innerHTML=_wbCache['_footer'];
-    return;
-  }
-  var t=T[lang]||T['en'];
-  if(!t)return;
-  try{
-    var els=document.querySelectorAll('[data-i18n]');
-    for(var i=0;i<els.length;i++){
-      var k=els[i].getAttribute('data-i18n');
-      if(t[k]!==undefined)els[i].innerHTML=t[k];
-    }
-  }catch(e){}
-  var nb=document.getElementById('nblinks');
-  if(nb){var as=nb.getElementsByTagName('a');var nk=['nav.start','nav.about','nav.services','nav.contact'];for(var i=0;i<as.length&&i<nk.length;i++){if(t[nk[i]])as[i].textContent=t[nk[i]];}}
-  var mob=document.getElementById('nbMob');
-  if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){if(t[['nav.start','nav.about','nav.services','nav.contact'][ki]])mas[i].textContent=t[['nav.start','nav.about','nav.services','nav.contact'][ki]];ki++;}}}
-  /* Translate placeholders and dynamic text */
-  var isEN=(lang!=='de');
-  var phMap={'vn':['Max','First name'],'nn':['Mustermann','Last name'],
-    'fa':['Optional','Optional'],'em':['max@firma.de','name@company.com'],
-    'tel':['0151 12345678','0151 12345678'],
-    'str':['Musterstraße 1','123 Example Street'],
-    'plz':['12345','12345'],'ort':['Musterstadt','City'],
-    'msg':['Beschreib dein Anliegen so detailliert wie möglich.','Describe your request in as much detail as possible.']
 },
 fr:{
   'nav.start':'Accueil',
@@ -2556,12 +2313,204 @@ vi:{
   'val.sec.title':'Nguyên tắc của chúng tôi',
   'team.title':'Đội ngũ'
 }
+};
+
+var _wbCache={};
+
+function wbCacheDE(){
+  try{
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){
+      var k=els[i].getAttribute('data-i18n');
+      if(!_wbCache[k])_wbCache[k]=els[i].innerHTML;
+    }
+    var foot=document.querySelector('footer p');
+    if(foot&&!_wbCache['_footer'])_wbCache['_footer']=foot.innerHTML;
+  }catch(e){}
 }
+
+function wbLang(){
+  if(window._wbLang)return window._wbLang;
+  var s=location.search;
+  var p=s?s.slice(1).split('&'):[];
+  for(var i=0;i<p.length;i++){
+    var kv=p[i].split('=');
+    if(kv[0]==='lang'){
+      var l=decodeURIComponent(kv[1]||'de');
+      try{localStorage.setItem('wb_lang',l);}catch(e){}
+      return l;
+    }
+  }
+  try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
+  return 'de';
+}
+
+function wbApply(){
+  var lang=wbLang();
+  if(Object.keys(_wbCache).length===0)wbCacheDE();
+  if(lang==='de'){
+    try{
+      var els=document.querySelectorAll('[data-i18n]');
+      for(var i=0;i<els.length;i++){
+        var k=els[i].getAttribute('data-i18n');
+        if(_wbCache[k]!==undefined)els[i].innerHTML=_wbCache[k];
+      }
+    }catch(e){}
+    var nb=document.getElementById('nblinks');
+    if(nb){var as=nb.getElementsByTagName('a');var dk=['Startseite','Über Uns','Leistungen','Kontakt'];for(var i=0;i<as.length&&i<dk.length;i++){as[i].textContent=dk[i];}}
+    var mob=document.getElementById('nbMob');
+    if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){mas[i].textContent=['Startseite','Über Uns','Leistungen','Kontakt'][ki];ki++;}}}
+    var foot=document.querySelector('footer p');
+    if(foot&&_wbCache['_footer'])foot.innerHTML=_wbCache['_footer'];
+    return;
+  }
+  var t=T[lang]||T['en'];
+  if(!t)return;
+  try{
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){
+      var k=els[i].getAttribute('data-i18n');
+      if(t[k]!==undefined)els[i].innerHTML=t[k];
+    }
+  }catch(e){}
+  var nb=document.getElementById('nblinks');
+  if(nb){var as=nb.getElementsByTagName('a');var nk=['nav.start','nav.about','nav.services','nav.contact'];for(var i=0;i<as.length&&i<nk.length;i++){if(t[nk[i]])as[i].textContent=t[nk[i]];}}
+  var mob=document.getElementById('nbMob');
+  if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){if(t[['nav.start','nav.about','nav.services','nav.contact'][ki]])mas[i].textContent=t[['nav.start','nav.about','nav.services','nav.contact'][ki]];ki++;}}}
+  var foot=document.querySelector('footer p');
+  if(foot&&t['footer.copy']){
+    var imp=foot.querySelector('a[href*="impressum"]');
+    var dat=foot.querySelector('a[href*="datenschutz"]');
+    var ih=imp?imp.getAttribute('href'):'impressum.html';
+    var dh=dat?dat.getAttribute('href'):'datenschutz.html';
+    foot.innerHTML=t['footer.copy']+' &nbsp;&middot;&nbsp; <a href="'+ih+'" style="color:var(--cyan);text-decoration:none">'+t['footer.imp']+'</a> &nbsp;&middot;&nbsp; <a href="'+dh+'" style="color:var(--cyan);text-decoration:none">'+t['footer.dat']+'</a>';
+  }
+  if(typeof COUNTRIES!=='undefined'){
+    var ctrNameEl=document.getElementById('ctr-name');
+    var landInp=document.getElementById('land');
+    if(ctrNameEl&&landInp&&landInp.value){
+      for(var ci=0;ci<COUNTRIES.length;ci++){
+        if(COUNTRIES[ci][1]===landInp.value){
+          ctrNameEl.textContent=lang==='de'?COUNTRIES[ci][1]:COUNTRIES[ci][2];
+          break;
+        }
+      }
+    }
+  }
+}
+
 window.wbApplyT=wbApply;
+window.wbGetLang=wbLang;
+window.wbT=T;
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',wbApply);}
 else{wbApply();}
 })();
 </script>
+
+<div class="ph">
+<div class="phc">
+  <p class="sl" data-i18n="about.label">Wer wir sind</p>
+  <h1 class="pt"><span data-i18n="about.title1">Zwei Fachleute.</span><br><span data-i18n="about.title2">Eine Mission.</span></h1>
+  <p class="ps" data-i18n="about.desc">Industriemechatronik trifft H&ouml;hentechnik. Wir bringen L&ouml;sungen dorthin, wo andere nicht hinkommen. Deutschlandweit und international.</p>
+</div>
+</div>
+
+<div class="cont">
+<div class="miss">
+  <div>
+    <h2 data-i18n="about.why.title">Warum wir <span>WERKBYTE</span> gr&uuml;nden</h2>
+    <p data-i18n="about.why.p1">Wir haben beide jahrelang als Servicetechniker auf internationaler Montage gearbeitet und immer wieder dieselbe L&uuml;cke gesehen: Anlagen in schwer zug&auml;nglichen Bereichen, die jemanden brauchen der beides kann. Mechanik und H&ouml;hentechnik aus einer Hand.</p>
+    <p data-i18n="about.why.p2">Ob Neuinbetriebnahme, Wartung, Fehlerdiagnose oder Reparatur direkt vor Ort, national wie international: Wir kennen den Druck auf der Baustelle, wir kennen die Anlagen und wir kommen allein mit dem Werkzeug aus.</p>
+    <p data-i18n="about.name.title">Der Name steht f&uuml;r das was wir tun: <strong style="color:var(--white)">WERK</strong> f&uuml;r Handwerk und Industrie. <strong style="color:var(--cyan)">BYTE</strong> <span data-i18n="about.byte.full">für digitales Denken und moderne Arbeitsweise.</span></p>
+  </div>
+  <div class="sbox">
+    <div class="si"><div class="sn">IRATA</div><div class="sl2" data-i18n="stat.irata">Zertifiziert f&uuml;r Industrieklettern</div></div>
+    <div class="si"><div class="sn">INT</div><div class="sl2" data-i18n="stat.int">Weltweit einsatzbereit</div></div>
+    <div class="si"><div class="sn">2</div><div class="sl2" data-i18n="stat.team">Qualifizierte Fachleute</div></div>
+    <div class="si"><div class="sn">24h</div><div class="sl2" data-i18n="stat.response">Reaktionszeit auf Anfragen</div></div>
+  </div>
+</div>
+
+<div class="ts">
+  <div class="tsh">
+    <p class="sl" data-i18n="team.title">Das Team</p>
+    <h2 class="tst">Name Nachname</h2>
+    <p class="tss" data-i18n="team.sub">Beide ausgebildet. Beide zertifiziert. Beide im Einsatz.</p>
+  </div>
+
+  <div class="tc">
+    <div class="tca">
+      <div class="tav">⚙️</div>
+      <div class="tn">Name Nachname</div>
+      <div class="tr"><span data-i18n="bio.1.role">Industriemechatroniker</span><br><span data-i18n="bio.1.cert">IRATA zertifiziert</span></div>
+    </div>
+    <div class="tcb">
+      <p data-i18n="bio.1.p1">Industriemechatroniker mit Fokus auf komplexe Hochdrucksysteme, Prozessanlagen und Fehlerdiagnose unter Realbedingungen. Spezialisiert auf Hochdruck-Homogenisatoren sowie Sterilwasser- und verfahrenstechnische Systeme in hygienekritischen Bereichen.</p>
+      <p data-i18n="bio.1.p2">Denkt in Systemen statt Einzelteilen. Fehlersuche systemübergreifend über Mechanik, Hydraulik, Elektrik und Prozess. Erfahren im internationalen Au&szlig;endienst mit eigenst&auml;ndiger Einsatzplanung und Kundenkommunikation auf Augenh&ouml;he.</p>
+      <div class="tl">
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.1.edu">Ausbildung Industriemechatroniker</strong> &ndash; Abschluss 2021</div></div>
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.1.f1">Internationaler Au&szlig;endienst</strong> &ndash; Anlagenmontage und Inbetriebnahme weltweit</div></div>
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.1.f2">Hochdrucksysteme</strong> &ndash; Homogenisatoren, Sterilwassereinheiten verschiedener Hersteller (aktuell)</div></div>
+        <div class="tli"><div class="tld"></div><div><strong>WERKBYTE</strong> &ndash; Gr&uuml;ndung in Vorbereitung</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag" data-i18n="bio.1.tag1">Mechatronik</span>
+        <span class="tag" data-i18n="bio.1.tag2">Homogenisatoren</span>
+        <span class="tag">IRATA</span>
+        <span class="tag" data-i18n="bio.1.tag3">Internationale Montage</span>
+        <span class="tag" data-i18n="bio.1.tag4">Steuerungstechnik</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tc">
+    <div class="tca">
+      <div class="tav">🔧</div>
+      <div class="tn">Name Nachname</div>
+      <div class="tr"><span data-i18n="bio.2.role">Industriemechaniker</span><br><span data-i18n="bio.2.cert">IRATA zertifiziert</span></div>
+    </div>
+    <div class="tcb">
+      <p data-i18n="bio.2.p1">Industriemechaniker mit breiter Erfahrung aus anspruchsvollen Branchen. Vom Rohrschwei&szlig;en und Pr&uuml;fwesen &uuml;ber internationale Anlagenmontage bis zu Maschinenwartung und H&ouml;heneins&auml;tzen im Windkraftbereich.</p>
+      <p data-i18n="bio.2.p2">Erfahren im selbst&auml;ndigen Arbeiten unter Druck. Kennt beide Seiten: die saubere technische L&ouml;sung und die pragmatische Sofortma&szlig;nahme wenn die Anlage steht und der Kunde wartet.</p>
+      <div class="tl">
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.edu">Ausbildung Industriemechaniker</strong> &ndash; Abschluss 2020</div></div>
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f1">Rohrschwei&szlig;er und Pr&uuml;fer</strong> &ndash; inkl. Vorarbeiter-Erfahrung</div></div>
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f2">Internationaler Au&szlig;endienst</strong> &ndash; Anlagenmontage, Inbetriebnahme, Schulung</div></div>
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f3">Hochdrucksysteme</strong> &ndash; Homogenisatoren verschiedener Hersteller</div></div>
+        <div class="tli"><div class="tld"></div><div><strong data-i18n="bio.2.f4">Windrad Service</strong> &ndash; H&ouml;heneins&auml;tze, IRATA (aktuell)</div></div>
+        <div class="tli"><div class="tld"></div><div><strong>WERKBYTE</strong> &ndash; Gr&uuml;ndung in Vorbereitung</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag" data-i18n="bio.2.tag1">Industriemechanik</span>
+        <span class="tag">Rohrschwei&szlig;en</span>
+        <span class="tag" data-i18n="bio.2.tag3">IRATA</span>
+        <span class="tag" data-i18n="bio.2.tag4">Windrad Service</span>
+        <span class="tag" data-i18n="bio.2.tag5">Internationale Montage</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="vs">
+  <p class="sl" data-i18n="val.sec.title">Unsere Grunds&auml;tze</p>
+  <h2 class="tst" data-i18n="val.sec.sub">Was uns antreibt</h2>
+  <div class="vg">
+    <div class="vc"><div class="vi">🛡️</div><div class="vt" data-i18n="val.1.title">Sicherheit zuerst</div><p class="vd" data-i18n="val.1.desc">Jeder Einsatz nach DGUV Normen und IRATA Standards. PSA gepr&uuml;ft, G41 untersucht, Erste Hilfe ausgebildet.</p></div>
+    <div class="vc"><div class="vi">⚡</div><div class="vt" data-i18n="val.2.title">Schnelle Reaktion</div><p class="vd" data-i18n="val.2.desc">Industrieausf&auml;lle kosten Zeit und Geld. Wir sind schnell verf&uuml;gbar und k&ouml;nnen auch kurzfristig einspringen.</p></div>
+    <div class="vc"><div class="vi">🔩</div><div class="vt" data-i18n="val.3.title">Alles aus einer Hand</div><p class="vd" data-i18n="val.3.desc">Mechanik, Elektrik und H&ouml;henzugang aus einer Quelle. Kein Koordinationsaufwand zwischen verschiedenen Dienstleistern.</p></div>
+    <div class="vc"><div class="vi">🌍</div><div class="vt" data-i18n="val.4.title">Weltweit einsatzbereit</div><p class="vd" data-i18n="val.4.desc">Deutschlandweit und international. Beide haben internationale Montageerfahrung aus mehrj&auml;hriger Praxis.</p></div>
+  </div>
+</div>
+</div>
+
+<div class="cta">
+  <h2 data-i18n="cta.title">Bereit f&uuml;r euren n&auml;chsten Einsatz?</h2>
+  <p data-i18n="cta.sub">Schreib uns direkt. Wir melden uns innerhalb von 24 Stunden.</p>
+  <a href="kontakt.html" class="bp"><span data-i18n="cta.btn">Jetzt anfragen</span></a>
+</div>
+
+<footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> <span data-i18n="footer.tagline">– Industrieklettern &amp; Maschinenservice</span> &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
+
 <script>window.addEventListener('load',function(){if(!location.hash)window.scrollTo(0,0);});</script>
 </body>
 </html>

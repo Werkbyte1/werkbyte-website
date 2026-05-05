@@ -205,41 +205,38 @@ footer a{color:var(--cyan);text-decoration:none}
   var LL=[
   ['de','🇩🇪','Deutsch','Deutsch','German'],
   ['en','🇬🇧','English','Englisch','English'],
-  ['fr','🇫🇷','Français','Französisch','French'],
-  ['es','🇪🇸','Español','Spanisch','Spanish'],
-  ['pt','🇵🇹','Português','Portiesisch','Portuguese'],
+  ['fr','🇫🇷','Fran\u00e7ais','Franz\u00f6sisch','French'],
+  ['es','🇪🇸','Espa\u00f1ol','Spanisch','Spanish'],
+  ['pt','🇵🇹','Portugu\u00eas','Portugiesisch','Portuguese'],
   ['it','🇮🇹','Italiano','Italienisch','Italian'],
-  ['nl','🇳🇱','Nederlands','Niederländisch','Dutch'],
+  ['nl','🇳🇱','Nederlands','Niederl\u00e4ndisch','Dutch'],
   ['pl','🇵🇱','Polski','Polnisch','Polish'],
-  ['ru','🇷🇺','Русский','Russisch','Russian'],
-  ['uk','🇺🇦','Українська','Ukrainisch','Ukrainian'],
-  ['tr','🇹🇷','Türkçe','Türkisch','Turkish'],
-  ['ar','🇸🇦','العربية','Arabisch','Arabic'],
-  ['zh','🇨🇳','中文','Chinesisch','Chinese'],
-  ['ja','🇯🇵','日本語','Japanisch','Japanese'],
-  ['ko','🇰🇷','한국어','Koreanisch','Korean'],
-  ['hi','🇮🇳','हिन्दी','Hindi','Hindi'],
+  ['ru','🇷🇺','\u0420\u0443\u0441\u0441\u043a\u0438\u0439','Russisch','Russian'],
+  ['uk','🇺🇦','\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430','Ukrainisch','Ukrainian'],
+  ['tr','🇹🇷','T\u00fcrk\u00e7e','T\u00fcrkisch','Turkish'],
+  ['ar','🇸🇦','\u0627\u0644\u0639\u0631\u0628\u064a\u0629','Arabisch','Arabic'],
+  ['zh','🇨🇳','\u4e2d\u6587','Chinesisch','Chinese'],
+  ['ja','🇯🇵','\u65e5\u672c\u8a9e','Japanisch','Japanese'],
+  ['ko','🇰🇷','\ud55c\uad6d\uc5b4','Koreanisch','Korean'],
   ['sv','🇸🇪','Svenska','Schwedisch','Swedish'],
   ['no','🇳🇴','Norsk','Norwegisch','Norwegian'],
-  ['da','🇩🇰','Dansk','Dänisch','Danish'],
+  ['da','🇩🇰','Dansk','D\u00e4nisch','Danish'],
   ['fi','🇫🇮','Suomi','Finnisch','Finnish'],
-  ['cs','🇨🇿','Čeština','Tschechisch','Czech'],
-  ['sk','🇸🇰','Slovenčina','Slowakisch','Slovak'],
+  ['cs','🇨🇿','\u010ce\u0161tina','Tschechisch','Czech'],
+  ['sk','🇸🇰','Sloven\u010dina','Slowakisch','Slovak'],
   ['hu','🇭🇺','Magyar','Ungarisch','Hungarian'],
-  ['ro','🇷🇴','Română','Rumänisch','Romanian'],
-  ['bg','🇧🇬','Български','Bulgarisch','Bulgarian'],
+  ['ro','🇷🇴','Rom\u00e2n\u0103','Rum\u00e4nisch','Romanian'],
+  ['bg','🇧🇬','\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438','Bulgarisch','Bulgarian'],
   ['hr','🇭🇷','Hrvatski','Kroatisch','Croatian'],
-  ['sr','🇷🇸','Srpski','Serbisch','Serbian'],
-  ['el','🇬🇷','Ελληνικά','Griechisch','Greek'],
-  ['he','🇮🇱','עברית','Hebräisch','Hebrew'],
-  ['fa','🇮🇷','فارسی','Persisch','Persian'],
+  ['el','🇬🇷','\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac','Griechisch','Greek'],
+  ['he','🇮🇱','\u05e2\u05d1\u05e8\u05d9\u05ea','Hebr\u00e4isch','Hebrew'],
   ['id','🇮🇩','Bahasa Indonesia','Indonesisch','Indonesian'],
-  ['ms','🇲🇾','Bahasa Melayu','Malaiisch','Malay'],
-  ['th','🇹🇭','ภาษาไทย','Thailändisch','Thai'],
-  ['vi','🇻🇳','Tiếng Việt','Vietnamesisch','Vietnamese']
-];
+  ['th','🇹🇭','\u0e20\u0e32\u0e29\u0e32\u0e44\u0e17\u0e22','Thail\u00e4ndisch','Thai'],
+  ['vi','🇻🇳','Ti\u1ebfng Vi\u1ec7t','Vietnamesisch','Vietnamese']
+  ];
 
   function getLang(){
+    if(window._wbLang)return window._wbLang;
     var s=location.search;
     var p=s?s.slice(1).split('&'):[];
     for(var i=0;i<p.length;i++){
@@ -250,14 +247,13 @@ footer a{color:var(--cyan);text-decoration:none}
         return l;
       }
     }
-    /* No URL param: read localStorage */
-    try{var saved=localStorage.getItem('wb_lang');if(saved)return saved;}catch(e){}
+    try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
     return 'de';
   }
 
   function urlWith(code){
     var b=location.href.split('?')[0];
-    return code==='de' ? b : b+'?lang='+encodeURIComponent(code);
+    return code==='de'?b:b+'?lang='+encodeURIComponent(code);
   }
 
   function findL(code){
@@ -275,7 +271,6 @@ footer a{color:var(--cyan);text-decoration:none}
   var cur=getLang();
 
   function init(){
-    /* Active nav links - only mark exact page match, not hash links */
     var pg=location.pathname.split('/').pop()||'index.html';
     var links=document.getElementById('nblinks');
     if(links){
@@ -283,10 +278,9 @@ footer a{color:var(--cyan);text-decoration:none}
       for(var i=0;i<as.length;i++){
         var h=as[i].getAttribute('href')||'';
         var base=h.split('#')[0];
-        if(h.indexOf('#')<0 && base===pg){
+        if(h.indexOf('#')<0&&base===pg){
           as[i].className=(as[i].className+' act').trim();
         }
-        /* Keep lang param in all nav links so language persists */
         if(cur!=='de'){
           var hbase2=base.split('?')[0];
           var hhash=h.indexOf('#')>=0?h.slice(h.indexOf('#')):'';
@@ -294,17 +288,15 @@ footer a{color:var(--cyan);text-decoration:none}
         }
       }
     }
-    /* Also fix mobile menu active */
     var mob=document.getElementById('nbMob');
     if(mob){
       var mas=mob.getElementsByTagName('a');
       for(var i=0;i<mas.length;i++){
         var mh=mas[i].getAttribute('href')||'';
         var mbase=mh.split('#')[0];
-        if(mh.indexOf('#')<0 && mbase===pg && mas[i].className.indexOf('nb-cta')<0){
+        if(mh.indexOf('#')<0&&mbase===pg&&mas[i].className.indexOf('nb-cta')<0){
           mas[i].className=(mas[i].className+' act').trim();
         }
-        /* Keep lang in mobile links too */
         if(cur!=='de'){
           var mbase2=mbase.split('?')[0];
           var mhash=mh.indexOf('#')>=0?mh.slice(mh.indexOf('#')):'';
@@ -312,74 +304,50 @@ footer a{color:var(--cyan);text-decoration:none}
         }
       }
     }
-
-    /* Show current lang */
     var ll=findL(cur);
-    if(ll){
-      var lc=document.getElementById('nblc');
-      if(lc)lc.textContent=ll[1]+' '+(cur==='de'?'DE':ll[2]);
-    }
-
-    /* Lang toggle */
+    if(ll){var lc=document.getElementById('nblc');if(lc)lc.textContent=ll[1]+' '+ll[2];}
     var toggle=document.getElementById('nblt');
     if(toggle){
       toggle.onclick=function(e){
         e.stopPropagation();
-        var w=document.getElementById('nblw');
-        if(!w)return;
+        var w=document.getElementById('nblw');if(!w)return;
         var isOpen=w.className.indexOf(' op')>=0||w.className==='nb-lw op';
-        if(isOpen){
-          w.className='nb-lw';
-        } else {
-          w.className='nb-lw op';
-          drawL('');
-          setTimeout(function(){
-            var si=document.getElementById('nbsi');
-            if(si){si.value='';si.focus();}
-          },60);
-        }
+        if(isOpen){w.className='nb-lw';}
+        else{w.className='nb-lw op';drawL('');setTimeout(function(){var si=document.getElementById('nbsi');if(si){si.value='';si.focus();}},60);}
       };
     }
-
     var si=document.getElementById('nbsi');
     if(si){
       si.oninput=function(){drawL(this.value.toLowerCase());};
-      /* Prevent toggle-close when clicking inside search */
       si.onclick=function(e){e.stopPropagation();};
     }
-
-    /* Close dropdown on outside click */
     document.onclick=function(e){
-      var w=document.getElementById('nblw');
-      if(!w)return;
+      var w=document.getElementById('nblw');if(!w)return;
       var t=e.target||e.srcElement;
-      if(!isIn(w,t)){w.className='nb-lw';}
+      if(!isIn(w,t))w.className='nb-lw';
     };
-
-    /* Leistungen smooth scroll - fix offset for nav height */
     var links2=document.getElementById('nblinks');
     if(links2){
       var as2=links2.getElementsByTagName('a');
       for(var i=0;i<as2.length;i++){
         if((as2[i].getAttribute('href')||'').indexOf('#leistungen')>=0){
           as2[i].onclick=function(e){
-            var pg3=location.pathname.split('/').pop()||'index.html';
-            if(pg3==='index.html'||pg3===''){
-              e.preventDefault();
+            e.preventDefault();
+            var pg2=location.pathname.split('/').pop()||'index.html';
+            if(pg2==='index.html'||pg2===''){
               var target=document.getElementById('leistungen');
-              if(target){var top=target.getBoundingClientRect().top+window.pageYOffset-66;window.scrollTo({top:top,behavior:'smooth'});}
+              if(target){window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});}
+            } else {
+              location.href='index.html#leistungen'+(cur!=='de'?'?lang='+encodeURIComponent(cur):'');
             }
-            /* else: allow browser to navigate to index.html#leistungen */
           };
         }
       }
     }
-
     drawL('');
     setupBurger();
   }
 
-  /* Draw language list - FIXED: proper single-quote escaping */
   function drawL(q){
     var el=document.getElementById('nbll');
     if(!el)return;
@@ -387,28 +355,19 @@ footer a{color:var(--cyan);text-decoration:none}
     var html='';
     for(var i=0;i<LL.length;i++){
       var x=LL[i];
-      /* x = [code, flag, ownName, deName, enName] */
-      var own=x[2], de=x[3], en=x[4];
+      var own=x[2],de=x[3],en=x[4];
       var matchOwn=own.toLowerCase().indexOf(ql)===0;
       var matchDe=de.toLowerCase().indexOf(ql)===0;
       var matchEn=en.toLowerCase().indexOf(ql)===0;
       var matchCode=x[0].indexOf(ql)===0;
       if(ql&&!matchOwn&&!matchDe&&!matchEn&&!matchCode)continue;
       var active=(x[0]===cur)?' cur':'';
-      /* Always show own language name */
-      /* If search matched a different name, show it in brackets */
       var label=own;
       if(ql){
-        if(!matchOwn&&matchDe){
-          /* User typed DE name - show: own (de) */
-          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+de+')</span>';
-        } else if(!matchOwn&&!matchDe&&matchEn){
-          /* User typed EN name - show: own (en) */
-          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+en+')</span>';
-        }
-        /* If matchOwn: just show own name, no brackets needed */
+        if(!matchOwn&&matchDe){label=own+'\u00a0<span style="color:#7a95a8;font-size:.76rem">('+de+')</span>';}
+        else if(!matchOwn&&!matchDe&&matchEn){label=own+'\u00a0<span style="color:#7a95a8;font-size:.76rem">('+en+')</span>';}
       }
-      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+' '+label+'</button>';
+      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+'\u00a0'+label+'</button>';
     }
     if(!html)html='<div class="nb-nf">Nicht gefunden</div>';
     el.innerHTML=html;
@@ -422,27 +381,19 @@ footer a{color:var(--cyan);text-decoration:none}
   }
 
   window.nbSel=function(code){
-    var ll=findL(code);
-    if(!ll)return;
+    var ll=findL(code);if(!ll)return;
     cur=code;
-    /* Save language choice */
     window._wbLang=code;
     try{localStorage.setItem('wb_lang',code);}catch(e){}
-    /* Update nav button label */
     var lc=document.getElementById('nblc');
     if(lc)lc.textContent=ll[1]+' '+ll[2];
-    var w=document.getElementById('nblw');
-    if(w)w.className='nb-lw';
-    /* Update nav link lang params */
+    var w=document.getElementById('nblw');if(w)w.className='nb-lw';
     var nb2=document.getElementById('nblinks');
     if(nb2){var as2=nb2.getElementsByTagName('a');for(var i=0;i<as2.length;i++){var h=as2[i].getAttribute('href')||'';var hbase=h.split('#')[0].split('?')[0];var hhash=h.indexOf('#')>=0?h.slice(h.indexOf('#')):'';if(hbase)as2[i].setAttribute('href',hbase+(code!=='de'?'?lang='+encodeURIComponent(code):'')+hhash);}}
     var mob2=document.getElementById('nbMob');
     if(mob2){var mas2=mob2.getElementsByTagName('a');for(var i=0;i<mas2.length;i++){var mh=mas2[i].getAttribute('href')||'';var mbase=mh.split('#')[0].split('?')[0];var mhash=mh.indexOf('#')>=0?mh.slice(mh.indexOf('#')):'';if(mbase)mas2[i].setAttribute('href',mbase+(code!=='de'?'?lang='+encodeURIComponent(code):'')+mhash);}}
-    /* Apply translations in-page (no reload needed) */
     if(typeof window.wbApplyT==='function')window.wbApplyT();
-    /* Also update country dropdown display if on contact page */
     if(typeof ctrBuild==='function')ctrBuild('');
-    /* Update document lang attribute for accessibility */
     document.documentElement.lang=code;
     drawL('');
   };
@@ -454,13 +405,8 @@ footer a{color:var(--cyan);text-decoration:none}
     b.onclick=function(e){
       e.stopPropagation();
       var isOpen=b.className.indexOf('open')>=0;
-      if(isOpen){
-        b.className=b.className.replace(/\bopen\b/,'').trim();
-        m.className=m.className.replace(/\bopen\b/,'').trim();
-      } else {
-        b.className=(b.className+' open').trim();
-        m.className=(m.className+' open').trim();
-      }
+      if(isOpen){b.className=b.className.replace(/\bopen\b/,'').trim();m.className=m.className.replace(/\bopen\b/,'').trim();}
+      else{b.className=(b.className+' open').trim();m.className=(m.className+' open').trim();}
     };
     var as=m.getElementsByTagName('a');
     for(var i=0;i<as.length;i++){
@@ -468,22 +414,18 @@ footer a{color:var(--cyan);text-decoration:none}
         link.onclick=function(e){
           b.className=b.className.replace(/\bopen\b/,'').trim();
           m.className=m.className.replace(/\bopen\b/,'').trim();
-          /* Same scroll offset as desktop for #leistungen */
           var href=link.getAttribute('href')||'';
           if(href.indexOf('#leistungen')>=0){
             var pg=location.pathname.split('/').pop()||'index.html';
             if(pg==='index.html'||pg===''){
               e.preventDefault();
               var target=document.getElementById('leistungen');
-              if(target){
-                window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});
-              }
+              if(target){window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});}
             }
           }
         };
       })(as[i]);
     }
-    /* Close on outside click (don't override document.onclick above) */
     document.addEventListener('click',function(e){
       var t=e.target||e.srcElement;
       if(!isIn(b,t)&&!isIn(m,t)){
@@ -493,272 +435,10 @@ footer a{color:var(--cyan);text-decoration:none}
     });
   }
 
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init);
-  } else {
-    init();
-  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+  else{init();}
 })();
 </script>
-<div class="pg">
-<div class="fw">
-<div class="fh">
-  <p class="sl" data-i18n="contact.label">Kontakt</p>
-  <h1 class="ft" data-i18n="contact.title">Anfrage senden</h1>
-  <p class="fs" data-i18n="contact.sub">Beschreib dein Anliegen. Wir melden uns innerhalb von 24 Stunden.</p>
-</div>
-<div class="pb"><div class="pf" id="pf"></div></div>
-<div class="pl" id="plbl" data-i18n="prog.label">0 von 7 Pflichtfeldern ausgefüllt</div>
-
-<form id="kform" netlify name="contact" method="POST" novalidate>
-<input type="hidden" name="form-name" value="contact"/>
-<input type="hidden" name="ticket" id="htic"/>
-<input type="hidden" name="betreff" id="hbtr"/>
-<p class="rn" data-i18n="form.legend">Felder mit <span>*</span> sind Pflichtfelder</p>
-
-<div class="row" style="margin-bottom:1.1rem">
-<div class="fi" id="f-anr">
-  <label><span data-i18n="form.anrede.lbl">Anrede</span> <span class="rq">*</span></label>
-  <div class="ag" id="ag">
-    <button type="button" class="ab" data-v="Herr" data-i18n="anr.herr"><span data-i18n="form.herr">Herr</span></button>
-    <button type="button" class="ab" data-v="Frau" data-i18n="anr.frau"><span data-i18n="form.frau">Frau</span></button>
-    <button type="button" class="ab" data-v="Divers" data-i18n="anr.divers"><span data-i18n="form.divers">Divers</span></button>
-    <button type="button" class="ab" data-v="Keine Angabe" data-i18n="anr.none"><span data-i18n="form.keine">Keine Angabe</span></button>
-  </div>
-  <span class="aerr" id="aerr" data-i18n="err.anrede">Bitte eine Anrede w&auml;hlen</span>
-  <input type="hidden" name="anrede" id="anr"/>
-</div>
-</div>
-
-<div class="row c2">
-  <div class="fi" id="f-vn"><label for="vn"><span data-i18n="form.vn.lbl">Vorname</span> <span class="rq">*</span></label><input type="text" name="vorname" id="vn" placeholder="Max"/><span class="vi">&#10003;</span><span class="fe" data-i18n="err.vn"><span data-i18n="form.vn.err">Bitte Vorname eingeben</span></span></div>
-  <div class="fi" id="f-nn"><label for="nn"><span data-i18n="form.nn.lbl">Nachname</span> <span class="rq">*</span></label><input type="text" name="nachname" id="nn" placeholder="Mustermann"/><span class="vi">&#10003;</span><span class="fe" data-i18n="err.nn"><span data-i18n="form.nn.err">Bitte Nachname eingeben</span></span></div>
-</div>
-<div class="row">
-  <div class="fi"><label for="fa" data-i18n="form.fa.lbl">Firma / Organisation</label><input type="text" name="firma" id="fa" placeholder="Optional"/></div>
-</div>
-<div class="row c2">
-  <div class="fi" id="f-em"><label for="em"><span data-i18n="form.em.lbl">E-Mail</span> <span class="rq">*</span></label><input type="email" name="email" id="em" placeholder="max@firma.de"/><span class="vi">&#10003;</span><span class="fe" id="eme" data-i18n="err.em"><span data-i18n="form.em.err">G&uuml;ltige E-Mail eingeben</span></span></div>
-  <div class="fi" id="f-tel"><label for="tel"><span data-i18n="form.tel.lbl">Telefon</span> <span class="rq">*</span></label><input type="tel" name="telefon" id="tel" placeholder="0151 12345678" oninput="ftel(this)"/><span class="vi">&#10003;</span><span class="fe" id="tele"><span data-i18n="form.tel.err">DE Nummer oder international mit +</span></span><span class="fh2" data-i18n="form.tel.hint">z.B. 0151 23456789 oder +44 7911 123456</span></div>
-</div>
-<div class="row c3">
-  <div class="fi"><label for="str" data-i18n="form.str.lbl">Stra&szlig;e und Hausnummer</label><input type="text" name="strasse" id="str" placeholder="Musterstra&szlig;e 1"/></div>
-  <div class="fi"><label for="plz" data-i18n="form.plz.lbl">PLZ</label><input type="text" name="plz" id="plz" placeholder="12345"/></div>
-</div>
-<div class="row c2">
-  <div class="fi"><label for="ort" data-i18n="form.ort.lbl">Ort</label><input type="text" name="ort" id="ort" placeholder="Musterstadt"/></div>
-  <div class="fi">
-  <label data-i18n="form.land.lbl">Land</label>
-  <div class="nb-lw" id="ctr-wrap" style="position:relative;width:100%">
-    <div id="ctr-btn" style="display:flex;align-items:center;gap:8px;cursor:pointer;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:.7rem 1rem;color:var(--light);font-size:.95rem;transition:border-color .2s;user-select:none" onclick="ctrToggle(event)">
-      <span id="ctr-flag" style="font-size:1.1rem">&#127465;&#127466;</span>
-      <span id="ctr-name" style="flex:1">Deutschland</span>
-      <svg id="ctr-chev" style="width:12px;height:12px;stroke:#7a95a8;fill:none;stroke-width:2;transition:transform .2s;flex-shrink:0" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <input type="hidden" name="land" id="land" value="Deutschland"/>
-    <div id="ctr-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1c2633;border:1px solid rgba(70,185,200,.2);border-radius:10px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:500">
-      <div style="padding:7px 7px 3px;border-bottom:1px solid rgba(255,255,255,.07)">
-        <input type="text" id="ctr-search" placeholder="Land suchen..." autocomplete="off" style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.35rem .65rem;color:#fff;font-size:.8rem;font-family:inherit;outline:none" oninput="ctrFilter(this.value)" onclick="event.stopPropagation()"/>
-      </div>
-      <div id="ctr-list" style="max-height:220px;overflow-y:auto;padding:3px 0"></div>
-    </div>
-  </div>
-</div>
-</div>
-<div class="row">
-  <div class="fi" id="f-ls"><label for="ls"><span data-i18n="form.ls.lbl">Betreffende Leistung</span> <span class="rq">*</span></label>
-  <select name="leistung" id="ls" onchange="lvs(this,'ls')"><option value="" disabled selected data-i18n="placeholder.ls">Bitte w&auml;hlen...</option><option data-i18n="ls.ha">H&ouml;henarbeiten</option><option data-i18n="ls.ms">Maschinenwartung</option><option data-i18n="ls.hm">Homogenisatoren</option><option data-i18n="ls.so">Sonstiges</option></select><span class="vi">&#10003;</span></div>
-</div>
-<div class="row">
-  <div class="fi" id="f-msg"><label for="msg"><span data-i18n="form.msg.lbl">Nachricht</span> <span class="rq">*</span></label>
-  <textarea name="nachricht" id="msg" placeholder="Beschreib dein Anliegen so detailliert wie m&ouml;glich." maxlength="2000" oninput="ucc()"></textarea>
-  <div class="cc" id="cc" data-i18n="msg.counter">0 / 2000 Zeichen</div><span class="fe" data-i18n="err.msg"><span data-i18n="form.msg.err">Bitte eine Nachricht eingeben</span></span></div>
-</div>
-<div class="sr">
-  <p data-i18n="form.privacy" class="pn">Mit dem Absenden stimmst du der Verarbeitung deiner Daten gem&auml;&szlig; unserer <a href="datenschutz.html">Datenschutzerkl&auml;rung</a>.</p>
-  <button type="submit" class="sb" id="sb" disabled><span data-i18n="form.submit">Anfrage absenden →</span></button>
-</div>
-</form>
-
-<div id="cfp">
-<div style="text-align:center;margin-bottom:2rem">
-  <div class="cbadge" data-i18n="conf.heading">&#10003; Anfrage eingegangen</div>
-  <h1 class="ft" data-i18n="conf.overview">Deine &Uuml;bersicht</h1>
-  <p class="fs" data-i18n="conf.save">Bitte speichere diese Seite als Nachweis.</p>
-</div>
-<div class="tbox">
-  <div class="th">
-    <div><div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem" data-i18n="conf.ticket.lbl">Ticket Nummer</div><div class="tid" id="ctid"></div></div>
-    <div class="tm"><div><strong id="cdt"></strong></div><div><strong id="ctm"></strong> Uhr</div></div>
-  </div>
-  <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem" data-i18n="conf.subject.lbl">E-Mail Betreff</div>
-  <div class="tsub" id="csub"></div>
-  <div class="cg">
-    <div class="ci"><div class="ck" data-i18n="conf.anrede.lbl">Anrede</div><div class="cv" id="can"></div></div>
-    <div class="ci"><div class="ck" data-i18n="conf.name.lbl">Name</div><div class="cv" id="cnm"></div></div>
-    <div class="ci"><div class="ck" data-i18n="conf.em.lbl">E-Mail</div><div class="cv" id="cem"></div></div>
-    <div class="ci"><div class="ck" data-i18n="conf.tel.lbl">Telefon</div><div class="cv" id="ctel"></div></div>
-    <div class="ci" id="cfw"><div class="ck" data-i18n="conf.fa.lbl">Firma</div><div class="cv" id="cfa"></div></div>
-    <div class="ci"><div class="ck" data-i18n="conf.ls.lbl">Leistung</div><div class="cv" id="cls"></div></div>
-    <div class="ci full" id="cadw"><div class="ck" data-i18n="conf.addr.lbl">Adresse</div><div class="cv" id="cad"></div></div>
-    <div class="ci full"><div class="ck" data-i18n="conf.msg.lbl">Nachricht</div><div class="cv" id="cmsg" style="white-space:pre-wrap"></div></div>
-  </div>
-</div>
-<div class="cnote"><strong data-i18n="conf.hint">Hinweis:</strong> Bei R&uuml;ckfragen schreib an <strong>info@werkbyte.de</strong> mit der Ticketnummer im Betreff.</div>
-<div class="cbtns">
-  <a href="index.html" class="bb" data-i18n="conf.home">Zur Startseite</a>
-  <button onclick="window.print()" class="bp print-btn" data-i18n="conf.print">Seite drucken / speichern</button>
-</div>
-</div>
-</div>
-</div>
-<footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Maschinenservice &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
-
-<script>
-var COUNTRIES=[
-['🇩🇪','Deutschland','Germany'],
-['🇦🇹','Österreich','Austria'],
-['🇨🇭','Schweiz','Switzerland'],
-['🇬🇧','Vereinigtes Königreich','United Kingdom'],
-['🇺🇸','USA','United States'],
-['🇫🇷','Frankreich','France'],
-['🇮🇹','Italien','Italy'],
-['🇪🇸','Spanien','Spain'],
-['🇳🇱','Niederlande','Netherlands'],
-['🇧🇪','Belgien','Belgium'],
-['🇵🇱','Polen','Poland'],
-['🇨🇿','Tschechien','Czech Republic'],
-['🇸🇰','Slowakei','Slovakia'],
-['🇭🇺','Ungarn','Hungary'],
-['🇷🇴','Rumänien','Romania'],
-['🇧🇬','Bulgarien','Bulgaria'],
-['🇭🇷','Kroatien','Croatia'],
-['🇸🇪','Schweden','Sweden'],
-['🇳🇴','Norwegen','Norway'],
-['🇩🇰','Dänemark','Denmark'],
-['🇫🇮','Finnland','Finland'],
-['🇵🇹','Portugal','Portugal'],
-['🇬🇷','Griechenland','Greece'],
-['🇹🇷','Türkei','Turkey'],
-['🇺🇦','Ukraine','Ukraine'],
-['🇷🇺','Russland','Russia'],
-['🇨🇦','Kanada','Canada'],
-['🇧🇷','Brasilien','Brazil'],
-['🇦🇺','Australien','Australia'],
-['🇨🇳','China','China'],
-['🇯🇵','Japan','Japan'],
-['🇰🇷','Südkorea','South Korea'],
-['🇮🇳','Indien','India'],
-['🇸🇦','Saudi-Arabien','Saudi Arabia'],
-['🇦🇪','VAE','UAE'],
-['🇸🇬','Singapur','Singapore'],
-['🇿🇦','Südafrika','South Africa']
-];
-
-function ctrBuild(q){
-  var lang=(typeof window.wbGetLang==='function')?window.wbGetLang():'de';
-  var useEn=lang!=='de';
-  var el=document.getElementById('ctr-list');
-  if(!el)return;
-  el.innerHTML='';
-  var ql=q?q.toLowerCase().trim():'';
-  var curVal=document.getElementById('land').value||'Deutschland';
-  for(var i=0;i<COUNTRIES.length;i++){
-    var flag=COUNTRIES[i][0],deName=COUNTRIES[i][1],enName=COUNTRIES[i][2];
-    /* Use language for display: EN shows EN names, DE shows DE names */
-    var cLang='de';try{cLang=localStorage.getItem('wb_lang')||'de';}catch(e){}
-    var displayName=cLang==='en'?enName:deName;
-    if(ql){
-      var matchDe=deName.toLowerCase().indexOf(ql)===0;
-      var matchEn=enName.toLowerCase().indexOf(ql)===0;
-      if(!matchDe&&!matchEn)continue;
-      /* Show matched name; if EN matched show EN, if DE matched show DE */
-      if(matchEn&&!matchDe){displayName=enName;}
-      else if(matchDe&&!matchEn){displayName=deName;}
-    }
-    var isCur=deName===curVal;
-    var btn=document.createElement('button');
-    btn.type='button';
-    btn.setAttribute('data-flag',flag);
-    btn.setAttribute('data-name',deName);
-    btn.setAttribute('data-display',displayName);
-    var label=displayName;
-    if(displayName!==deName){
-      label+=' <span style="color:#7a95a8;font-size:.76rem">('+deName+')</span>';
-    }
-    btn.style.cssText='display:flex;align-items:center;gap:9px;padding:.45rem .9rem;font-size:.83rem;color:'+(isCur?'#46b9c8':'#7a95a8')+';background:none;border:none;width:100%;text-align:left;cursor:pointer;font-family:inherit;'+(isCur?'font-weight:600;':'');
-    var label2=displayName;
-    if(ql&&useEn&&deName.toLowerCase().indexOf(ql)===0&&enName!==deName){
-      label2=enName+' <span style="color:#7a95a8;font-size:.76rem">('+deName+')</span>';
-    } else if(ql&&!useEn&&enName.toLowerCase().indexOf(ql)===0&&deName!==enName){
-      label2=deName+' <span style="color:#7a95a8;font-size:.76rem">('+enName+')</span>';
-    }
-    btn.innerHTML=flag+' '+label2;
-    btn.onclick=function(){ctrSelect(this.getAttribute('data-flag'),this.getAttribute('data-name'),this.getAttribute('data-display'));};
-    el.appendChild(btn);
-  }
-  if(el.children.length===0){
-    el.innerHTML='<div style="padding:.75rem .9rem;font-size:.8rem;color:#7a95a8;text-align:center">'+(typeof window.wbGetLang==='function'&&window.wbGetLang()!=='de'?'Not found':'Nicht gefunden')+'</div>';
-  }
-}
-
-function ctrToggle(e){
-  e.stopPropagation();
-  var dd=document.getElementById('ctr-dd');
-  var chev=document.getElementById('ctr-chev');
-  if(!dd)return;
-  var isOpen=dd.style.display==='block';
-  if(isOpen){
-    dd.style.display='none';
-    if(chev)chev.style.transform='';
-  }else{
-    dd.style.display='block';
-    if(chev)chev.style.transform='rotate(180deg)';
-    ctrBuild('');
-    setTimeout(function(){
-      var s=document.getElementById('ctr-search');
-      if(s){s.value='';s.focus();}
-    },60);
-  }
-}
-
-function ctrFilter(q){ctrBuild(q);}
-
-function ctrSelect(flag,name,displayName){
-  var flagEl=document.getElementById('ctr-flag');
-  var nameEl=document.getElementById('ctr-name');
-  var inp=document.getElementById('land');
-  var dd=document.getElementById('ctr-dd');
-  var chev=document.getElementById('ctr-chev');
-  var btn=document.getElementById('ctr-btn');
-  if(flagEl)flagEl.textContent=flag;
-  /* Show display name (translated), store German name as value */
-  if(nameEl)nameEl.textContent=displayName||name;
-  if(inp)inp.value=name;
-  if(dd)dd.style.display='none';
-  if(chev)chev.style.transform='';
-  if(btn)btn.style.borderColor='rgba(70,185,200,.4)';
-  if(typeof saveDraft==='function')saveDraft();
-}
-
-document.addEventListener('click',function(e){
-  var dd=document.getElementById('ctr-dd');
-  var btn=document.getElementById('ctr-btn');
-  if(!dd||dd.style.display!=='block')return;
-  var t=e.target||e.srcElement;
-  var inBtn=btn&&(btn===t||btn.contains(t));
-  var inDd=dd===t||dd.contains(t);
-  if(!inBtn&&!inDd){
-    dd.style.display='none';
-    var chev=document.getElementById('ctr-chev');
-    if(chev)chev.style.transform='';
-  }
-});
-</script>
-
-
-
-
 <script>
 (function(){
 var T={
@@ -898,7 +578,7 @@ de:{
   'prog.label':'0 von 7 Pflichtfeldern ausgefüllt',
   'dat.p3a':'Diese Website verwendet',
   'dat.p3b':'keine Tracking-Cookies'
-},
+},,
 en:{
   'nav.start':'Home','nav.about':'About Us','nav.services':'Services','nav.contact':'Contact','nav.cta':'Send Request →',
   'hero.badge':'IRATA CERTIFIED · WORLDWIDE','hero.h1a':'Industrial Climbing &amp;','hero.h1b':'Machine Service',
@@ -1018,84 +698,6 @@ en:{
   'prog.label':'0 of 7 required fields completed',
   'dat.p3a':'This website uses',
   'dat.p3b':'no tracking cookies'
-}
-};
-
-function wbLang(){
-  /* In-page switch takes highest priority */
-  if(window._wbLang)return window._wbLang;
-  var s=location.search;
-  var p=s?s.slice(1).split('&'):[];
-  for(var i=0;i<p.length;i++){
-    var kv=p[i].split('=');
-    if(kv[0]==='lang'){
-      var l=decodeURIComponent(kv[1]||'de');
-      try{localStorage.setItem('wb_lang',l);}catch(e){}
-      return l;
-    }
-  }
-  try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
-  return 'de';
-}
-
-/* Cache original DE texts on first load */
-var _wbCache={};
-function wbCacheDE(){
-  try{
-    var els=document.querySelectorAll('[data-i18n]');
-    for(var i=0;i<els.length;i++){
-      var k=els[i].getAttribute('data-i18n');
-      if(!_wbCache[k])_wbCache[k]=els[i].innerHTML;
-    }
-    /* Cache footer */
-    var foot=document.querySelector('footer p');
-    if(foot&&!_wbCache['_footer'])_wbCache['_footer']=foot.innerHTML;
-  }catch(e){}
-}
-function wbApply(){
-  var lang=wbLang();
-  /* Cache DE content before first translation */
-  if(Object.keys(_wbCache).length===0)wbCacheDE();
-  if(lang==='de'){
-    /* Restore DE originals */
-    try{
-      var els=document.querySelectorAll('[data-i18n]');
-      for(var i=0;i<els.length;i++){
-        var k=els[i].getAttribute('data-i18n');
-        if(_wbCache[k]!==undefined)els[i].innerHTML=_wbCache[k];
-      }
-    }catch(e){}
-    /* Restore nav links */
-    var nb=document.getElementById('nblinks');
-    if(nb){var as=nb.getElementsByTagName('a');var dk=['Startseite','Über Uns','Leistungen','Kontakt'];for(var i=0;i<as.length&&i<dk.length;i++){as[i].textContent=dk[i];}}
-    var mob=document.getElementById('nbMob');
-    if(mob){var mas=mob.getElementsByTagName('a');var dk2=['Startseite','Über Uns','Leistungen','Kontakt'];var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){mas[i].textContent=dk2[ki];ki++;}}}
-    /* Restore footer */
-    var foot=document.querySelector('footer p');
-    if(foot&&_wbCache['_footer'])foot.innerHTML=_wbCache['_footer'];
-    return;
-  }
-  var t=T[lang]||T['en'];
-  if(!t)return;
-  try{
-    var els=document.querySelectorAll('[data-i18n]');
-    for(var i=0;i<els.length;i++){
-      var k=els[i].getAttribute('data-i18n');
-      if(t[k]!==undefined)els[i].innerHTML=t[k];
-    }
-  }catch(e){}
-  var nb=document.getElementById('nblinks');
-  if(nb){var as=nb.getElementsByTagName('a');var nk=['nav.start','nav.about','nav.services','nav.contact'];for(var i=0;i<as.length&&i<nk.length;i++){if(t[nk[i]])as[i].textContent=t[nk[i]];}}
-  var mob=document.getElementById('nbMob');
-  if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){if(t[['nav.start','nav.about','nav.services','nav.contact'][ki]])mas[i].textContent=t[['nav.start','nav.about','nav.services','nav.contact'][ki]];ki++;}}}
-  /* Translate placeholders and dynamic text */
-  var isEN=(lang!=='de');
-  var phMap={'vn':['Max','First name'],'nn':['Mustermann','Last name'],
-    'fa':['Optional','Optional'],'em':['max@firma.de','name@company.com'],
-    'tel':['0151 12345678','0151 12345678'],
-    'str':['Musterstraße 1','123 Example Street'],
-    'plz':['12345','12345'],'ort':['Musterstadt','City'],
-    'msg':['Beschreib dein Anliegen so detailliert wie möglich.','Describe your request in as much detail as possible.']
 },
 fr:{
   'nav.start':'Accueil',
@@ -2797,12 +2399,387 @@ vi:{
   'val.sec.title':'Nguyên tắc của chúng tôi',
   'team.title':'Đội ngũ'
 }
+};
+
+var _wbCache={};
+
+function wbCacheDE(){
+  try{
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){
+      var k=els[i].getAttribute('data-i18n');
+      if(!_wbCache[k])_wbCache[k]=els[i].innerHTML;
+    }
+    var foot=document.querySelector('footer p');
+    if(foot&&!_wbCache['_footer'])_wbCache['_footer']=foot.innerHTML;
+  }catch(e){}
 }
+
+function wbLang(){
+  if(window._wbLang)return window._wbLang;
+  var s=location.search;
+  var p=s?s.slice(1).split('&'):[];
+  for(var i=0;i<p.length;i++){
+    var kv=p[i].split('=');
+    if(kv[0]==='lang'){
+      var l=decodeURIComponent(kv[1]||'de');
+      try{localStorage.setItem('wb_lang',l);}catch(e){}
+      return l;
+    }
+  }
+  try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
+  return 'de';
+}
+
+function wbApply(){
+  var lang=wbLang();
+  if(Object.keys(_wbCache).length===0)wbCacheDE();
+  if(lang==='de'){
+    try{
+      var els=document.querySelectorAll('[data-i18n]');
+      for(var i=0;i<els.length;i++){
+        var k=els[i].getAttribute('data-i18n');
+        if(_wbCache[k]!==undefined)els[i].innerHTML=_wbCache[k];
+      }
+    }catch(e){}
+    var nb=document.getElementById('nblinks');
+    if(nb){var as=nb.getElementsByTagName('a');var dk=['Startseite','Über Uns','Leistungen','Kontakt'];for(var i=0;i<as.length&&i<dk.length;i++){as[i].textContent=dk[i];}}
+    var mob=document.getElementById('nbMob');
+    if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){mas[i].textContent=['Startseite','Über Uns','Leistungen','Kontakt'][ki];ki++;}}}
+    var foot=document.querySelector('footer p');
+    if(foot&&_wbCache['_footer'])foot.innerHTML=_wbCache['_footer'];
+    return;
+  }
+  var t=T[lang]||T['en'];
+  if(!t)return;
+  try{
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){
+      var k=els[i].getAttribute('data-i18n');
+      if(t[k]!==undefined)els[i].innerHTML=t[k];
+    }
+  }catch(e){}
+  var nb=document.getElementById('nblinks');
+  if(nb){var as=nb.getElementsByTagName('a');var nk=['nav.start','nav.about','nav.services','nav.contact'];for(var i=0;i<as.length&&i<nk.length;i++){if(t[nk[i]])as[i].textContent=t[nk[i]];}}
+  var mob=document.getElementById('nbMob');
+  if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){if(t[['nav.start','nav.about','nav.services','nav.contact'][ki]])mas[i].textContent=t[['nav.start','nav.about','nav.services','nav.contact'][ki]];ki++;}}}
+  var foot=document.querySelector('footer p');
+  if(foot&&t['footer.copy']){
+    var imp=foot.querySelector('a[href*="impressum"]');
+    var dat=foot.querySelector('a[href*="datenschutz"]');
+    var ih=imp?imp.getAttribute('href'):'impressum.html';
+    var dh=dat?dat.getAttribute('href'):'datenschutz.html';
+    foot.innerHTML=t['footer.copy']+' &nbsp;&middot;&nbsp; <a href="'+ih+'" style="color:var(--cyan);text-decoration:none">'+t['footer.imp']+'</a> &nbsp;&middot;&nbsp; <a href="'+dh+'" style="color:var(--cyan);text-decoration:none">'+t['footer.dat']+'</a>';
+  }
+  if(typeof COUNTRIES!=='undefined'){
+    var ctrNameEl=document.getElementById('ctr-name');
+    var landInp=document.getElementById('land');
+    if(ctrNameEl&&landInp&&landInp.value){
+      for(var ci=0;ci<COUNTRIES.length;ci++){
+        if(COUNTRIES[ci][1]===landInp.value){
+          ctrNameEl.textContent=lang==='de'?COUNTRIES[ci][1]:COUNTRIES[ci][2];
+          break;
+        }
+      }
+    }
+  }
+}
+
 window.wbApplyT=wbApply;
+window.wbGetLang=wbLang;
+window.wbT=T;
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',wbApply);}
 else{wbApply();}
 })();
 </script>
+<div class="pg">
+<div class="fw">
+<div class="fh">
+  <p class="sl" data-i18n="contact.label">Kontakt</p>
+  <h1 class="ft" data-i18n="contact.title">Anfrage senden</h1>
+  <p class="fs" data-i18n="contact.sub">Beschreib dein Anliegen. Wir melden uns innerhalb von 24 Stunden.</p>
+</div>
+<div class="pb"><div class="pf" id="pf"></div></div>
+<div class="pl" id="plbl" data-i18n="prog.label">0 von 7 Pflichtfeldern ausgefüllt</div>
+
+<form id="kform" netlify name="contact" method="POST" novalidate>
+<input type="hidden" name="form-name" value="contact"/>
+<input type="hidden" name="ticket" id="htic"/>
+<input type="hidden" name="betreff" id="hbtr"/>
+<p class="rn" data-i18n="form.legend">Felder mit <span>*</span> sind Pflichtfelder</p>
+
+<div class="row" style="margin-bottom:1.1rem">
+<div class="fi" id="f-anr">
+  <label><span data-i18n="form.anrede.lbl">Anrede</span> <span class="rq">*</span></label>
+  <div class="ag" id="ag">
+    <button type="button" class="ab" data-v="Herr" data-i18n="anr.herr"><span data-i18n="form.herr">Herr</span></button>
+    <button type="button" class="ab" data-v="Frau" data-i18n="anr.frau"><span data-i18n="form.frau">Frau</span></button>
+    <button type="button" class="ab" data-v="Divers" data-i18n="anr.divers"><span data-i18n="form.divers">Divers</span></button>
+    <button type="button" class="ab" data-v="Keine Angabe" data-i18n="anr.none"><span data-i18n="form.keine">Keine Angabe</span></button>
+  </div>
+  <span class="aerr" id="aerr" data-i18n="err.anrede">Bitte eine Anrede w&auml;hlen</span>
+  <input type="hidden" name="anrede" id="anr"/>
+</div>
+</div>
+
+<div class="row c2">
+  <div class="fi" id="f-vn"><label for="vn"><span data-i18n="form.vn.lbl">Vorname</span> <span class="rq">*</span></label><input type="text" name="vorname" id="vn" placeholder="Max"/><span class="vi">&#10003;</span><span class="fe" data-i18n="err.vn"><span data-i18n="form.vn.err">Bitte Vorname eingeben</span></span></div>
+  <div class="fi" id="f-nn"><label for="nn"><span data-i18n="form.nn.lbl">Nachname</span> <span class="rq">*</span></label><input type="text" name="nachname" id="nn" placeholder="Mustermann"/><span class="vi">&#10003;</span><span class="fe" data-i18n="err.nn"><span data-i18n="form.nn.err">Bitte Nachname eingeben</span></span></div>
+</div>
+<div class="row">
+  <div class="fi"><label for="fa" data-i18n="form.fa.lbl">Firma / Organisation</label><input type="text" name="firma" id="fa" placeholder="Optional"/></div>
+</div>
+<div class="row c2">
+  <div class="fi" id="f-em"><label for="em"><span data-i18n="form.em.lbl">E-Mail</span> <span class="rq">*</span></label><input type="email" name="email" id="em" placeholder="max@firma.de"/><span class="vi">&#10003;</span><span class="fe" id="eme" data-i18n="err.em"><span data-i18n="form.em.err">G&uuml;ltige E-Mail eingeben</span></span></div>
+  <div class="fi" id="f-tel"><label for="tel"><span data-i18n="form.tel.lbl">Telefon</span> <span class="rq">*</span></label><input type="tel" name="telefon" id="tel" placeholder="0151 12345678" oninput="ftel(this)"/><span class="vi">&#10003;</span><span class="fe" id="tele"><span data-i18n="form.tel.err">DE Nummer oder international mit +</span></span><span class="fh2" data-i18n="form.tel.hint">z.B. 0151 23456789 oder +44 7911 123456</span></div>
+</div>
+<div class="row c3">
+  <div class="fi"><label for="str" data-i18n="form.str.lbl">Stra&szlig;e und Hausnummer</label><input type="text" name="strasse" id="str" placeholder="Musterstra&szlig;e 1"/></div>
+  <div class="fi"><label for="plz" data-i18n="form.plz.lbl">PLZ</label><input type="text" name="plz" id="plz" placeholder="12345"/></div>
+</div>
+<div class="row c2">
+  <div class="fi"><label for="ort" data-i18n="form.ort.lbl">Ort</label><input type="text" name="ort" id="ort" placeholder="Musterstadt"/></div>
+  <div class="fi">
+  <label data-i18n="form.land.lbl">Land</label>
+  <div class="nb-lw" id="ctr-wrap" style="position:relative;width:100%">
+    <div id="ctr-btn" style="display:flex;align-items:center;gap:8px;cursor:pointer;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:.7rem 1rem;color:var(--light);font-size:.95rem;transition:border-color .2s;user-select:none" onclick="ctrToggle(event)">
+      <span id="ctr-flag" style="font-size:1.1rem">&#127465;&#127466;</span>
+      <span id="ctr-name" style="flex:1">Deutschland</span>
+      <svg id="ctr-chev" style="width:12px;height:12px;stroke:#7a95a8;fill:none;stroke-width:2;transition:transform .2s;flex-shrink:0" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <input type="hidden" name="land" id="land" value="Deutschland"/>
+    <div id="ctr-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1c2633;border:1px solid rgba(70,185,200,.2);border-radius:10px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:500">
+      <div style="padding:7px 7px 3px;border-bottom:1px solid rgba(255,255,255,.07)">
+        <input type="text" id="ctr-search" placeholder="Land suchen..." autocomplete="off" style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.35rem .65rem;color:#fff;font-size:.8rem;font-family:inherit;outline:none" oninput="ctrFilter(this.value)" onclick="event.stopPropagation()"/>
+      </div>
+      <div id="ctr-list" style="max-height:220px;overflow-y:auto;padding:3px 0"></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="fi" id="f-ls"><label for="ls"><span data-i18n="form.ls.lbl">Betreffende Leistung</span> <span class="rq">*</span></label>
+  <select name="leistung" id="ls" onchange="lvs(this,'ls')"><option value="" disabled selected data-i18n="placeholder.ls">Bitte w&auml;hlen...</option><option data-i18n="ls.ha">H&ouml;henarbeiten</option><option data-i18n="ls.ms">Maschinenwartung</option><option data-i18n="ls.hm">Homogenisatoren</option><option data-i18n="ls.so">Sonstiges</option></select><span class="vi">&#10003;</span></div>
+</div>
+<div class="row">
+  <div class="fi" id="f-msg"><label for="msg"><span data-i18n="form.msg.lbl">Nachricht</span> <span class="rq">*</span></label>
+  <textarea name="nachricht" id="msg" placeholder="Beschreib dein Anliegen so detailliert wie m&ouml;glich." maxlength="2000" oninput="ucc()"></textarea>
+  <div class="cc" id="cc" data-i18n="msg.counter">0 / 2000 Zeichen</div><span class="fe" data-i18n="err.msg"><span data-i18n="form.msg.err">Bitte eine Nachricht eingeben</span></span></div>
+</div>
+<div class="sr">
+  <p data-i18n="form.privacy" class="pn">Mit dem Absenden stimmst du der Verarbeitung deiner Daten gem&auml;&szlig; unserer <a href="datenschutz.html">Datenschutzerkl&auml;rung</a>.</p>
+  <button type="submit" class="sb" id="sb" disabled><span data-i18n="form.submit">Anfrage absenden →</span></button>
+</div>
+</form>
+
+<div id="cfp">
+<div style="text-align:center;margin-bottom:2rem">
+  <div class="cbadge" data-i18n="conf.heading">&#10003; Anfrage eingegangen</div>
+  <h1 class="ft" data-i18n="conf.overview">Deine &Uuml;bersicht</h1>
+  <p class="fs" data-i18n="conf.save">Bitte speichere diese Seite als Nachweis.</p>
+</div>
+<div class="tbox">
+  <div class="th">
+    <div><div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem" data-i18n="conf.ticket.lbl">Ticket Nummer</div><div class="tid" id="ctid"></div></div>
+    <div class="tm"><div><strong id="cdt"></strong></div><div><strong id="ctm"></strong> Uhr</div></div>
+  </div>
+  <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem" data-i18n="conf.subject.lbl">E-Mail Betreff</div>
+  <div class="tsub" id="csub"></div>
+  <div class="cg">
+    <div class="ci"><div class="ck" data-i18n="conf.anrede.lbl">Anrede</div><div class="cv" id="can"></div></div>
+    <div class="ci"><div class="ck" data-i18n="conf.name.lbl">Name</div><div class="cv" id="cnm"></div></div>
+    <div class="ci"><div class="ck" data-i18n="conf.em.lbl">E-Mail</div><div class="cv" id="cem"></div></div>
+    <div class="ci"><div class="ck" data-i18n="conf.tel.lbl">Telefon</div><div class="cv" id="ctel"></div></div>
+    <div class="ci" id="cfw"><div class="ck" data-i18n="conf.fa.lbl">Firma</div><div class="cv" id="cfa"></div></div>
+    <div class="ci"><div class="ck" data-i18n="conf.ls.lbl">Leistung</div><div class="cv" id="cls"></div></div>
+    <div class="ci full" id="cadw"><div class="ck" data-i18n="conf.addr.lbl">Adresse</div><div class="cv" id="cad"></div></div>
+    <div class="ci full"><div class="ck" data-i18n="conf.msg.lbl">Nachricht</div><div class="cv" id="cmsg" style="white-space:pre-wrap"></div></div>
+  </div>
+</div>
+<div class="cnote"><strong data-i18n="conf.hint">Hinweis:</strong> Bei R&uuml;ckfragen schreib an <strong>info@werkbyte.de</strong> mit der Ticketnummer im Betreff.</div>
+<div class="cbtns">
+  <a href="index.html" class="bb" data-i18n="conf.home">Zur Startseite</a>
+  <button onclick="window.print()" class="bp print-btn" data-i18n="conf.print">Seite drucken / speichern</button>
+</div>
+</div>
+</div>
+</div>
+<footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> – Industrieklettern &amp; Maschinenservice &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html" style="color:var(--cyan);text-decoration:none">Datenschutz</a></p></footer>
+
+<script>
+/* ── WERKBYTE CONTACT FORM VALIDATION ── */
+var REQS=['vn','nn','em','tel','ls','msg'];
+var fs={};var aok=false;var TOUCHED={};var FORM_KEY='wb_form_draft';
+function pad2(n){return n<10?'0'+n:String(n);}
+var TYPE_CODES={'H\u00f6henarbeiten':'HA','Rope Access Work':'HA','Maschinenwartung':'MS','Machine Maintenance':'MS','Homogenisatoren':'HM','Homogenizers':'HM'};
+function getTypeCode(l){return TYPE_CODES[(l||'').trim()]||'SO';}
+function getCounter(yy,ty){try{var s=localStorage.getItem('wb_cnt_'+yy+'_'+ty);if(s){var o=JSON.parse(s);if(o.yy===yy)return o.n||0;}}catch(e){}return 0;}
+function saveCounter(yy,ty,n){try{localStorage.setItem('wb_cnt_'+yy+'_'+ty,JSON.stringify({yy:yy,ty:ty,n:n}));}catch(e){}}
+function genTicket(){var d=new Date(),yy=d.getFullYear()%100;var yyStr=yy<10?'0'+yy:String(yy);var lsEl=document.getElementById('ls');var ty=getTypeCode(lsEl?lsEl.value:'');var n=getCounter(yy,ty)+1;var nStr=n<10?'000'+n:n<100?'00'+n:n<1000?'0'+n:String(n);return{ticket:yyStr+'-'+ty+'-'+nStr,yy:yy,ty:ty,n:n};}
+function lockTicket(t){saveCounter(t.yy,t.ty,t.n);}
+function saveDraft(){var data={ts:Date.now()};var ids=['vn','nn','fa','em','tel','str','plz','ort','land','msg'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)data[ids[i]]=el.value;}var lsel=document.getElementById('ls');if(lsel)data.ls=lsel.value;var anrEl=document.getElementById('anr');if(anrEl)data.anrede=anrEl.value;try{sessionStorage.setItem(FORM_KEY,JSON.stringify(data));}catch(e){}}
+function loadDraft(){try{var s=sessionStorage.getItem(FORM_KEY);if(!s)return;var data=JSON.parse(s);if(Date.now()-data.ts>86400000){sessionStorage.removeItem(FORM_KEY);return;}var ids=['vn','nn','fa','em','tel','str','plz','ort','msg'];for(var i=0;i<ids.length;i++){if(data[ids[i]]){var el=document.getElementById(ids[i]);if(el)el.value=data[ids[i]];}}if(data.ls){var lsel=document.getElementById('ls');if(lsel)lsel.value=data.ls;}if(data.msg)ucc();if(data.land&&data.land!=='Deutschland'){var inp=document.getElementById('land');if(inp)inp.value=data.land;if(typeof COUNTRIES!=='undefined'){for(var i=0;i<COUNTRIES.length;i++){if(COUNTRIES[i][1]===data.land){var fEl=document.getElementById('ctr-flag');var nEl=document.getElementById('ctr-name');if(fEl)fEl.textContent=COUNTRIES[i][0];if(nEl)nEl.textContent=data.land;break;}}}}if(data.anrede){var abs=document.getElementsByClassName('ab');for(var i=0;i<abs.length;i++){if(abs[i].dataset.v===data.anrede){abs[i].classList.add('sel');var anrEl=document.getElementById('anr');if(anrEl)anrEl.value=data.anrede;aok=true;break;}}}}catch(e){}}
+var VTLD=['de','com','net','org','info','biz','eu','io','co','uk','at','ch','fr','es','it','nl','pl','ru','se','no','dk','fi','be','pt','cz','sk','hu','ro','bg','hr','si','ee','lt','lv','gr','tr','ae','sa','jp','cn','kr','in','au','nz','ca','mx','br','za','us','gov','edu','mobi','tv','me','online','shop','store','app','dev','tech','gmbh','company','services','email','digital','engineering','solutions','consulting','industries','systems','global','group','pro','work','cloud','ai'];
+function isValidEmail(v){v=(v||'').trim();if(!v)return{ok:false,msg:'E-Mail eingeben'};var parts=v.split('@');if(parts.length!==2)return{ok:false,msg:'Genau ein @ erforderlich'};var local=parts[0],domain=parts[1];if(!/^[a-zA-Z0-9.\-_+]+$/.test(local))return{ok:false,msg:'Ung\u00fcltige Zeichen vor @'};if(domain.indexOf('.')<0)return{ok:false,msg:'Domain ung\u00fcltig'};var dparts=domain.split('.');for(var i=0;i<dparts.length;i++){if(!/^[a-zA-Z0-9\-]+$/.test(dparts[i])||dparts[i].length<1)return{ok:false,msg:'Domain ung\u00fcltig'};}var tld=dparts[dparts.length-1].toLowerCase();if(!/^[a-z]{2,6}$/.test(tld))return{ok:false,msg:'Ung\u00fcltige Endung ".'+tld+'"'};var ok2=false;for(var i=0;i<VTLD.length;i++){if(VTLD[i]===tld){ok2=true;break;}}if(!ok2)return{ok:false,msg:'Unbekannte Endung ".'+tld+'"'};return{ok:true};}
+function isok(id,v){v=(v||'').trim();if(id==='em')return isValidEmail(v);if(id==='tel'){if(!v)return{ok:false,msg:'Telefon eingeben'};if(v.charAt(0)!=='0'&&v.charAt(0)!=='+')return{ok:false,msg:'Mit 0 oder + beginnen'};if(v.replace(/\D/g,'').length<6)return{ok:false,msg:'Zu kurz'};return{ok:true};}if(id==='ls')return{ok:v.length>0,msg:'Bitte w\u00e4hlen'};return{ok:v.length>0,msg:'Pflichtfeld'};}
+function ftel(el){var v=el.value,d=v.replace(/\D/g,'');if(v.charAt(0)==='0'&&v.charAt(1)!=='0'){if(d.length<=4)v=d;else if(d.length<=8)v=d.slice(0,4)+' '+d.slice(4);else v=d.slice(0,4)+' '+d.slice(4,8)+' '+d.slice(8,12);}else if(v.charAt(0)==='+'){if(d.length>2)v='+'+d.slice(0,2)+' '+d.slice(2,6)+(d.length>6?' '+d.slice(6,12):'');}el.value=v.trim();saveDraft();}
+function setf(id,ok,msg){var f=document.getElementById('f-'+id);if(!f)return;if(ok){f.classList.add('ok');f.classList.remove('ko');}else{f.classList.add('ko');f.classList.remove('ok');}var ic=f.querySelector('.vi');if(ic)ic.textContent=ok?'\u2713':'\u2717';if(!ok&&msg){var fe=f.querySelector('.fe');if(fe)fe.textContent=msg;}fs[id]=ok;}
+function lv(el,id){TOUCHED[id]=true;var r=isok(id,el.value);if(r.ok){el.classList.add('vok');el.classList.remove('vko');}else{el.classList.add('vko');el.classList.remove('vok');}setf(id,r.ok,r.msg||'');upd();saveDraft();}
+function lvs(el,id){TOUCHED[id]=true;var ok=el.value!=='';if(ok){el.classList.add('vok');el.classList.remove('vko');}else{el.classList.add('vko');el.classList.remove('vok');}setf(id,ok,'');upd();saveDraft();}
+function ucc(){var el=document.getElementById('msg'),cc=document.getElementById('cc');if(el&&cc)cc.textContent=el.value.length+' / 2000 Zeichen';saveDraft();}
+function upd(){var done=0;for(var i=0;i<REQS.length;i++){if(fs[REQS[i]])done++;}if(aok)done++;var tot=REQS.length+1;var pf=document.getElementById('pf');if(pf)pf.style.width=Math.round(done/tot*100)+'%';var pl=document.getElementById('plbl');if(pl)pl.textContent=done+' von '+tot+' Pflichtfeldern ausgef\u00fcllt';var sb=document.getElementById('sb');if(sb){var allOk=true;for(var i=0;i<REQS.length;i++){if(!fs[REQS[i]]){allOk=false;break;}}sb.disabled=!(allOk&&aok);}}
+(function(){var abs=document.getElementsByClassName('ab');for(var i=0;i<abs.length;i++){(function(btn){btn.onclick=function(){var all=document.getElementsByClassName('ab');for(var j=0;j<all.length;j++){all[j].classList.remove('sel','err');}btn.classList.add('sel');var anrEl=document.getElementById('anr');if(anrEl)anrEl.value=btn.dataset.v;var aerr=document.getElementById('aerr');if(aerr)aerr.classList.remove('on');aok=true;setf('anr',true,'');upd();saveDraft();};})(abs[i]);}})();
+function bindFormListeners(){var fids=['vn','nn','em','msg'];for(var i=0;i<fids.length;i++){(function(id){var el=document.getElementById(id);if(!el)return;el.addEventListener('blur',function(){lv(this,id);});el.addEventListener('input',function(){if(TOUCHED[id])lv(this,id);else saveDraft();});})(fids[i]);}var telEl=document.getElementById('tel');if(telEl){telEl.addEventListener('blur',function(){lv(this,'tel');});}var lsEl=document.getElementById('ls');if(lsEl)lsEl.addEventListener('change',function(){lvs(this,'ls');});loadDraft();upd();}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',bindFormListeners);}else{bindFormListeners();}
+document.getElementById('kform').addEventListener('submit',function(e){e.preventDefault();var ok=true;if(!aok){var aerr=document.getElementById('aerr');if(aerr)aerr.classList.add('on');var abs=document.getElementsByClassName('ab');for(var i=0;i<abs.length;i++)abs[i].classList.add('err');ok=false;}for(var i=0;i<REQS.length;i++){var id=REQS[i],el=document.getElementById(id);if(!el)continue;TOUCHED[id]=true;var r=isok(id,el.value);if(r.ok){el.classList.add('vok');el.classList.remove('vko');}else{el.classList.add('vko');el.classList.remove('vok');}setf(id,r.ok,r.msg||'');if(!r.ok)ok=false;}upd();if(!ok){var first=document.querySelector('.vko');if(!first){var abs2=document.getElementsByClassName('ab err');if(abs2.length)first=abs2[0];}if(first)first.scrollIntoView({behavior:'smooth',block:'center'});return;}var ticObj=genTicket(),TIC=ticObj.ticket;lockTicket(ticObj);try{sessionStorage.removeItem(FORM_KEY);}catch(e){}var lsVal=document.getElementById('ls').value||'Allgemeine Anfrage';var fi=document.getElementById('fa').value.trim();var sub='['+lsVal+'] #'+TIC+(fi?' | '+fi:'');document.getElementById('htic').value=TIC;document.getElementById('hbtr').value=sub;try{var fd=new FormData(this);fetch('/',{method:'POST',body:fd}).catch(function(){});}catch(e){}showConf(sub,TIC);});
+function showConf(sub,tic){var n=new Date();document.getElementById('ctid').textContent=tic;document.getElementById('cdt').textContent=pad2(n.getDate())+'.'+pad2(n.getMonth()+1)+'.'+n.getFullYear();document.getElementById('ctm').textContent=pad2(n.getHours())+':'+pad2(n.getMinutes());document.getElementById('csub').textContent=sub;document.getElementById('can').textContent=document.getElementById('anr').value;document.getElementById('cnm').textContent=document.getElementById('vn').value+' '+document.getElementById('nn').value;document.getElementById('cem').textContent=document.getElementById('em').value;document.getElementById('ctel').textContent=document.getElementById('tel').value;var fi=document.getElementById('fa').value.trim();if(fi){document.getElementById('cfa').textContent=fi;}else{var cfw=document.getElementById('cfw');if(cfw)cfw.style.display='none';}document.getElementById('cls').textContent=document.getElementById('ls').value||'k.A.';var ad=[document.getElementById('str').value,(document.getElementById('plz').value+' '+document.getElementById('ort').value).trim(),document.getElementById('land').value].map(function(x){return(x||'').trim();}).filter(Boolean).join(', ');if(ad){document.getElementById('cad').textContent=ad;}else{var cadw=document.getElementById('cadw');if(cadw)cadw.style.display='none';}document.getElementById('cmsg').textContent=document.getElementById('msg').value;document.getElementById('kform').style.display='none';document.getElementById('cfp').style.display='block';var fh=document.querySelector('.fh');if(fh)fh.style.display='none';var pb=document.querySelector('.pb');if(pb)pb.style.display='none';var plbl=document.getElementById('plbl');if(plbl)plbl.style.display='none';if(typeof window.wbApplyT==='function')window.wbApplyT();window.scrollTo({top:0,behavior:'smooth'});}
+</script>
+<script>
+var COUNTRIES=[
+['🇩🇪','Deutschland','Germany'],
+['🇦🇹','Österreich','Austria'],
+['🇨🇭','Schweiz','Switzerland'],
+['🇬🇧','Vereinigtes Königreich','United Kingdom'],
+['🇺🇸','USA','United States'],
+['🇫🇷','Frankreich','France'],
+['🇮🇹','Italien','Italy'],
+['🇪🇸','Spanien','Spain'],
+['🇳🇱','Niederlande','Netherlands'],
+['🇧🇪','Belgien','Belgium'],
+['🇵🇱','Polen','Poland'],
+['🇨🇿','Tschechien','Czech Republic'],
+['🇸🇰','Slowakei','Slovakia'],
+['🇭🇺','Ungarn','Hungary'],
+['🇷🇴','Rumänien','Romania'],
+['🇧🇬','Bulgarien','Bulgaria'],
+['🇭🇷','Kroatien','Croatia'],
+['🇸🇪','Schweden','Sweden'],
+['🇳🇴','Norwegen','Norway'],
+['🇩🇰','Dänemark','Denmark'],
+['🇫🇮','Finnland','Finland'],
+['🇵🇹','Portugal','Portugal'],
+['🇬🇷','Griechenland','Greece'],
+['🇹🇷','Türkei','Turkey'],
+['🇺🇦','Ukraine','Ukraine'],
+['🇷🇺','Russland','Russia'],
+['🇨🇦','Kanada','Canada'],
+['🇧🇷','Brasilien','Brazil'],
+['🇦🇺','Australien','Australia'],
+['🇨🇳','China','China'],
+['🇯🇵','Japan','Japan'],
+['🇰🇷','Südkorea','South Korea'],
+['🇮🇳','Indien','India'],
+['🇸🇦','Saudi-Arabien','Saudi Arabia'],
+['🇦🇪','VAE','UAE'],
+['🇸🇬','Singapur','Singapore'],
+['🇿🇦','Südafrika','South Africa']
+];
+
+function ctrBuild(q){
+  var lang=(typeof window.wbGetLang==='function')?window.wbGetLang():'de';
+  var useEn=lang!=='de';
+  var el=document.getElementById('ctr-list');
+  if(!el)return;
+  el.innerHTML='';
+  var ql=q?q.toLowerCase().trim():'';
+  var curVal=document.getElementById('land').value||'Deutschland';
+  for(var i=0;i<COUNTRIES.length;i++){
+    var flag=COUNTRIES[i][0],deName=COUNTRIES[i][1],enName=COUNTRIES[i][2];
+    /* Use language for display: EN shows EN names, DE shows DE names */
+    var cLang='de';try{cLang=localStorage.getItem('wb_lang')||'de';}catch(e){}
+    var displayName=cLang==='en'?enName:deName;
+    if(ql){
+      var matchDe=deName.toLowerCase().indexOf(ql)===0;
+      var matchEn=enName.toLowerCase().indexOf(ql)===0;
+      if(!matchDe&&!matchEn)continue;
+      /* Show matched name; if EN matched show EN, if DE matched show DE */
+      if(matchEn&&!matchDe){displayName=enName;}
+      else if(matchDe&&!matchEn){displayName=deName;}
+    }
+    var isCur=deName===curVal;
+    var btn=document.createElement('button');
+    btn.type='button';
+    btn.setAttribute('data-flag',flag);
+    btn.setAttribute('data-name',deName);
+    btn.setAttribute('data-display',displayName);
+    var label=displayName;
+    if(displayName!==deName){
+      label+=' <span style="color:#7a95a8;font-size:.76rem">('+deName+')</span>';
+    }
+    btn.style.cssText='display:flex;align-items:center;gap:9px;padding:.45rem .9rem;font-size:.83rem;color:'+(isCur?'#46b9c8':'#7a95a8')+';background:none;border:none;width:100%;text-align:left;cursor:pointer;font-family:inherit;'+(isCur?'font-weight:600;':'');
+    var label2=displayName;
+    if(ql&&useEn&&deName.toLowerCase().indexOf(ql)===0&&enName!==deName){
+      label2=enName+' <span style="color:#7a95a8;font-size:.76rem">('+deName+')</span>';
+    } else if(ql&&!useEn&&enName.toLowerCase().indexOf(ql)===0&&deName!==enName){
+      label2=deName+' <span style="color:#7a95a8;font-size:.76rem">('+enName+')</span>';
+    }
+    btn.innerHTML=flag+' '+label2;
+    btn.onclick=function(){ctrSelect(this.getAttribute('data-flag'),this.getAttribute('data-name'),this.getAttribute('data-display'));};
+    el.appendChild(btn);
+  }
+  if(el.children.length===0){
+    el.innerHTML='<div style="padding:.75rem .9rem;font-size:.8rem;color:#7a95a8;text-align:center">'+(typeof window.wbGetLang==='function'&&window.wbGetLang()!=='de'?'Not found':'Nicht gefunden')+'</div>';
+  }
+}
+
+function ctrToggle(e){
+  e.stopPropagation();
+  var dd=document.getElementById('ctr-dd');
+  var chev=document.getElementById('ctr-chev');
+  if(!dd)return;
+  var isOpen=dd.style.display==='block';
+  if(isOpen){
+    dd.style.display='none';
+    if(chev)chev.style.transform='';
+  }else{
+    dd.style.display='block';
+    if(chev)chev.style.transform='rotate(180deg)';
+    ctrBuild('');
+    setTimeout(function(){
+      var s=document.getElementById('ctr-search');
+      if(s){s.value='';s.focus();}
+    },60);
+  }
+}
+
+function ctrFilter(q){ctrBuild(q);}
+
+function ctrSelect(flag,name,displayName){
+  var flagEl=document.getElementById('ctr-flag');
+  var nameEl=document.getElementById('ctr-name');
+  var inp=document.getElementById('land');
+  var dd=document.getElementById('ctr-dd');
+  var chev=document.getElementById('ctr-chev');
+  var btn=document.getElementById('ctr-btn');
+  if(flagEl)flagEl.textContent=flag;
+  /* Show display name (translated), store German name as value */
+  if(nameEl)nameEl.textContent=displayName||name;
+  if(inp)inp.value=name;
+  if(dd)dd.style.display='none';
+  if(chev)chev.style.transform='';
+  if(btn)btn.style.borderColor='rgba(70,185,200,.4)';
+  if(typeof saveDraft==='function')saveDraft();
+}
+
+document.addEventListener('click',function(e){
+  var dd=document.getElementById('ctr-dd');
+  var btn=document.getElementById('ctr-btn');
+  if(!dd||dd.style.display!=='block')return;
+  var t=e.target||e.srcElement;
+  var inBtn=btn&&(btn===t||btn.contains(t));
+  var inDd=dd===t||dd.contains(t);
+  if(!inBtn&&!inDd){
+    dd.style.display='none';
+    var chev=document.getElementById('ctr-chev');
+    if(chev)chev.style.transform='';
+  }
+});
+</script>
+
+
+
+
+
 <script>window.addEventListener('load',function(){if(!location.hash)window.scrollTo(0,0);});</script>
 </body>
 </html>

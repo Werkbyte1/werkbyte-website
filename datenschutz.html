@@ -82,41 +82,38 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
   var LL=[
   ['de','🇩🇪','Deutsch','Deutsch','German'],
   ['en','🇬🇧','English','Englisch','English'],
-  ['fr','🇫🇷','Français','Französisch','French'],
-  ['es','🇪🇸','Español','Spanisch','Spanish'],
-  ['pt','🇵🇹','Português','Portiesisch','Portuguese'],
+  ['fr','🇫🇷','Fran\u00e7ais','Franz\u00f6sisch','French'],
+  ['es','🇪🇸','Espa\u00f1ol','Spanisch','Spanish'],
+  ['pt','🇵🇹','Portugu\u00eas','Portugiesisch','Portuguese'],
   ['it','🇮🇹','Italiano','Italienisch','Italian'],
-  ['nl','🇳🇱','Nederlands','Niederländisch','Dutch'],
+  ['nl','🇳🇱','Nederlands','Niederl\u00e4ndisch','Dutch'],
   ['pl','🇵🇱','Polski','Polnisch','Polish'],
-  ['ru','🇷🇺','Русский','Russisch','Russian'],
-  ['uk','🇺🇦','Українська','Ukrainisch','Ukrainian'],
-  ['tr','🇹🇷','Türkçe','Türkisch','Turkish'],
-  ['ar','🇸🇦','العربية','Arabisch','Arabic'],
-  ['zh','🇨🇳','中文','Chinesisch','Chinese'],
-  ['ja','🇯🇵','日本語','Japanisch','Japanese'],
-  ['ko','🇰🇷','한국어','Koreanisch','Korean'],
-  ['hi','🇮🇳','हिन्दी','Hindi','Hindi'],
+  ['ru','🇷🇺','\u0420\u0443\u0441\u0441\u043a\u0438\u0439','Russisch','Russian'],
+  ['uk','🇺🇦','\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430','Ukrainisch','Ukrainian'],
+  ['tr','🇹🇷','T\u00fcrk\u00e7e','T\u00fcrkisch','Turkish'],
+  ['ar','🇸🇦','\u0627\u0644\u0639\u0631\u0628\u064a\u0629','Arabisch','Arabic'],
+  ['zh','🇨🇳','\u4e2d\u6587','Chinesisch','Chinese'],
+  ['ja','🇯🇵','\u65e5\u672c\u8a9e','Japanisch','Japanese'],
+  ['ko','🇰🇷','\ud55c\uad6d\uc5b4','Koreanisch','Korean'],
   ['sv','🇸🇪','Svenska','Schwedisch','Swedish'],
   ['no','🇳🇴','Norsk','Norwegisch','Norwegian'],
-  ['da','🇩🇰','Dansk','Dänisch','Danish'],
+  ['da','🇩🇰','Dansk','D\u00e4nisch','Danish'],
   ['fi','🇫🇮','Suomi','Finnisch','Finnish'],
-  ['cs','🇨🇿','Čeština','Tschechisch','Czech'],
-  ['sk','🇸🇰','Slovenčina','Slowakisch','Slovak'],
+  ['cs','🇨🇿','\u010ce\u0161tina','Tschechisch','Czech'],
+  ['sk','🇸🇰','Sloven\u010dina','Slowakisch','Slovak'],
   ['hu','🇭🇺','Magyar','Ungarisch','Hungarian'],
-  ['ro','🇷🇴','Română','Rumänisch','Romanian'],
-  ['bg','🇧🇬','Български','Bulgarisch','Bulgarian'],
+  ['ro','🇷🇴','Rom\u00e2n\u0103','Rum\u00e4nisch','Romanian'],
+  ['bg','🇧🇬','\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438','Bulgarisch','Bulgarian'],
   ['hr','🇭🇷','Hrvatski','Kroatisch','Croatian'],
-  ['sr','🇷🇸','Srpski','Serbisch','Serbian'],
-  ['el','🇬🇷','Ελληνικά','Griechisch','Greek'],
-  ['he','🇮🇱','עברית','Hebräisch','Hebrew'],
-  ['fa','🇮🇷','فارسی','Persisch','Persian'],
+  ['el','🇬🇷','\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac','Griechisch','Greek'],
+  ['he','🇮🇱','\u05e2\u05d1\u05e8\u05d9\u05ea','Hebr\u00e4isch','Hebrew'],
   ['id','🇮🇩','Bahasa Indonesia','Indonesisch','Indonesian'],
-  ['ms','🇲🇾','Bahasa Melayu','Malaiisch','Malay'],
-  ['th','🇹🇭','ภาษาไทย','Thailändisch','Thai'],
-  ['vi','🇻🇳','Tiếng Việt','Vietnamesisch','Vietnamese']
-];
+  ['th','🇹🇭','\u0e20\u0e32\u0e29\u0e32\u0e44\u0e17\u0e22','Thail\u00e4ndisch','Thai'],
+  ['vi','🇻🇳','Ti\u1ebfng Vi\u1ec7t','Vietnamesisch','Vietnamese']
+  ];
 
   function getLang(){
+    if(window._wbLang)return window._wbLang;
     var s=location.search;
     var p=s?s.slice(1).split('&'):[];
     for(var i=0;i<p.length;i++){
@@ -127,14 +124,13 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         return l;
       }
     }
-    /* No URL param: read localStorage */
-    try{var saved=localStorage.getItem('wb_lang');if(saved)return saved;}catch(e){}
+    try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
     return 'de';
   }
 
   function urlWith(code){
     var b=location.href.split('?')[0];
-    return code==='de' ? b : b+'?lang='+encodeURIComponent(code);
+    return code==='de'?b:b+'?lang='+encodeURIComponent(code);
   }
 
   function findL(code){
@@ -152,7 +148,6 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
   var cur=getLang();
 
   function init(){
-    /* Active nav links - only mark exact page match, not hash links */
     var pg=location.pathname.split('/').pop()||'index.html';
     var links=document.getElementById('nblinks');
     if(links){
@@ -160,10 +155,9 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
       for(var i=0;i<as.length;i++){
         var h=as[i].getAttribute('href')||'';
         var base=h.split('#')[0];
-        if(h.indexOf('#')<0 && base===pg){
+        if(h.indexOf('#')<0&&base===pg){
           as[i].className=(as[i].className+' act').trim();
         }
-        /* Keep lang param in all nav links so language persists */
         if(cur!=='de'){
           var hbase2=base.split('?')[0];
           var hhash=h.indexOf('#')>=0?h.slice(h.indexOf('#')):'';
@@ -171,17 +165,15 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         }
       }
     }
-    /* Also fix mobile menu active */
     var mob=document.getElementById('nbMob');
     if(mob){
       var mas=mob.getElementsByTagName('a');
       for(var i=0;i<mas.length;i++){
         var mh=mas[i].getAttribute('href')||'';
         var mbase=mh.split('#')[0];
-        if(mh.indexOf('#')<0 && mbase===pg && mas[i].className.indexOf('nb-cta')<0){
+        if(mh.indexOf('#')<0&&mbase===pg&&mas[i].className.indexOf('nb-cta')<0){
           mas[i].className=(mas[i].className+' act').trim();
         }
-        /* Keep lang in mobile links too */
         if(cur!=='de'){
           var mbase2=mbase.split('?')[0];
           var mhash=mh.indexOf('#')>=0?mh.slice(mh.indexOf('#')):'';
@@ -189,74 +181,50 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         }
       }
     }
-
-    /* Show current lang */
     var ll=findL(cur);
-    if(ll){
-      var lc=document.getElementById('nblc');
-      if(lc)lc.textContent=ll[1]+' '+(cur==='de'?'DE':ll[2]);
-    }
-
-    /* Lang toggle */
+    if(ll){var lc=document.getElementById('nblc');if(lc)lc.textContent=ll[1]+' '+ll[2];}
     var toggle=document.getElementById('nblt');
     if(toggle){
       toggle.onclick=function(e){
         e.stopPropagation();
-        var w=document.getElementById('nblw');
-        if(!w)return;
+        var w=document.getElementById('nblw');if(!w)return;
         var isOpen=w.className.indexOf(' op')>=0||w.className==='nb-lw op';
-        if(isOpen){
-          w.className='nb-lw';
-        } else {
-          w.className='nb-lw op';
-          drawL('');
-          setTimeout(function(){
-            var si=document.getElementById('nbsi');
-            if(si){si.value='';si.focus();}
-          },60);
-        }
+        if(isOpen){w.className='nb-lw';}
+        else{w.className='nb-lw op';drawL('');setTimeout(function(){var si=document.getElementById('nbsi');if(si){si.value='';si.focus();}},60);}
       };
     }
-
     var si=document.getElementById('nbsi');
     if(si){
       si.oninput=function(){drawL(this.value.toLowerCase());};
-      /* Prevent toggle-close when clicking inside search */
       si.onclick=function(e){e.stopPropagation();};
     }
-
-    /* Close dropdown on outside click */
     document.onclick=function(e){
-      var w=document.getElementById('nblw');
-      if(!w)return;
+      var w=document.getElementById('nblw');if(!w)return;
       var t=e.target||e.srcElement;
-      if(!isIn(w,t)){w.className='nb-lw';}
+      if(!isIn(w,t))w.className='nb-lw';
     };
-
-    /* Leistungen smooth scroll - fix offset for nav height */
     var links2=document.getElementById('nblinks');
     if(links2){
       var as2=links2.getElementsByTagName('a');
       for(var i=0;i<as2.length;i++){
         if((as2[i].getAttribute('href')||'').indexOf('#leistungen')>=0){
           as2[i].onclick=function(e){
-            var pg3=location.pathname.split('/').pop()||'index.html';
-            if(pg3==='index.html'||pg3===''){
-              e.preventDefault();
+            e.preventDefault();
+            var pg2=location.pathname.split('/').pop()||'index.html';
+            if(pg2==='index.html'||pg2===''){
               var target=document.getElementById('leistungen');
-              if(target){var top=target.getBoundingClientRect().top+window.pageYOffset-66;window.scrollTo({top:top,behavior:'smooth'});}
+              if(target){window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});}
+            } else {
+              location.href='index.html#leistungen'+(cur!=='de'?'?lang='+encodeURIComponent(cur):'');
             }
-            /* else: allow browser to navigate to index.html#leistungen */
           };
         }
       }
     }
-
     drawL('');
     setupBurger();
   }
 
-  /* Draw language list - FIXED: proper single-quote escaping */
   function drawL(q){
     var el=document.getElementById('nbll');
     if(!el)return;
@@ -264,28 +232,19 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
     var html='';
     for(var i=0;i<LL.length;i++){
       var x=LL[i];
-      /* x = [code, flag, ownName, deName, enName] */
-      var own=x[2], de=x[3], en=x[4];
+      var own=x[2],de=x[3],en=x[4];
       var matchOwn=own.toLowerCase().indexOf(ql)===0;
       var matchDe=de.toLowerCase().indexOf(ql)===0;
       var matchEn=en.toLowerCase().indexOf(ql)===0;
       var matchCode=x[0].indexOf(ql)===0;
       if(ql&&!matchOwn&&!matchDe&&!matchEn&&!matchCode)continue;
       var active=(x[0]===cur)?' cur':'';
-      /* Always show own language name */
-      /* If search matched a different name, show it in brackets */
       var label=own;
       if(ql){
-        if(!matchOwn&&matchDe){
-          /* User typed DE name - show: own (de) */
-          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+de+')</span>';
-        } else if(!matchOwn&&!matchDe&&matchEn){
-          /* User typed EN name - show: own (en) */
-          label=own+' <span style="color:#7a95a8;font-size:.76rem">('+en+')</span>';
-        }
-        /* If matchOwn: just show own name, no brackets needed */
+        if(!matchOwn&&matchDe){label=own+'\u00a0<span style="color:#7a95a8;font-size:.76rem">('+de+')</span>';}
+        else if(!matchOwn&&!matchDe&&matchEn){label=own+'\u00a0<span style="color:#7a95a8;font-size:.76rem">('+en+')</span>';}
       }
-      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+' '+label+'</button>';
+      html+='<button class="nb-lo'+active+'" data-code="'+x[0]+'">'+x[1]+'\u00a0'+label+'</button>';
     }
     if(!html)html='<div class="nb-nf">Nicht gefunden</div>';
     el.innerHTML=html;
@@ -299,27 +258,19 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
   }
 
   window.nbSel=function(code){
-    var ll=findL(code);
-    if(!ll)return;
+    var ll=findL(code);if(!ll)return;
     cur=code;
-    /* Save language choice */
     window._wbLang=code;
     try{localStorage.setItem('wb_lang',code);}catch(e){}
-    /* Update nav button label */
     var lc=document.getElementById('nblc');
     if(lc)lc.textContent=ll[1]+' '+ll[2];
-    var w=document.getElementById('nblw');
-    if(w)w.className='nb-lw';
-    /* Update nav link lang params */
+    var w=document.getElementById('nblw');if(w)w.className='nb-lw';
     var nb2=document.getElementById('nblinks');
     if(nb2){var as2=nb2.getElementsByTagName('a');for(var i=0;i<as2.length;i++){var h=as2[i].getAttribute('href')||'';var hbase=h.split('#')[0].split('?')[0];var hhash=h.indexOf('#')>=0?h.slice(h.indexOf('#')):'';if(hbase)as2[i].setAttribute('href',hbase+(code!=='de'?'?lang='+encodeURIComponent(code):'')+hhash);}}
     var mob2=document.getElementById('nbMob');
     if(mob2){var mas2=mob2.getElementsByTagName('a');for(var i=0;i<mas2.length;i++){var mh=mas2[i].getAttribute('href')||'';var mbase=mh.split('#')[0].split('?')[0];var mhash=mh.indexOf('#')>=0?mh.slice(mh.indexOf('#')):'';if(mbase)mas2[i].setAttribute('href',mbase+(code!=='de'?'?lang='+encodeURIComponent(code):'')+mhash);}}
-    /* Apply translations in-page (no reload needed) */
     if(typeof window.wbApplyT==='function')window.wbApplyT();
-    /* Also update country dropdown display if on contact page */
     if(typeof ctrBuild==='function')ctrBuild('');
-    /* Update document lang attribute for accessibility */
     document.documentElement.lang=code;
     drawL('');
   };
@@ -331,13 +282,8 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
     b.onclick=function(e){
       e.stopPropagation();
       var isOpen=b.className.indexOf('open')>=0;
-      if(isOpen){
-        b.className=b.className.replace(/\bopen\b/,'').trim();
-        m.className=m.className.replace(/\bopen\b/,'').trim();
-      } else {
-        b.className=(b.className+' open').trim();
-        m.className=(m.className+' open').trim();
-      }
+      if(isOpen){b.className=b.className.replace(/\bopen\b/,'').trim();m.className=m.className.replace(/\bopen\b/,'').trim();}
+      else{b.className=(b.className+' open').trim();m.className=(m.className+' open').trim();}
     };
     var as=m.getElementsByTagName('a');
     for(var i=0;i<as.length;i++){
@@ -345,22 +291,18 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
         link.onclick=function(e){
           b.className=b.className.replace(/\bopen\b/,'').trim();
           m.className=m.className.replace(/\bopen\b/,'').trim();
-          /* Same scroll offset as desktop for #leistungen */
           var href=link.getAttribute('href')||'';
           if(href.indexOf('#leistungen')>=0){
             var pg=location.pathname.split('/').pop()||'index.html';
             if(pg==='index.html'||pg===''){
               e.preventDefault();
               var target=document.getElementById('leistungen');
-              if(target){
-                window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});
-              }
+              if(target){window.scrollTo({top:target.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-66,behavior:'smooth'});}
             }
           }
         };
       })(as[i]);
     }
-    /* Close on outside click (don't override document.onclick above) */
     document.addEventListener('click',function(e){
       var t=e.target||e.srcElement;
       if(!isIn(b,t)&&!isIn(m,t)){
@@ -370,41 +312,10 @@ body.translated-ltr,body.translated-rtl{margin-top:0!important;top:0!important}
     });
   }
 
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init);
-  } else {
-    init();
-  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+  else{init();}
 })();
 </script>
-
-<main>
-<h1 data-i18n="dat.title">Datenschutzerkl&auml;rung</h1>
-<p style="font-size:.8rem;color:var(--muted);margin-bottom:2rem" data-i18n="dat.date">Stand: April 2026</p>
-<h2 data-i18n="dat.h1">1. Verantwortlicher</h2>
-<div class="ib">
-  <p><strong style="color:var(--white)">WERKBYTE UG (haftungsbeschr&auml;nkt)</strong></p>
-  <p>Name Nachname &amp; Name Nachname</p>
-  <p>Straße Hausnummer, Postleitzahl Ort</p>
-  <p>E-Mail: <a href="mailto:info@werkbyte.de">info@werkbyte.de</a></p>
-</div>
-<h2 data-i18n="dat.h2">2. Grundsatz</h2>
-<p data-i18n="dat.p2">Der Schutz Ihrer pers&ouml;nlichen Daten ist uns wichtig. Wir verarbeiten personenbezogene Daten nur im Rahmen der gesetzlichen Bestimmungen der DSGVO und des BDSG.</p>
-<h2 data-i18n="dat.h3">3. Datenerfassung auf dieser Website</h2>
-<p><span data-i18n="dat.p3a">Diese Website verwendet</span> <strong style="color:var(--white)" data-i18n="dat.p3b">keine Tracking-Cookies</strong><span data-i18n="dat.p3c">, keine Analyse-Tools und keine sozialen Plugins. Beim Aufrufen werden durch den Hosting-Anbieter (Vercel) automatisch Server-Logfiles gespeichert: IP-Adresse, Datum/Uhrzeit, aufgerufene Seite, Browsertyp, Betriebssystem. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</span></p>
-<h2 data-i18n="dat.h4">4. Contact Form</h2>
-<p data-i18n="dat.p4">Wenn Sie das Kontaktformular nutzen, werden Ihre Angaben zur Bearbeitung der Anfrage bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.</p>
-<h2 data-i18n="dat.h5">5. Hosting</h2>
-<p><span data-i18n="dat.p5a">Diese Website wird bei Vercel</span> <a href="https://www.vercel.com/legal/privacy-policy/" target="_blank" rel="noopener">vercel.com/legal/privacy-policy</a></p>
-<h2 data-i18n="dat.h6">6. Externe Schriftarten (Google Fonts)</h2>
-<p data-i18n="dat.p6">Diese Website l&auml;dt Schriftarten von Google Fonts. Dabei wird Ihre IP-Adresse an Google &uuml;bermittelt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
-<h2 data-i18n="dat.h7">7. Ihre Rechte</h2>
-<p><span data-i18n="dat.p7a">Sie haben nach der DSGVO folgende Rechte: Auskunft (Art. 15), Berichtigung (Art. 16), L&ouml;schung (Art. 17), Einschr&auml;nkung (Art. 18), Daten&uuml;bertragbarkeit (Art. 20), Widerspruch (Art. 21). Kontakt:</span> <a href="mailto:info@werkbyte.de" style="color:var(--cyan)">info@werkbyte.de</a></p>
-<h2 data-i18n="dat.h8">8. Beschwerderecht</h2>
-<p><span data-i18n="dat.p8a">Sie haben das Recht, sich bei der zust&auml;ndigen Aufsichtsbeh&ouml;rde zu beschweren. In NRW:</span> <a href="https://www.ldi.nrw.de" style="color:var(--cyan)" target="_blank">www.ldi.nrw.de</a></p>
-</main>
-
-<footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> <span data-i18n="footer.tagline">– Industrieklettern &amp; Maschinenservice</span> &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a></p></footer>
 <script>
 (function(){
 var T={
@@ -544,7 +455,7 @@ de:{
   'prog.label':'0 von 7 Pflichtfeldern ausgefüllt',
   'dat.p3a':'Diese Website verwendet',
   'dat.p3b':'keine Tracking-Cookies'
-},
+},,
 en:{
   'nav.start':'Home','nav.about':'About Us','nav.services':'Services','nav.contact':'Contact','nav.cta':'Send Request →',
   'hero.badge':'IRATA CERTIFIED · WORLDWIDE','hero.h1a':'Industrial Climbing &amp;','hero.h1b':'Machine Service',
@@ -664,84 +575,6 @@ en:{
   'prog.label':'0 of 7 required fields completed',
   'dat.p3a':'This website uses',
   'dat.p3b':'no tracking cookies'
-}
-};
-
-function wbLang(){
-  /* In-page switch takes highest priority */
-  if(window._wbLang)return window._wbLang;
-  var s=location.search;
-  var p=s?s.slice(1).split('&'):[];
-  for(var i=0;i<p.length;i++){
-    var kv=p[i].split('=');
-    if(kv[0]==='lang'){
-      var l=decodeURIComponent(kv[1]||'de');
-      try{localStorage.setItem('wb_lang',l);}catch(e){}
-      return l;
-    }
-  }
-  try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
-  return 'de';
-}
-
-/* Cache original DE texts on first load */
-var _wbCache={};
-function wbCacheDE(){
-  try{
-    var els=document.querySelectorAll('[data-i18n]');
-    for(var i=0;i<els.length;i++){
-      var k=els[i].getAttribute('data-i18n');
-      if(!_wbCache[k])_wbCache[k]=els[i].innerHTML;
-    }
-    /* Cache footer */
-    var foot=document.querySelector('footer p');
-    if(foot&&!_wbCache['_footer'])_wbCache['_footer']=foot.innerHTML;
-  }catch(e){}
-}
-function wbApply(){
-  var lang=wbLang();
-  /* Cache DE content before first translation */
-  if(Object.keys(_wbCache).length===0)wbCacheDE();
-  if(lang==='de'){
-    /* Restore DE originals */
-    try{
-      var els=document.querySelectorAll('[data-i18n]');
-      for(var i=0;i<els.length;i++){
-        var k=els[i].getAttribute('data-i18n');
-        if(_wbCache[k]!==undefined)els[i].innerHTML=_wbCache[k];
-      }
-    }catch(e){}
-    /* Restore nav links */
-    var nb=document.getElementById('nblinks');
-    if(nb){var as=nb.getElementsByTagName('a');var dk=['Startseite','Über Uns','Leistungen','Kontakt'];for(var i=0;i<as.length&&i<dk.length;i++){as[i].textContent=dk[i];}}
-    var mob=document.getElementById('nbMob');
-    if(mob){var mas=mob.getElementsByTagName('a');var dk2=['Startseite','Über Uns','Leistungen','Kontakt'];var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){mas[i].textContent=dk2[ki];ki++;}}}
-    /* Restore footer */
-    var foot=document.querySelector('footer p');
-    if(foot&&_wbCache['_footer'])foot.innerHTML=_wbCache['_footer'];
-    return;
-  }
-  var t=T[lang]||T['en'];
-  if(!t)return;
-  try{
-    var els=document.querySelectorAll('[data-i18n]');
-    for(var i=0;i<els.length;i++){
-      var k=els[i].getAttribute('data-i18n');
-      if(t[k]!==undefined)els[i].innerHTML=t[k];
-    }
-  }catch(e){}
-  var nb=document.getElementById('nblinks');
-  if(nb){var as=nb.getElementsByTagName('a');var nk=['nav.start','nav.about','nav.services','nav.contact'];for(var i=0;i<as.length&&i<nk.length;i++){if(t[nk[i]])as[i].textContent=t[nk[i]];}}
-  var mob=document.getElementById('nbMob');
-  if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){if(t[['nav.start','nav.about','nav.services','nav.contact'][ki]])mas[i].textContent=t[['nav.start','nav.about','nav.services','nav.contact'][ki]];ki++;}}}
-  /* Translate placeholders and dynamic text */
-  var isEN=(lang!=='de');
-  var phMap={'vn':['Max','First name'],'nn':['Mustermann','Last name'],
-    'fa':['Optional','Optional'],'em':['max@firma.de','name@company.com'],
-    'tel':['0151 12345678','0151 12345678'],
-    'str':['Musterstraße 1','123 Example Street'],
-    'plz':['12345','12345'],'ort':['Musterstadt','City'],
-    'msg':['Beschreib dein Anliegen so detailliert wie möglich.','Describe your request in as much detail as possible.']
 },
 fr:{
   'nav.start':'Accueil',
@@ -2443,12 +2276,128 @@ vi:{
   'val.sec.title':'Nguyên tắc của chúng tôi',
   'team.title':'Đội ngũ'
 }
+};
+
+var _wbCache={};
+
+function wbCacheDE(){
+  try{
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){
+      var k=els[i].getAttribute('data-i18n');
+      if(!_wbCache[k])_wbCache[k]=els[i].innerHTML;
+    }
+    var foot=document.querySelector('footer p');
+    if(foot&&!_wbCache['_footer'])_wbCache['_footer']=foot.innerHTML;
+  }catch(e){}
 }
+
+function wbLang(){
+  if(window._wbLang)return window._wbLang;
+  var s=location.search;
+  var p=s?s.slice(1).split('&'):[];
+  for(var i=0;i<p.length;i++){
+    var kv=p[i].split('=');
+    if(kv[0]==='lang'){
+      var l=decodeURIComponent(kv[1]||'de');
+      try{localStorage.setItem('wb_lang',l);}catch(e){}
+      return l;
+    }
+  }
+  try{var sv=localStorage.getItem('wb_lang');if(sv)return sv;}catch(e){}
+  return 'de';
+}
+
+function wbApply(){
+  var lang=wbLang();
+  if(Object.keys(_wbCache).length===0)wbCacheDE();
+  if(lang==='de'){
+    try{
+      var els=document.querySelectorAll('[data-i18n]');
+      for(var i=0;i<els.length;i++){
+        var k=els[i].getAttribute('data-i18n');
+        if(_wbCache[k]!==undefined)els[i].innerHTML=_wbCache[k];
+      }
+    }catch(e){}
+    var nb=document.getElementById('nblinks');
+    if(nb){var as=nb.getElementsByTagName('a');var dk=['Startseite','Über Uns','Leistungen','Kontakt'];for(var i=0;i<as.length&&i<dk.length;i++){as[i].textContent=dk[i];}}
+    var mob=document.getElementById('nbMob');
+    if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){mas[i].textContent=['Startseite','Über Uns','Leistungen','Kontakt'][ki];ki++;}}}
+    var foot=document.querySelector('footer p');
+    if(foot&&_wbCache['_footer'])foot.innerHTML=_wbCache['_footer'];
+    return;
+  }
+  var t=T[lang]||T['en'];
+  if(!t)return;
+  try{
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){
+      var k=els[i].getAttribute('data-i18n');
+      if(t[k]!==undefined)els[i].innerHTML=t[k];
+    }
+  }catch(e){}
+  var nb=document.getElementById('nblinks');
+  if(nb){var as=nb.getElementsByTagName('a');var nk=['nav.start','nav.about','nav.services','nav.contact'];for(var i=0;i<as.length&&i<nk.length;i++){if(t[nk[i]])as[i].textContent=t[nk[i]];}}
+  var mob=document.getElementById('nbMob');
+  if(mob){var mas=mob.getElementsByTagName('a');var ki=0;for(var i=0;i<mas.length;i++){if(mas[i].className.indexOf('nb-cta')<0&&ki<4){if(t[['nav.start','nav.about','nav.services','nav.contact'][ki]])mas[i].textContent=t[['nav.start','nav.about','nav.services','nav.contact'][ki]];ki++;}}}
+  var foot=document.querySelector('footer p');
+  if(foot&&t['footer.copy']){
+    var imp=foot.querySelector('a[href*="impressum"]');
+    var dat=foot.querySelector('a[href*="datenschutz"]');
+    var ih=imp?imp.getAttribute('href'):'impressum.html';
+    var dh=dat?dat.getAttribute('href'):'datenschutz.html';
+    foot.innerHTML=t['footer.copy']+' &nbsp;&middot;&nbsp; <a href="'+ih+'" style="color:var(--cyan);text-decoration:none">'+t['footer.imp']+'</a> &nbsp;&middot;&nbsp; <a href="'+dh+'" style="color:var(--cyan);text-decoration:none">'+t['footer.dat']+'</a>';
+  }
+  if(typeof COUNTRIES!=='undefined'){
+    var ctrNameEl=document.getElementById('ctr-name');
+    var landInp=document.getElementById('land');
+    if(ctrNameEl&&landInp&&landInp.value){
+      for(var ci=0;ci<COUNTRIES.length;ci++){
+        if(COUNTRIES[ci][1]===landInp.value){
+          ctrNameEl.textContent=lang==='de'?COUNTRIES[ci][1]:COUNTRIES[ci][2];
+          break;
+        }
+      }
+    }
+  }
+}
+
 window.wbApplyT=wbApply;
+window.wbGetLang=wbLang;
+window.wbT=T;
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',wbApply);}
 else{wbApply();}
 })();
 </script>
+
+<main>
+<h1 data-i18n="dat.title">Datenschutzerkl&auml;rung</h1>
+<p style="font-size:.8rem;color:var(--muted);margin-bottom:2rem" data-i18n="dat.date">Stand: April 2026</p>
+<h2 data-i18n="dat.h1">1. Verantwortlicher</h2>
+<div class="ib">
+  <p><strong style="color:var(--white)">WERKBYTE UG (haftungsbeschr&auml;nkt)</strong></p>
+  <p>Name Nachname &amp; Name Nachname</p>
+  <p>Straße Hausnummer, Postleitzahl Ort</p>
+  <p>E-Mail: <a href="mailto:info@werkbyte.de">info@werkbyte.de</a></p>
+</div>
+<h2 data-i18n="dat.h2">2. Grundsatz</h2>
+<p data-i18n="dat.p2">Der Schutz Ihrer pers&ouml;nlichen Daten ist uns wichtig. Wir verarbeiten personenbezogene Daten nur im Rahmen der gesetzlichen Bestimmungen der DSGVO und des BDSG.</p>
+<h2 data-i18n="dat.h3">3. Datenerfassung auf dieser Website</h2>
+<p><span data-i18n="dat.p3a">Diese Website verwendet</span> <strong style="color:var(--white)" data-i18n="dat.p3b">keine Tracking-Cookies</strong><span data-i18n="dat.p3c">, keine Analyse-Tools und keine sozialen Plugins. Beim Aufrufen werden durch den Hosting-Anbieter (Vercel) automatisch Server-Logfiles gespeichert: IP-Adresse, Datum/Uhrzeit, aufgerufene Seite, Browsertyp, Betriebssystem. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</span></p>
+<h2 data-i18n="dat.h4">4. Contact Form</h2>
+<p data-i18n="dat.p4">Wenn Sie das Kontaktformular nutzen, werden Ihre Angaben zur Bearbeitung der Anfrage bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.</p>
+<h2 data-i18n="dat.h5">5. Hosting</h2>
+<p><span data-i18n="dat.p5a">Diese Website wird bei Vercel</span> <a href="https://www.vercel.com/legal/privacy-policy/" target="_blank" rel="noopener">vercel.com/legal/privacy-policy</a></p>
+<h2 data-i18n="dat.h6">6. Externe Schriftarten (Google Fonts)</h2>
+<p data-i18n="dat.p6">Diese Website l&auml;dt Schriftarten von Google Fonts. Dabei wird Ihre IP-Adresse an Google &uuml;bermittelt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+<h2 data-i18n="dat.h7">7. Ihre Rechte</h2>
+<p><span data-i18n="dat.p7a">Sie haben nach der DSGVO folgende Rechte: Auskunft (Art. 15), Berichtigung (Art. 16), L&ouml;schung (Art. 17), Einschr&auml;nkung (Art. 18), Daten&uuml;bertragbarkeit (Art. 20), Widerspruch (Art. 21). Kontakt:</span> <a href="mailto:info@werkbyte.de" style="color:var(--cyan)">info@werkbyte.de</a></p>
+<h2 data-i18n="dat.h8">8. Beschwerderecht</h2>
+<p><span data-i18n="dat.p8a">Sie haben das Recht, sich bei der zust&auml;ndigen Aufsichtsbeh&ouml;rde zu beschweren. In NRW:</span> <a href="https://www.ldi.nrw.de" style="color:var(--cyan)" target="_blank">www.ldi.nrw.de</a></p>
+</main>
+
+<footer style="background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 5%;text-align:center"><p style="font-size:.82rem;color:var(--muted)">© WERK<strong style="color:var(--cyan)">BYTE</strong> <span data-i18n="footer.tagline">– Industrieklettern &amp; Maschinenservice</span> &nbsp;&middot;&nbsp; <a href="impressum.html" style="color:var(--cyan);text-decoration:none">Impressum</a></p></footer>
+
 <script>window.addEventListener('load',function(){if(!location.hash)window.scrollTo(0,0);});</script>
 </body>
 </html>
